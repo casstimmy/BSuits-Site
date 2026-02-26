@@ -199,53 +199,63 @@ export default function FeaturesPage() {
               </div>
 
               {/* Visual */}
-              <div className="flex-1 w-full">
-                <div className="bg-gradient-to-br from-dark-50 to-dark-100 rounded-2xl p-8 md:p-12 aspect-[4/3] flex flex-col items-center justify-center">
-                  <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mb-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center`}>
-                        <feature.icon className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-dark-900">{feature.title}</p>
-                        <p className="text-xs text-dark-400">BizSuits Module</p>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-dark-50 flex items-center justify-center">
-                            <CheckCircle2 className="w-4 h-4 text-accent-500" />
+                <div className="flex-1 w-full">
+                  <div className="bg-gradient-to-br from-dark-50 to-dark-100 rounded-2xl p-8 md:p-12 aspect-[4/3] flex flex-col items-center justify-center">
+                    {/* Show POS preview image for POS feature */}
+                    {feature.id === 'pos' ? (
+                      <img
+                        src="/images/Point%20of%20sales%20preview.png"
+                        alt="Point of Sales Preview"
+                        className="rounded-xl shadow-lg w-full max-w-md mb-6 object-cover"
+                        style={{ aspectRatio: '4/3' }}
+                      />
+                    ) : (
+                      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mb-6">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center`}>
+                            <feature.icon className="w-5 h-5 text-white" />
                           </div>
-                          <div className="flex-1">
-                            <div className="h-2.5 bg-dark-100 rounded-full" style={{ width: `${70 + i * 10}%` }} />
+                          <div>
+                            <p className="text-sm font-semibold text-dark-900">{feature.title}</p>
+                            <p className="text-xs text-dark-400">BizSuits Module</p>
                           </div>
                         </div>
-                      ))}
-                    </div>
+                        <div className="space-y-3">
+                          {[1, 2, 3].map((i) => (
+                            <div key={i} className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-lg bg-dark-50 flex items-center justify-center">
+                                <CheckCircle2 className="w-4 h-4 text-accent-500" />
+                              </div>
+                              <div className="flex-1">
+                                <div className="h-2.5 bg-dark-100 rounded-full" style={{ width: `${70 + i * 10}%` }} />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {'hasDemo' in feature && feature.hasDemo && (
+                      <div className="flex gap-3">
+                        <a
+                          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-dark-50 text-dark-700 font-semibold rounded-xl border border-dark-200 transition-all text-sm hover:-translate-y-0.5"
+                        >
+                          <Play className="w-4 h-4" />
+                          Watch Demo
+                        </a>
+                        <a
+                          href="/demo"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-lg shadow-primary-600/25 transition-all text-sm hover:-translate-y-0.5"
+                        >
+                          <Monitor className="w-4 h-4" />
+                          Try Demo
+                        </a>
+                      </div>
+                    )}
                   </div>
-                  {'hasDemo' in feature && feature.hasDemo && (
-                    <div className="flex gap-3">
-                      <a
-                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-dark-50 text-dark-700 font-semibold rounded-xl border border-dark-200 transition-all text-sm hover:-translate-y-0.5"
-                      >
-                        <Play className="w-4 h-4" />
-                        Watch Demo
-                      </a>
-                      <a
-                        href="/demo"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-lg shadow-primary-600/25 transition-all text-sm hover:-translate-y-0.5"
-                      >
-                        <Monitor className="w-4 h-4" />
-                        Try Demo
-                      </a>
-                    </div>
-                  )}
                 </div>
-              </div>
             </div>
           ))}
         </div>
