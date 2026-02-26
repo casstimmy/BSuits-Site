@@ -106,7 +106,13 @@ export default function Hero() {
                 <div className="flex items-center justify-between px-4 py-2.5 bg-dark-800 text-white">
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded bg-primary-500 flex items-center justify-center">
-                      <span className="text-[8px] font-bold">B</span>
+                       <img
+                        src="/images/logo.png"
+                        alt="BizSuits Logo"
+                        width={16}
+                        height={16}
+                        className="object-contain"
+                       />
                     </div>
                     <span className="text-xs font-semibold">Back Office</span>
                   </div>
