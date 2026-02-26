@@ -96,7 +96,7 @@ export default function AboutPage() {
               <span className="gradient-text">built for your needs</span>
             </h1>
             <p className="text-lg md:text-xl text-dark-500 leading-relaxed">
-              Every business is unique. That\'s why we build tailored systems that fit your specific operations,
+              Every business is unique. That's why we build tailored systems that fit your specific operations,
               from retail stores to restaurants to supermarkets. No off-the-shelf compromises — just software
               designed precisely for how your business works.
             </p>
@@ -116,7 +116,7 @@ export default function AboutPage() {
               <p className="text-dark-500 leading-relaxed">
                 To deliver custom-built business management systems that fit like a glove —
                 POS, inventory, e-commerce, and operations tools designed specifically for
-                each client\'s unique workflow and challenges.
+                each client's unique workflow and challenges.
               </p>
             </Card>
             <Card elevated padding="lg">
@@ -175,14 +175,7 @@ export default function AboutPage() {
                 <h3 className="text-lg font-bold text-dark-900 mb-1">{person.name}</h3>
                 <p className="text-sm font-medium text-primary-600 mb-3">{person.role}</p>
                 <p className="text-sm text-dark-500 leading-relaxed mb-4">{person.bio}</p>
-                <div className="flex items-center justify-center gap-3">
-                  <a href="#" className="w-8 h-8 rounded-lg bg-dark-100 flex items-center justify-center hover:bg-primary-100 transition-colors">
-                    <Linkedin className="w-4 h-4 text-dark-500" />
-                  </a>
-                  <a href="#" className="w-8 h-8 rounded-lg bg-dark-100 flex items-center justify-center hover:bg-primary-100 transition-colors">
-                    <Twitter className="w-4 h-4 text-dark-500" />
-                  </a>
-                </div>
+                {/* Social links removed as requested */}
               </Card>
             ))}
           </div>
