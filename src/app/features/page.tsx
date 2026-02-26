@@ -66,6 +66,7 @@ const mainFeatures = [
       'Batch & serial number tracking',
       'Stock transfer between locations',
     ],
+    hasDemo: true,
   },
   {
     id: 'accounting',
@@ -82,6 +83,7 @@ const mainFeatures = [
       'Cash flow forecasting',
       'Multi-currency support',
     ],
+    hasDemo: true,
   },
   {
     id: 'hr',
@@ -98,6 +100,7 @@ const mainFeatures = [
       'Performance reviews & goals',
       'Onboarding checklists',
     ],
+    hasDemo: true,
   },
   {
     id: 'analytics',
@@ -114,6 +117,7 @@ const mainFeatures = [
       'Custom report builder',
       'Scheduled report delivery via email',
     ],
+    hasDemo: true,
   },
 ];
 
@@ -206,8 +210,7 @@ export default function FeaturesPage() {
                       <img
                         src="/images/Point%20of%20sales%20preview.png"
                         alt="Point of Sales Preview"
-                        className="rounded-xl shadow-lg w-full max-w-md mb-6 object-cover"
-                        style={{ aspectRatio: '4/3' }}
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mb-6">
