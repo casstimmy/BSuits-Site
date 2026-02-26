@@ -105,7 +105,7 @@ export default function Hero() {
                 {/* Top Bar */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-dark-800 text-white">
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded bg-white flex items-center justify-center">
+                    <div className="w-4 h-4 rounded bg-white flex items-center justify-center">
                        <img
                         src="/images/logo.png"
                         alt="BizSuits Logo"
