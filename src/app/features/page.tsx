@@ -210,7 +210,7 @@ export default function FeaturesPage() {
                       <img
                         src="/images/Point%20of%20sales%20preview.png"
                         alt="Point of Sales Preview"
-                        className="w-full h-full object-cover"
+                        className="w-auto h-auto max-w-full max-h-80 object-contain"
                       />
                     ) : (
                       <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mb-6">
