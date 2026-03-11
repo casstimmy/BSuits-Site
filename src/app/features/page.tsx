@@ -261,7 +261,7 @@ export default function FeaturesPage() {
                           Watch Demo
                         </a>
                         <a
-                          href="/demo"
+                          href={feature.id === 'inventory' ? '/demo/inventory' : `/demo/${feature.id}`}
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-lg shadow-primary-600/25 transition-all text-sm hover:-translate-y-0.5"
                         >
                           <Monitor className="w-4 h-4" />
