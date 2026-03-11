@@ -215,40 +215,15 @@ export default function FeaturesPage() {
                         />
                       </div>
                     ) : feature.id === 'inventory' ? (
-                      <>
-                        <div className="w-full max-w-md aspect-[16/10] rounded-2xl border border-dark-200 bg-white/80 shadow-sm flex items-center justify-center mb-6">
-                          <div className="text-center px-6">
-                            <div className="mx-auto w-12 h-12 rounded-xl bg-dark-50 flex items-center justify-center mb-3">
-                              <Package className="w-6 h-6 text-primary-600" />
-                            </div>
-                            <p className="text-sm font-semibold text-dark-900">Inventory Management Preview</p>
-                            <p className="text-xs text-dark-400">Image placeholder</p>
+                      <div className="w-full max-w-md aspect-[16/10] rounded-2xl border border-dark-200 bg-white/80 shadow-sm flex items-center justify-center mb-6">
+                        <div className="text-center px-6">
+                          <div className="mx-auto w-12 h-12 rounded-xl bg-dark-50 flex items-center justify-center mb-3">
+                            <Package className="w-6 h-6 text-primary-600" />
                           </div>
+                          <p className="text-sm font-semibold text-dark-900">Inventory Management Preview</p>
+                          <p className="text-xs text-dark-400">Image placeholder</p>
                         </div>
-                        <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mb-6">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center`}>
-                              <feature.icon className="w-5 h-5 text-white" />
-                            </div>
-                            <div>
-                              <p className="text-sm font-semibold text-dark-900">{feature.title}</p>
-                              <p className="text-xs text-dark-400">BizSuits Module</p>
-                            </div>
-                          </div>
-                          <div className="space-y-3">
-                            {[1, 2, 3].map((i) => (
-                              <div key={i} className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-dark-50 flex items-center justify-center">
-                                  <CheckCircle2 className="w-4 h-4 text-accent-500" />
-                                </div>
-                                <div className="flex-1">
-                                  <div className="h-2.5 bg-dark-100 rounded-full" style={{ width: `${70 + i * 10}%` }} />
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </>
+                      </div>
                     ) : (
                       <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mb-6">
                         <div className="flex items-center gap-3 mb-4">
