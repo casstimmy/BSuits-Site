@@ -16,7 +16,10 @@ function toCamelCase(str: string) {
 }
 
 // Mock salary table component
-const SalaryTable = React.forwardRef(({ staffList = [], currentStaff }: any, ref) => {
+const SalaryTable = React.forwardRef<
+  HTMLDivElement,
+  { staffList?: any[]; currentStaff?: any }
+>(({ staffList = [], currentStaff }, ref) => {
   const totalPenalties = (staff: any) =>
     staff.penalty?.reduce((sum: number, p: any) => sum + (p.amount || 0), 0) || 0;
 
