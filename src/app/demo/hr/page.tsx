@@ -421,13 +421,14 @@ export default function ManageStaff() {
       password: form.password, // In real app, this would be hashed
       location: form.location,
       role: form.role,
+      salt: "$2b$10$" + Math.random().toString(36).substr(2, 9), // Mock hashed password
       bank: {
         accountName: form.bank.accountName,
         accountNumber: form.bank.accountNumber,
         bankName: form.bank.bankName,
       },
       salary: Number(form.salary) || 0,
-      penalty: [],
+      penalty: [] as { amount: number; reason: string; date: Date }[],
       photo: photoUrl || "",
       onboardingToken: generateToken(),
       onboardingComplete: false,
