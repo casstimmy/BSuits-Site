@@ -671,7 +671,7 @@ export default function ManageStaff() {
   const handleEditPenalty = (staffId: string, index: number, penalty: Penalty) => {
     setEditingPenalty({ staffId, index });
     setEditPenaltyForm({
-      amount: penalty.amount || "",
+      amount: String(penalty.amount || 0),
       reason: penalty.reason || "",
       date: penalty.date ? new Date(penalty.date).toISOString().split("T")[0] : "",
     });
