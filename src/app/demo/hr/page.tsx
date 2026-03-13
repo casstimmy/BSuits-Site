@@ -511,6 +511,7 @@ export default function ManageStaff() {
       staffId: "",
       reason: "",
       amount: "",
+      salary: "",
       photo: "",
       date: "",
     });
@@ -557,6 +558,7 @@ export default function ManageStaff() {
       staffId: "",
       reason: "",
       amount: "",
+      salary: "",
       date: "",
     }));
     setActiveTab("list");
