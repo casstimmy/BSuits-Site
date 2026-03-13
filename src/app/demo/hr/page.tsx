@@ -4,6 +4,59 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Camera, Copy, CheckCircle, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 
+// Type definitions
+interface Penalty {
+  amount: number;
+  reason: string;
+  date: Date;
+}
+
+interface Bank {
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+}
+
+interface OnboardingData {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  dateOfBirth?: string;
+  stateOfOrigin?: string;
+  nextOfKin?: string;
+  nextOfKinPhone?: string;
+  photo?: string;
+}
+
+interface Guarantor {
+  name?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  relationship?: string;
+  occupation?: string;
+  photo?: string;
+}
+
+interface Staff {
+  _id: string;
+  name: string;
+  password: string;
+  location: string;
+  role: string;
+  salt: string;
+  bank: Bank;
+  salary: number;
+  penalty: Penalty[];
+  photo: string;
+  onboardingToken: string;
+  onboardingComplete: boolean;
+  onboardingData: OnboardingData;
+  guarantor: Guarantor;
+  createdAt: Date;
+}
+
 const LOCATIONS = ["Ibile 1", "Ibile 2"];
 
 function toCamelCase(str: string) {
@@ -18,34 +71,34 @@ function toCamelCase(str: string) {
 // Mock salary table component
 const SalaryTable = React.forwardRef<
   HTMLDivElement,
-  { staffList?: any[]; currentStaff?: any }
+  { staffList?: Staff[]; currentStaff?: any }
 >(({ staffList = [], currentStaff }, ref) => {
-  const totalPenalties = (staff: any) =>
-    staff.penalty?.reduce((sum: number, p: any) => sum + (p.amount || 0), 0) || 0;
+  const totalPenalties = (staff: Staff) =>
+    staff.penalty?.reduce((sum: number, p) => sum + (p.amount || 0), 0) || 0;
 
   const filteredStaffList = staffList.filter(
-    (staff: any) => (Number(staff.salary) || 0) - totalPenalties(staff) > 0
+    (staff: Staff) => (Number(staff.salary) || 0) - totalPenalties(staff) > 0
   );
 
   const totalAmount = filteredStaffList.reduce(
-    (total: number, staff: any) =>
+    (total: number, staff: Staff) =>
       total + ((Number(staff.salary) || 0) - totalPenalties(staff)),
     0
   );
 
-  const chunkedStaff = [];
+  const chunkedStaff: Staff[][] = [];
   for (let i = 0; i < filteredStaffList.length; i += 5) {
     chunkedStaff.push(filteredStaffList.slice(i, i + 5));
   }
 
-  const calculateSubtotal = (staffChunk: any) =>
+  const calculateSubtotal = (staffChunk: Staff[]) =>
     staffChunk.reduce(
-      (sum: number, staff: any) =>
+      (sum: number, staff: Staff) =>
         sum + ((Number(staff.salary) || 0) - totalPenalties(staff)),
       0
     );
 
-  const handleViewMemo = (staffChunk: any, index: number) => {
+  const handleViewMemo = (staffChunk: Staff[], index: number) => {
     localStorage.setItem("staffPayroll", JSON.stringify(staffChunk));
     localStorage.setItem("payrollChunkIndex", index.toString());
   };
@@ -126,13 +179,14 @@ const SalaryTable = React.forwardRef<
 SalaryTable.displayName = "SalaryTable";
 
 // Mock data
-const MOCK_STAFF = [
+const MOCK_STAFF: Staff[] = [
   {
     _id: "1",
     name: "Chioma Adeyemi",
+    password: "1234",
     location: "Ibile 1",
     role: "staff",
-    salt: "$2b$10$salt1", // Mock hashed password
+    salt: "$2b$10$salt1",
     bank: {
       accountName: "Chioma Adeyemi",
       accountNumber: "1234567890",
@@ -174,6 +228,7 @@ const MOCK_STAFF = [
   {
     _id: "2",
     name: "Tunde Olayinka",
+    password: "5678",
     location: "Ibile 2",
     role: "Senior staff",
     salt: "$2b$10$salt2",
@@ -194,6 +249,7 @@ const MOCK_STAFF = [
   {
     _id: "3",
     name: "Grace Eze",
+    password: "4321",
     location: "Ibile 1",
     role: "staff",
     salt: "$2b$10$salt3",
@@ -243,6 +299,7 @@ const MOCK_STAFF = [
   {
     _id: "4",
     name: "Blessing Okonkwo",
+    password: "9999",
     location: "Ibile 2",
     role: "account",
     salt: "$2b$10$salt4",
@@ -273,7 +330,7 @@ const MOCK_STAFF = [
 ];
 
 export default function ManageStaff() {
-  const [staffList, setStaffList] = useState(MOCK_STAFF);
+  const [staffList, setStaffList] = useState<Staff[]>(MOCK_STAFF);
   const [loadingStaffList, setLoadingStaffList] = useState(false);
   const [message, setMessage] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -415,20 +472,20 @@ export default function ManageStaff() {
     }
 
     // Create new staff object
-    const newStaff = {
+    const newStaff: Staff = {
       _id: generateId(),
       name: form.name,
-      password: form.password, // In real app, this would be hashed
+      password: form.password,
       location: form.location,
       role: form.role,
-      salt: "$2b$10$" + Math.random().toString(36).substr(2, 9), // Mock hashed password
+      salt: "$2b$10$" + Math.random().toString(36).substr(2, 9),
       bank: {
         accountName: form.bank.accountName,
         accountNumber: form.bank.accountNumber,
         bankName: form.bank.bankName,
       },
       salary: Number(form.salary) || 0,
-      penalty: [] as { amount: number; reason: string; date: Date }[],
+      penalty: [],
       photo: photoUrl || "",
       onboardingToken: generateToken(),
       onboardingComplete: false,
@@ -476,8 +533,8 @@ export default function ManageStaff() {
     }
 
     // Find staff and add penalty
-    setStaffList((prev) =>
-      prev.map((staff) =>
+    setStaffList((prev: Staff[]) =>
+      prev.map((staff: Staff) =>
         staff._id === staffId
           ? {
               ...staff,
@@ -507,7 +564,7 @@ export default function ManageStaff() {
     setTimeout(() => setMessage(""), 3000);
   };
 
-  const startEdit = (staff: any) => {
+  const startEdit = (staff: Staff) => {
     setEditingId(staff._id);
     setEditForm({
       name: staff.name || "",
@@ -568,8 +625,8 @@ export default function ManageStaff() {
     setSaving(true);
 
     // Update staff
-    setStaffList((prev) =>
-      prev.map((staff) =>
+    setStaffList((prev: Staff[]) =>
+      prev.map((staff: Staff) =>
         staff._id === id
           ? {
               ...staff,
@@ -597,7 +654,7 @@ export default function ManageStaff() {
 
     setMessage("");
 
-    setStaffList((prev) => prev.filter((staff) => staff._id !== id));
+    setStaffList((prev: Staff[]) => prev.filter((staff: Staff) => staff._id !== id));
     setMessage("✓ Staff deleted successfully.");
 
     if (editingId === id) cancelEdit();
@@ -609,7 +666,7 @@ export default function ManageStaff() {
     localStorage.setItem("staffPayroll", JSON.stringify(staffList));
   };
 
-  const handleEditPenalty = (staffId: string, index: number, penalty: any) => {
+  const handleEditPenalty = (staffId: string, index: number, penalty: Penalty) => {
     setEditingPenalty({ staffId, index });
     setEditPenaltyForm({
       amount: penalty.amount || "",
@@ -621,12 +678,12 @@ export default function ManageStaff() {
   const handleSavePenaltyEdit = () => {
     if (!editingPenalty) return;
 
-    setStaffList((prev) =>
-      prev.map((staff) =>
+    setStaffList((prev: Staff[]) =>
+      prev.map((staff: Staff) =>
         staff._id === editingPenalty.staffId
           ? {
               ...staff,
-              penalty: staff.penalty.map((p: any, i: number) =>
+              penalty: staff.penalty.map((p: Penalty, i: number) =>
                 i === editingPenalty.index
                   ? {
                       amount: Number(editPenaltyForm.amount),
@@ -649,12 +706,12 @@ export default function ManageStaff() {
   const handleDeletePenalty = (staffId: string, index: number) => {
     if (!confirm("Are you sure you want to delete this penalty?")) return;
 
-    setStaffList((prev) =>
-      prev.map((staff) =>
+    setStaffList((prev: Staff[]) =>
+      prev.map((staff: Staff) =>
         staff._id === staffId
           ? {
               ...staff,
-              penalty: staff.penalty.filter((_: any, i: number) => i !== index),
+              penalty: staff.penalty.filter((_: Penalty, i: number) => i !== index),
             }
           : staff
       )
@@ -676,8 +733,8 @@ export default function ManageStaff() {
     setClearingPenalties(true);
 
     setTimeout(() => {
-      setStaffList((prev) =>
-        prev.map((staff) => ({
+      setStaffList((prev: Staff[]) =>
+        prev.map((staff: Staff) => ({
           ...staff,
           penalty: [],
         }))
@@ -838,7 +895,7 @@ export default function ManageStaff() {
               <p className="text-gray-500">No staff created yet.</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {staffList.map((staff: any) => (
+                {staffList.map((staff: Staff) => (
                   <div
                     key={staff._id}
                     className="p-4 rounded-lg shadow-sm hover:shadow-md transition duration-300 border border-gray-200 bg-white"
@@ -1225,8 +1282,8 @@ export default function ManageStaff() {
             {activeTab === "list" && (
               <div className="space-y-4">
                 {staffList
-                  .filter((s: any) => s.penalty && s.penalty.length)
-                  .map((staff: any) => (
+                  .filter((s: Staff) => s.penalty && s.penalty.length)
+                  .map((staff: Staff) => (
                     <div
                       key={staff._id}
                       className="bg-white border border-gray-200 p-4 sm:p-5 rounded-lg shadow hover:shadow-md transition"
@@ -1244,7 +1301,7 @@ export default function ManageStaff() {
                         </span>
                       </div>
                       <ul className="space-y-2 pl-4 border-l-2 border-blue-100">
-                        {staff.penalty.map((p: any, i: number) => (
+                        {staff.penalty.map((p: Penalty, i: number) => (
                           <li key={i} className="text-sm text-gray-800">
                             {editingPenalty?.staffId === staff._id &&
                             editingPenalty?.index === i ? (
@@ -1335,7 +1392,7 @@ export default function ManageStaff() {
                     </div>
                   ))}
 
-                {staffList.some((s: any) => s.penalty && s.penalty.length > 0) && (
+                {staffList.some((s: Staff) => s.penalty && s.penalty.length > 0) && (
                   <button
                     onClick={handleClearAllPenalties}
                     disabled={clearingPenalties}
@@ -1348,7 +1405,7 @@ export default function ManageStaff() {
                 )}
 
                 {!staffList.some(
-                  (s: any) => s.penalty && s.penalty.length > 0
+                  (s: Staff) => s.penalty && s.penalty.length > 0
                 ) && (
                   <p className="text-gray-500 text-sm italic">
                     No penalties recorded.
@@ -1371,7 +1428,7 @@ export default function ManageStaff() {
                   required
                 >
                   <option value="">Select Staff</option>
-                  {staffList.map((staff: any) => (
+                  {staffList.map((staff: Staff) => (
                     <option key={staff._id} value={staff._id}>
                       {staff.name} ({staff.role})
                     </option>
