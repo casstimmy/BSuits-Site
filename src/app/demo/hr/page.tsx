@@ -1,7 +1,7 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from "react";
-import Layout from "@/components/Layout";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Camera, Copy, CheckCircle, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 
 const LOCATIONS = ["Ibile 1", "Ibile 2"];
@@ -281,7 +281,6 @@ export default function ManageStaff() {
   const [isSending, setIsSending] = useState(false);
   const salaryMemoRef = useRef<any>(null);
   const staffPhotoRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
 
   const [currentStaff, setCurrentStaff] = useState({ role: "admin", name: "Admin User" });
 
@@ -688,8 +687,8 @@ export default function ManageStaff() {
   };
 
   return (
-    <Layout>
-      <div className="max-w-7xl mx-auto bg-gray-100 py-4 sm:py-8 px-3 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100">
+      <div className="max-w-7xl mx-auto py-4 sm:py-8 px-3 sm:px-6 lg:px-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 sm:mb-6">
           Manage Staff
         </h1>
@@ -1452,6 +1451,6 @@ export default function ManageStaff() {
           )}
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }
