@@ -22,6 +22,7 @@ const contactMethods = [
     description: 'Chat with our team in real-time for quick questions.',
     action: '09166843265',
     color: 'bg-green-100 text-green-600',
+    glowColor: 'ring-green-400 shadow-green-200',
     href: 'https://wa.me/2349166843265?text=Hello%20BizSuits%2C%20I%20have%20a%20question.',
   },
   {
@@ -30,6 +31,7 @@ const contactMethods = [
     description: 'Send us a detailed message and we\'ll respond within 24 hours.',
     action: 'hello@bizsuits.com',
     color: 'bg-purple-100 text-purple-600',
+    glowColor: 'ring-purple-400 shadow-purple-200',
     href: 'mailto:hello@bizsuits.com',
   },
   {
@@ -38,6 +40,7 @@ const contactMethods = [
     description: 'Speak directly with our sales or support team.',
     action: '09166843265',
     color: 'bg-emerald-100 text-emerald-600',
+    glowColor: 'ring-emerald-400 shadow-emerald-200',
     href: 'tel:+2349166843265',
   },
   {
@@ -46,6 +49,7 @@ const contactMethods = [
     description: 'Browse our knowledge base and help documentation.',
     action: 'Visit Help Center',
     color: 'bg-orange-100 text-orange-600',
+    glowColor: 'ring-orange-400 shadow-orange-200',
     href: '/blog',
   },
 ];
@@ -60,33 +64,18 @@ const offices = [
   },
 ];
 
-// Chatbot messages that cycle in the speech bubble
-const botMessages = [
-  "Let's help you today!",
-  'Ask us anything!',
-  'We reply fast!',
-  'Need a demo?',
-  'Say hello!',
+// Messages that cycle — each points to a specific contact card
+const cardMessages = [
+  { text: 'Chat with us on WhatsApp!', cardIndex: 0 },
+  { text: 'Drop us an email!', cardIndex: 1 },
+  { text: 'Give us a call!', cardIndex: 2 },
+  { text: 'Visit our help center!', cardIndex: 3 },
 ];
 
-// Animated chatbot face built from Icon.svg shapes
-function AnimatedLogo() {
-  const [msgIndex, setMsgIndex] = useState(0);
-  const [showMsg, setShowMsg] = useState(true);
+// Animated chatbot face that looks down at the contact cards
+function AnimatedLogo({ activeCard }: { activeCard: number }) {
   const [blinking, setBlinking] = useState(false);
   const [mouthOpen, setMouthOpen] = useState(false);
-
-  // Cycle speech bubble messages
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowMsg(false);
-      setTimeout(() => {
-        setMsgIndex((prev) => (prev + 1) % botMessages.length);
-        setShowMsg(true);
-      }, 400);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
 
   // Blink eyes periodically
   useEffect(() => {
@@ -95,24 +84,18 @@ function AnimatedLogo() {
       setTimeout(() => setBlinking(false), 200);
     };
     const interval = setInterval(blink, 3000);
-    // Initial blink after 1s
-    const firstBlink = setTimeout(blink, 1000);
-    return () => {
-      clearInterval(interval);
-      clearTimeout(firstBlink);
-    };
+    const first = setTimeout(blink, 1000);
+    return () => { clearInterval(interval); clearTimeout(first); };
   }, []);
 
-  // Animate mouth when message changes
+  // Animate mouth when message/card changes
   useEffect(() => {
-    if (showMsg) {
-      setMouthOpen(true);
-      const t1 = setTimeout(() => setMouthOpen(false), 300);
-      const t2 = setTimeout(() => setMouthOpen(true), 500);
-      const t3 = setTimeout(() => setMouthOpen(false), 800);
-      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-    }
-  }, [showMsg, msgIndex]);
+    setMouthOpen(true);
+    const t1 = setTimeout(() => setMouthOpen(false), 250);
+    const t2 = setTimeout(() => setMouthOpen(true), 400);
+    const t3 = setTimeout(() => setMouthOpen(false), 650);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [activeCard]);
 
   return (
     <motion.div
@@ -124,63 +107,68 @@ function AnimatedLogo() {
       <div className="relative">
         {/* Speech bubble */}
         <AnimatePresence mode="wait">
-          {showMsg && (
-            <motion.div
-              key={msgIndex}
-              initial={{ opacity: 0, y: 8, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white rounded-full px-4 py-1.5 shadow-lg border border-primary-100 z-10"
-            >
-              <span className="text-xs font-semibold text-primary-700">{botMessages[msgIndex]}</span>
-              {/* Bubble tail */}
-              <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-primary-100 rotate-45" />
-            </motion.div>
-          )}
+          <motion.div
+            key={activeCard}
+            initial={{ opacity: 0, y: 8, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+            className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white rounded-full px-4 py-1.5 shadow-lg border border-primary-100 z-10"
+          >
+            <span className="text-xs font-semibold text-primary-700">
+              {cardMessages[activeCard].text}
+            </span>
+            <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-primary-100 rotate-45" />
+          </motion.div>
         </AnimatePresence>
 
-        {/* Floating body */}
+        {/* Face tilted downward to look at cards */}
         <motion.div
           className="relative w-28 h-28 md:w-32 md:h-32"
-          animate={{ y: [0, -6, 0] }}
+          animate={{ y: [0, -5, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ perspective: '400px' }}
         >
           {/* Glow behind */}
           <motion.div
             className="absolute inset-0 rounded-3xl bg-primary-500/20 blur-xl"
-            animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+            animate={{ scale: [1, 1.12, 1], opacity: [0.25, 0.45, 0.25] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* The SVG face */}
+          {/* The SVG face — rotated to look down */}
           <svg
             viewBox="0 0 318.34 318.34"
             className="relative w-full h-full drop-shadow-lg"
+            style={{ transform: 'rotateX(12deg)' }}
           >
             <defs>
-              <linearGradient id="face-gradient" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
+              <linearGradient id="contact-face-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#5398d2" />
                 <stop offset="1" stopColor="#4c63ae" />
               </linearGradient>
             </defs>
 
-            {/* Rounded square body */}
-            <rect fill="url(#face-gradient)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
+            {/* Body */}
+            <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
 
-            {/* Left eye */}
+            {/* Left eye — shifted down to "look down" */}
             <g style={{
-              transformOrigin: '125px 140px',
-              transform: blinking ? 'scaleY(0.08)' : 'scaleY(1)',
+              transformOrigin: '125px 150px',
+              transform: blinking
+                ? 'scaleY(0.08) translateY(12px)'
+                : 'scaleY(1) translateY(12px)',
               transition: 'transform 0.15s ease-in-out',
             }}>
               <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
             </g>
 
-            {/* Right eye */}
+            {/* Right eye — shifted down */}
             <g style={{
-              transformOrigin: '193px 140px',
-              transform: blinking ? 'scaleY(0.08)' : 'scaleY(1)',
+              transformOrigin: '193px 150px',
+              transform: blinking
+                ? 'scaleY(0.08) translateY(12px)'
+                : 'scaleY(1) translateY(12px)',
               transition: 'transform 0.15s ease-in-out',
             }}>
               <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
@@ -188,36 +176,24 @@ function AnimatedLogo() {
 
             {/* Mouth */}
             <g style={{
-              transformOrigin: '159px 210px',
-              transform: mouthOpen ? 'scaleY(1.25) translateY(-3px)' : 'scaleY(1) translateY(0)',
+              transformOrigin: '159px 215px',
+              transform: mouthOpen ? 'scaleY(1.3) translateY(-2px)' : 'scaleY(1) translateY(0)',
               transition: 'transform 0.2s ease-in-out',
             }}>
               <path fill="#fff" d="M165.87,183.43l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1Z" />
             </g>
           </svg>
 
-          {/* Subtle orbiting dots */}
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1.5 h-1.5 rounded-full bg-primary-400/60"
-              style={{ top: '50%', left: '50%' }}
-              animate={{
-                x: [
-                  Math.cos((i * 2 * Math.PI) / 3) * 52,
-                  Math.cos((i * 2 * Math.PI) / 3 + Math.PI) * 52,
-                  Math.cos((i * 2 * Math.PI) / 3 + 2 * Math.PI) * 52,
-                ],
-                y: [
-                  Math.sin((i * 2 * Math.PI) / 3) * 52,
-                  Math.sin((i * 2 * Math.PI) / 3 + Math.PI) * 52,
-                  Math.sin((i * 2 * Math.PI) / 3 + 2 * Math.PI) * 52,
-                ],
-                opacity: [0.3, 0.7, 0.3],
-              }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'linear', delay: i * 0.4 }}
-            />
-          ))}
+          {/* Downward pointing indicator — little arrow/chevron below the face */}
+          <motion.div
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2"
+            animate={{ y: [0, 4, 0], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+              <path d="M2 2L10 10L18 2" stroke="#5398d2" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.div>
         </motion.div>
       </div>
     </motion.div>
@@ -225,6 +201,7 @@ function AnimatedLogo() {
 }
 
 export default function ContactPage() {
+  const [activeCard, setActiveCard] = useState(0);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -280,6 +257,14 @@ export default function ContactPage() {
     setTimeout(() => setIsSubmitted(false), 5000);
   };
 
+  // Cycle the active card every 3.5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveCard((prev) => (prev + 1) % contactMethods.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {/* Hero */}
@@ -288,7 +273,7 @@ export default function ContactPage() {
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10 text-center">
-          <AnimatedLogo />
+          <AnimatedLogo activeCard={activeCard} />
           <motion.span
             className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4"
             variants={fadeInUp}
@@ -329,7 +314,7 @@ export default function ContactPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            {contactMethods.map((method) => (
+            {contactMethods.map((method, index) => (
               <motion.a
                 key={method.title}
                 href={method.href}
@@ -337,7 +322,14 @@ export default function ContactPage() {
                 rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 variants={staggerItem}
               >
-                <Card elevated className="text-center group cursor-pointer h-full">
+                <Card
+                  elevated
+                  className={`text-center group cursor-pointer h-full transition-all duration-500 ${
+                    activeCard === index
+                      ? `ring-2 ${method.glowColor} shadow-lg scale-[1.03]`
+                      : ''
+                  }`}
+                >
                   <div
                     className={`w-14 h-14 rounded-2xl ${method.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}
                   >

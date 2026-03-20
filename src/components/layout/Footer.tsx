@@ -9,6 +9,7 @@ import {
   MapPin,
   ArrowRight,
 } from 'lucide-react';
+import BizFaceLogo from '@/components/ui/BizFaceLogo';
 
 const footerLinks = {
   Products: [
@@ -97,12 +98,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <img
-                src="/images/logo.png"
-                alt="BizSuits Logo"
-                width={40}
-                height={40}
-              />
+              <BizFaceLogo size={40} />
               <span className="text-xl font-bold">
                 Biz<span className="text-primary-400">Suits</span>
               </span>

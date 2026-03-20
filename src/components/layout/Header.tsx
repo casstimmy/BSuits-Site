@@ -17,6 +17,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import BizFaceLogo from '@/components/ui/BizFaceLogo';
 
 const products = [
   { name: 'Point of Sale', description: 'Fast, reliable POS system', icon: ShoppingCart, href: '/features#pos' },
@@ -63,14 +64,7 @@ export default function Header() {
         <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <img
-              src="/images/logo.png"
-              alt="BizSuits Logo"
-              width={40}
-              height={40}
-              className="group-hover:shadow-lg group-hover:shadow-primary-500/40 transition-shadow"
-            >
-            </img>
+            <BizFaceLogo size={40} />
             <span className="text-xl font-bold text-dark-900">
               Biz<span className="text-primary-600">Suits</span>
             </span>
