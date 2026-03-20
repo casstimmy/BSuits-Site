@@ -7,6 +7,8 @@ import {
   Download,
   FileText,
   Printer,
+  CheckCircle2,
+  AlertCircle,
 } from 'lucide-react';
 
 interface InvoiceItem {
@@ -52,6 +54,8 @@ export default function AdminPage() {
   ]);
 
   const [currency] = useState('₦');
+  const [includeVat, setIncludeVat] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<'unpaid' | 'paid'>('unpaid');
 
   const addItem = () => {
     setItems([...items, { ...emptyItem, id: Date.now() }]);
@@ -72,7 +76,7 @@ export default function AdminPage() {
   };
 
   const subtotal = items.reduce((sum, item) => sum + item.quantity * item.rate, 0);
-  const tax = subtotal * 0.075; // 7.5% VAT
+  const tax = includeVat ? subtotal * 0.075 : 0;
   const total = subtotal + tax;
 
   const formatCurrency = (amount: number) =>
@@ -169,7 +173,7 @@ export default function AdminPage() {
             {/* Invoice Details */}
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <h2 className="text-lg font-bold text-gray-900 mb-4">Invoice Details</h2>
-              <div className="grid sm:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-3 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Invoice #</label>
                   <input
@@ -196,6 +200,42 @@ export default function AdminPage() {
                     onChange={(e) => setInvoiceDetails({ ...invoiceDetails, dueDate: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
                   />
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-6">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={includeVat}
+                    onChange={(e) => setIncludeVat(e.target.checked)}
+                    className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                  />
+                  <span className="text-sm font-medium text-gray-700">Include VAT (7.5%)</span>
+                </label>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-gray-700">Status:</span>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentStatus('unpaid')}
+                    className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
+                      paymentStatus === 'unpaid'
+                        ? 'bg-amber-100 text-amber-700 ring-2 ring-amber-300'
+                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                    }`}
+                  >
+                    Unpaid
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentStatus('paid')}
+                    className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
+                      paymentStatus === 'paid'
+                        ? 'bg-green-100 text-green-700 ring-2 ring-green-300'
+                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                    }`}
+                  >
+                    Paid
+                  </button>
                 </div>
               </div>
             </div>
@@ -298,6 +338,18 @@ export default function AdminPage() {
                 <div className="text-right">
                   <h2 className="text-2xl font-bold text-gray-900 mb-1">INVOICE</h2>
                   <p className="text-sm text-gray-600">{invoiceDetails.invoiceNumber}</p>
+                  <div className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
+                    paymentStatus === 'paid'
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-amber-100 text-amber-700'
+                  }`}>
+                    {paymentStatus === 'paid' ? (
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                    ) : (
+                      <AlertCircle className="w-3.5 h-3.5" />
+                    )}
+                    {paymentStatus === 'paid' ? 'PAID' : 'UNPAID'}
+                  </div>
                 </div>
               </div>
 
@@ -359,10 +411,12 @@ export default function AdminPage() {
                     <span className="text-gray-500">Subtotal</span>
                     <span className="text-gray-700">{formatCurrency(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">VAT (7.5%)</span>
-                    <span className="text-gray-700">{formatCurrency(tax)}</span>
-                  </div>
+                  {includeVat && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">VAT (7.5%)</span>
+                      <span className="text-gray-700">{formatCurrency(tax)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-base font-bold border-t border-gray-200 pt-2">
                     <span className="text-gray-900">Total</span>
                     <span className="text-gray-900">{formatCurrency(total)}</span>

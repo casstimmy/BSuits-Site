@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -37,4 +37,4 @@ export const staggerItem: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
 };
 
-export { motion };
+export { motion, AnimatePresence };

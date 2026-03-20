@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Mail,
   Phone,
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { motion, fadeInUp, staggerContainer, staggerItem } from '@/components/ui/Motion';
+import { motion, fadeInUp, staggerContainer, staggerItem, AnimatePresence } from '@/components/ui/Motion';
 
 const contactMethods = [
   {
@@ -60,78 +60,166 @@ const offices = [
   },
 ];
 
-// Animated SVG logo component (similar to GitHub Copilot mascot)
+// Chatbot messages that cycle in the speech bubble
+const botMessages = [
+  "Let's help you today!",
+  'Ask us anything!',
+  'We reply fast!',
+  'Need a demo?',
+  'Say hello!',
+];
+
+// Animated chatbot face built from Icon.svg shapes
 function AnimatedLogo() {
+  const [msgIndex, setMsgIndex] = useState(0);
+  const [showMsg, setShowMsg] = useState(true);
+  const [blinking, setBlinking] = useState(false);
+  const [mouthOpen, setMouthOpen] = useState(false);
+
+  // Cycle speech bubble messages
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowMsg(false);
+      setTimeout(() => {
+        setMsgIndex((prev) => (prev + 1) % botMessages.length);
+        setShowMsg(true);
+      }, 400);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Blink eyes periodically
+  useEffect(() => {
+    const blink = () => {
+      setBlinking(true);
+      setTimeout(() => setBlinking(false), 200);
+    };
+    const interval = setInterval(blink, 3000);
+    // Initial blink after 1s
+    const firstBlink = setTimeout(blink, 1000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(firstBlink);
+    };
+  }, []);
+
+  // Animate mouth when message changes
+  useEffect(() => {
+    if (showMsg) {
+      setMouthOpen(true);
+      const t1 = setTimeout(() => setMouthOpen(false), 300);
+      const t2 = setTimeout(() => setMouthOpen(true), 500);
+      const t3 = setTimeout(() => setMouthOpen(false), 800);
+      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    }
+  }, [showMsg, msgIndex]);
+
   return (
     <motion.div
-      className="flex justify-center mb-6"
+      className="flex flex-col items-center mb-6"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <motion.div
-        className="relative w-24 h-24 md:w-28 md:h-28"
-        animate={{
-          y: [0, -8, 0],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      >
-        {/* Glow effect behind logo */}
+      <div className="relative">
+        {/* Speech bubble */}
+        <AnimatePresence mode="wait">
+          {showMsg && (
+            <motion.div
+              key={msgIndex}
+              initial={{ opacity: 0, y: 8, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white rounded-full px-4 py-1.5 shadow-lg border border-primary-100 z-10"
+            >
+              <span className="text-xs font-semibold text-primary-700">{botMessages[msgIndex]}</span>
+              {/* Bubble tail */}
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-primary-100 rotate-45" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Floating body */}
         <motion.div
-          className="absolute inset-0 rounded-3xl bg-primary-500/20 blur-xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        {/* Orbiting dots */}
-        {[0, 1, 2].map((i) => (
+          className="relative w-28 h-28 md:w-32 md:h-32"
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          {/* Glow behind */}
           <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full bg-primary-500"
-            style={{
-              top: '50%',
-              left: '50%',
-            }}
-            animate={{
-              x: [
-                Math.cos((i * 2 * Math.PI) / 3) * 48,
-                Math.cos((i * 2 * Math.PI) / 3 + Math.PI) * 48,
-                Math.cos((i * 2 * Math.PI) / 3 + 2 * Math.PI) * 48,
-              ],
-              y: [
-                Math.sin((i * 2 * Math.PI) / 3) * 48,
-                Math.sin((i * 2 * Math.PI) / 3 + Math.PI) * 48,
-                Math.sin((i * 2 * Math.PI) / 3 + 2 * Math.PI) * 48,
-              ],
-              opacity: [0.4, 0.8, 0.4],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'linear',
-              delay: i * 0.3,
-            }}
+            className="absolute inset-0 rounded-3xl bg-primary-500/20 blur-xl"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
-        ))}
-        {/* The SVG icon */}
-        <motion.img
-          src="/images/Icon.svg"
-          alt="BizSuits Logo"
-          className="relative w-full h-full drop-shadow-lg"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-        />
-      </motion.div>
+
+          {/* The SVG face */}
+          <svg
+            viewBox="0 0 318.34 318.34"
+            className="relative w-full h-full drop-shadow-lg"
+          >
+            <defs>
+              <linearGradient id="face-gradient" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#5398d2" />
+                <stop offset="1" stopColor="#4c63ae" />
+              </linearGradient>
+            </defs>
+
+            {/* Rounded square body */}
+            <rect fill="url(#face-gradient)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
+
+            {/* Left eye */}
+            <g style={{
+              transformOrigin: '125px 140px',
+              transform: blinking ? 'scaleY(0.08)' : 'scaleY(1)',
+              transition: 'transform 0.15s ease-in-out',
+            }}>
+              <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
+            </g>
+
+            {/* Right eye */}
+            <g style={{
+              transformOrigin: '193px 140px',
+              transform: blinking ? 'scaleY(0.08)' : 'scaleY(1)',
+              transition: 'transform 0.15s ease-in-out',
+            }}>
+              <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
+            </g>
+
+            {/* Mouth */}
+            <g style={{
+              transformOrigin: '159px 210px',
+              transform: mouthOpen ? 'scaleY(1.25) translateY(-3px)' : 'scaleY(1) translateY(0)',
+              transition: 'transform 0.2s ease-in-out',
+            }}>
+              <path fill="#fff" d="M165.87,183.43l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1Z" />
+            </g>
+          </svg>
+
+          {/* Subtle orbiting dots */}
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1.5 h-1.5 rounded-full bg-primary-400/60"
+              style={{ top: '50%', left: '50%' }}
+              animate={{
+                x: [
+                  Math.cos((i * 2 * Math.PI) / 3) * 52,
+                  Math.cos((i * 2 * Math.PI) / 3 + Math.PI) * 52,
+                  Math.cos((i * 2 * Math.PI) / 3 + 2 * Math.PI) * 52,
+                ],
+                y: [
+                  Math.sin((i * 2 * Math.PI) / 3) * 52,
+                  Math.sin((i * 2 * Math.PI) / 3 + Math.PI) * 52,
+                  Math.sin((i * 2 * Math.PI) / 3 + 2 * Math.PI) * 52,
+                ],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'linear', delay: i * 0.4 }}
+            />
+          ))}
+        </motion.div>
+      </div>
     </motion.div>
   );
 }

@@ -6,6 +6,7 @@ import {
   Briefcase,
   ShoppingBag,
   Building2,
+  Building,
   CheckCircle2,
   ArrowRight,
 } from 'lucide-react';
@@ -110,6 +111,24 @@ const solutions = [
       'Multi-channel sales analytics',
     ],
     stats: { metric: 'operational efficiency', value: 'Enhanced' },
+  },
+  {
+    id: 'facility',
+    icon: Building,
+    title: 'Facility Management',
+    tagline: 'Manage spaces, assets & operations',
+    description:
+      'BizSuits has built facility management systems that handle everything from maintenance scheduling and asset tracking to space management and vendor coordination — all in one platform.',
+    color: 'from-cyan-500 to-cyan-600',
+    benefits: [
+      'Building & space management',
+      'Preventive maintenance scheduling',
+      'Asset tracking & lifecycle management',
+      'Work order management & dispatch',
+      'Vendor & contractor coordination',
+      'Utility monitoring & cost reports',
+    ],
+    stats: { metric: 'facility operations managed', value: 'Complete' },
   },
   {
     id: 'enterprise',
