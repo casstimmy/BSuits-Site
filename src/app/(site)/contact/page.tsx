@@ -72,7 +72,16 @@ const cardMessages = [
   { text: 'Got questions? Our help center has answers!', cardIndex: 3 },
 ];
 
-// Animated chatbot face that looks down at the contact cards
+// Tilt transforms per card position — the face leans toward each card
+// Cards: 0=far-left, 1=center-left, 2=center-right, 3=far-right
+const cardTilts = [
+  'rotateY(-14deg) rotateX(8deg) rotateZ(-3deg)',   // lean left + down
+  'rotateY(-5deg) rotateX(10deg) rotateZ(-1deg)',    // slight left + down
+  'rotateY(5deg) rotateX(10deg) rotateZ(1deg)',      // slight right + down
+  'rotateY(14deg) rotateX(8deg) rotateZ(3deg)',      // lean right + down
+];
+
+// Animated chatbot face — tilts toward active contact card like GitHub Copilot icon
 function AnimatedLogo({ activeCard }: { activeCard: number }) {
   const [blinking, setBlinking] = useState(false);
   const [mouthOpen, setMouthOpen] = useState(false);
@@ -83,18 +92,20 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
       setBlinking(true);
       setTimeout(() => setBlinking(false), 200);
     };
-    const interval = setInterval(blink, 3000);
-    const first = setTimeout(blink, 1000);
+    const interval = setInterval(blink, 3200);
+    const first = setTimeout(blink, 1500);
     return () => { clearInterval(interval); clearTimeout(first); };
   }, []);
 
-  // Animate mouth when message/card changes
+  // Animate mouth when card changes (speaking)
   useEffect(() => {
     setMouthOpen(true);
-    const t1 = setTimeout(() => setMouthOpen(false), 250);
-    const t2 = setTimeout(() => setMouthOpen(true), 400);
-    const t3 = setTimeout(() => setMouthOpen(false), 650);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    const t1 = setTimeout(() => setMouthOpen(false), 300);
+    const t2 = setTimeout(() => setMouthOpen(true), 500);
+    const t3 = setTimeout(() => setMouthOpen(false), 800);
+    const t4 = setTimeout(() => setMouthOpen(true), 1000);
+    const t5 = setTimeout(() => setMouthOpen(false), 1300);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(t5); };
   }, [activeCard]);
 
   return (
@@ -112,7 +123,7 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             initial={{ opacity: 0, y: 8, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.35 }}
             className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white rounded-full px-4 py-1.5 shadow-lg border border-primary-100 z-10"
           >
             <span className="text-xs font-semibold text-primary-700">
@@ -122,113 +133,63 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Face */}
+        {/* Face container with perspective */}
         <motion.div
           className="relative w-28 h-28 md:w-32 md:h-32"
           animate={{ y: [0, -5, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ perspective: '600px' }}
         >
-          {/* Glow behind */}
+          {/* Glow */}
           <motion.div
             className="absolute inset-0 rounded-3xl bg-primary-500/20 blur-xl"
-            animate={{ scale: [1, 1.12, 1], opacity: [0.25, 0.45, 0.25] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
           />
 
+          {/* The SVG face — tilts toward the active card */}
           <svg
             viewBox="0 0 318.34 318.34"
             className="relative w-full h-full drop-shadow-lg"
+            style={{
+              transform: cardTilts[activeCard],
+              transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              transformStyle: 'preserve-3d',
+            }}
           >
             <defs>
               <linearGradient id="contact-face-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#5398d2" />
                 <stop offset="1" stopColor="#4c63ae" />
               </linearGradient>
-              {/* Clip paths to keep pupils inside eye shapes */}
-              <clipPath id="left-eye-clip">
-                <path d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
-              </clipPath>
-              <clipPath id="right-eye-clip">
-                <path d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
-              </clipPath>
             </defs>
 
             {/* Body */}
             <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
 
-            {/* Left eye white */}
-            <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
-
-            {/* Left eye pupil — clipped to eye, positioned low = looking down */}
-            <g clipPath="url(#left-eye-clip)">
-              <circle
-                cx="118"
-                cy={blinking ? 140 : 162}
-                r="18"
-                fill="#3b5998"
-                opacity="0.85"
-                style={{ transition: 'cy 0.15s ease-in-out' }}
-              />
-              {/* Pupil highlight */}
-              <circle
-                cx="113"
-                cy={blinking ? 134 : 156}
-                r="5"
-                fill="#fff"
-                opacity="0.7"
-                style={{ transition: 'cy 0.15s ease-in-out' }}
-              />
+            {/* Left eye */}
+            <g style={{
+              transformOrigin: '125px 140px',
+              transform: blinking ? 'scaleY(0.05)' : 'scaleY(1)',
+              transition: 'transform 0.15s ease-in-out',
+            }}>
+              <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
             </g>
 
-            {/* Left eyelid — closes over the eye from top when blinking */}
-            <rect
-              x="85"
-              y="80"
-              width="70"
-              height={blinking ? 110 : 0}
-              fill="url(#contact-face-grad)"
-              style={{ transition: 'height 0.12s ease-in-out' }}
-            />
-
-            {/* Right eye white */}
-            <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
-
-            {/* Right eye pupil — looking down */}
-            <g clipPath="url(#right-eye-clip)">
-              <circle
-                cx="200"
-                cy={blinking ? 140 : 162}
-                r="18"
-                fill="#3b5998"
-                opacity="0.85"
-                style={{ transition: 'cy 0.15s ease-in-out' }}
-              />
-              {/* Pupil highlight */}
-              <circle
-                cx="195"
-                cy={blinking ? 134 : 156}
-                r="5"
-                fill="#fff"
-                opacity="0.7"
-                style={{ transition: 'cy 0.15s ease-in-out' }}
-              />
+            {/* Right eye */}
+            <g style={{
+              transformOrigin: '193px 140px',
+              transform: blinking ? 'scaleY(0.05)' : 'scaleY(1)',
+              transition: 'transform 0.15s ease-in-out',
+            }}>
+              <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
             </g>
 
-            {/* Right eyelid */}
-            <rect
-              x="163"
-              y="80"
-              width="70"
-              height={blinking ? 110 : 0}
-              fill="url(#contact-face-grad)"
-              style={{ transition: 'height 0.12s ease-in-out' }}
-            />
-
-            {/* Mouth — opens by dropping down from its center */}
+            {/* Mouth — scales from center of the triangle */}
             <g style={{
               transformOrigin: '159px 205px',
-              transform: mouthOpen ? 'scale(1.05, 1.35)' : 'scale(1, 1)',
-              transition: 'transform 0.2s ease-in-out',
+              transform: mouthOpen ? 'scale(1.08, 1.4)' : 'scale(1, 1)',
+              transition: 'transform 0.18s ease-in-out',
             }}>
               <path fill="#fff" d="M165.87,183.43l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1Z" />
             </g>
@@ -297,11 +258,11 @@ export default function ContactPage() {
     setTimeout(() => setIsSubmitted(false), 5000);
   };
 
-  // Cycle the active card every 3.5 seconds
+  // Cycle the active card every 5.5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveCard((prev) => (prev + 1) % contactMethods.length);
-    }, 3500);
+    }, 5500);
     return () => clearInterval(interval);
   }, []);
 
