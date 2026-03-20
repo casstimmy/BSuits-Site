@@ -64,12 +64,12 @@ const offices = [
   },
 ];
 
-// Messages that cycle — each points to a specific contact card
+// Conversational messages — each points to a specific contact card
 const cardMessages = [
-  { text: 'Chat with us on WhatsApp!', cardIndex: 0 },
-  { text: 'Drop us an email!', cardIndex: 1 },
-  { text: 'Give us a call!', cardIndex: 2 },
-  { text: 'Visit our help center!', cardIndex: 3 },
+  { text: 'Psst... tap WhatsApp, we reply in minutes!', cardIndex: 0 },
+  { text: 'Drop us a quick mail — we’re fast responders!', cardIndex: 1 },
+  { text: 'Prefer a real voice? Give us a ring!', cardIndex: 2 },
+  { text: 'Got questions? Our help center has answers!', cardIndex: 3 },
 ];
 
 // Animated chatbot face that looks down at the contact cards
@@ -136,11 +136,11 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* The SVG face — rotated to look down */}
+          {/* The SVG face — tilted to look down at cards */}
           <svg
             viewBox="0 0 318.34 318.34"
             className="relative w-full h-full drop-shadow-lg"
-            style={{ transform: 'rotateX(12deg)' }}
+            style={{ transform: 'rotateX(18deg) translateY(4px)' }}
           >
             <defs>
               <linearGradient id="contact-face-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
@@ -152,12 +152,12 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             {/* Body */}
             <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
 
-            {/* Left eye — shifted down to "look down" */}
+            {/* Left eye — shifted down to gaze at cards */}
             <g style={{
               transformOrigin: '125px 150px',
               transform: blinking
-                ? 'scaleY(0.08) translateY(12px)'
-                : 'scaleY(1) translateY(12px)',
+                ? 'scaleY(0.08) translateY(18px)'
+                : 'scaleY(1) translateY(18px)',
               transition: 'transform 0.15s ease-in-out',
             }}>
               <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
@@ -167,8 +167,8 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             <g style={{
               transformOrigin: '193px 150px',
               transform: blinking
-                ? 'scaleY(0.08) translateY(12px)'
-                : 'scaleY(1) translateY(12px)',
+                ? 'scaleY(0.08) translateY(18px)'
+                : 'scaleY(1) translateY(18px)',
               transition: 'transform 0.15s ease-in-out',
             }}>
               <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
@@ -184,16 +184,6 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             </g>
           </svg>
 
-          {/* Downward pointing indicator — little arrow/chevron below the face */}
-          <motion.div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2"
-            animate={{ y: [0, 4, 0], opacity: [0.4, 0.8, 0.4] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-              <path d="M2 2L10 10L18 2" stroke="#5398d2" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.div>
         </motion.div>
       </div>
     </motion.div>
