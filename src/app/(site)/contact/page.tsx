@@ -122,12 +122,11 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Face tilted downward to look at cards */}
+        {/* Face */}
         <motion.div
           className="relative w-28 h-28 md:w-32 md:h-32"
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ perspective: '400px' }}
         >
           {/* Glow behind */}
           <motion.div
@@ -136,48 +135,99 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* The SVG face — tilted to look down at cards */}
           <svg
             viewBox="0 0 318.34 318.34"
             className="relative w-full h-full drop-shadow-lg"
-            style={{ transform: 'rotateX(18deg) translateY(4px)' }}
           >
             <defs>
               <linearGradient id="contact-face-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#5398d2" />
                 <stop offset="1" stopColor="#4c63ae" />
               </linearGradient>
+              {/* Clip paths to keep pupils inside eye shapes */}
+              <clipPath id="left-eye-clip">
+                <path d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
+              </clipPath>
+              <clipPath id="right-eye-clip">
+                <path d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
+              </clipPath>
             </defs>
 
             {/* Body */}
             <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
 
-            {/* Left eye — shifted down to gaze at cards */}
-            <g style={{
-              transformOrigin: '125px 150px',
-              transform: blinking
-                ? 'scaleY(0.08) translateY(18px)'
-                : 'scaleY(1) translateY(18px)',
-              transition: 'transform 0.15s ease-in-out',
-            }}>
-              <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
+            {/* Left eye white */}
+            <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
+
+            {/* Left eye pupil — clipped to eye, positioned low = looking down */}
+            <g clipPath="url(#left-eye-clip)">
+              <circle
+                cx="118"
+                cy={blinking ? 140 : 162}
+                r="18"
+                fill="#3b5998"
+                opacity="0.85"
+                style={{ transition: 'cy 0.15s ease-in-out' }}
+              />
+              {/* Pupil highlight */}
+              <circle
+                cx="113"
+                cy={blinking ? 134 : 156}
+                r="5"
+                fill="#fff"
+                opacity="0.7"
+                style={{ transition: 'cy 0.15s ease-in-out' }}
+              />
             </g>
 
-            {/* Right eye — shifted down */}
-            <g style={{
-              transformOrigin: '193px 150px',
-              transform: blinking
-                ? 'scaleY(0.08) translateY(18px)'
-                : 'scaleY(1) translateY(18px)',
-              transition: 'transform 0.15s ease-in-out',
-            }}>
-              <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
+            {/* Left eyelid — closes over the eye from top when blinking */}
+            <rect
+              x="85"
+              y="80"
+              width="70"
+              height={blinking ? 110 : 0}
+              fill="url(#contact-face-grad)"
+              style={{ transition: 'height 0.12s ease-in-out' }}
+            />
+
+            {/* Right eye white */}
+            <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
+
+            {/* Right eye pupil — looking down */}
+            <g clipPath="url(#right-eye-clip)">
+              <circle
+                cx="200"
+                cy={blinking ? 140 : 162}
+                r="18"
+                fill="#3b5998"
+                opacity="0.85"
+                style={{ transition: 'cy 0.15s ease-in-out' }}
+              />
+              {/* Pupil highlight */}
+              <circle
+                cx="195"
+                cy={blinking ? 134 : 156}
+                r="5"
+                fill="#fff"
+                opacity="0.7"
+                style={{ transition: 'cy 0.15s ease-in-out' }}
+              />
             </g>
 
-            {/* Mouth */}
+            {/* Right eyelid */}
+            <rect
+              x="163"
+              y="80"
+              width="70"
+              height={blinking ? 110 : 0}
+              fill="url(#contact-face-grad)"
+              style={{ transition: 'height 0.12s ease-in-out' }}
+            />
+
+            {/* Mouth — opens by dropping down from its center */}
             <g style={{
-              transformOrigin: '159px 215px',
-              transform: mouthOpen ? 'scaleY(1.3) translateY(-2px)' : 'scaleY(1) translateY(0)',
+              transformOrigin: '159px 205px',
+              transform: mouthOpen ? 'scale(1.05, 1.35)' : 'scale(1, 1)',
               transition: 'transform 0.2s ease-in-out',
             }}>
               <path fill="#fff" d="M165.87,183.43l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1Z" />
