@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Store,
   UtensilsCrossed,
-  Heart,
+  Sprout,
   Briefcase,
   ShoppingBag,
   Building2,
@@ -58,22 +58,22 @@ const solutions = [
     stats: { metric: 'faster service delivery', value: 'Optimized' },
   },
   {
-    id: 'healthcare',
-    icon: Heart,
-    title: 'Healthcare & Clinics',
-    tagline: 'Better patient experience, smoother operations',
+    id: 'farming',
+    icon: Sprout,
+    title: 'Farm Management',
+    tagline: 'Grow smarter, manage better',
     description:
-      'BizSuits helps clinics and healthcare practices manage appointments, billing, patient records, and compliance — all while maintaining standards.',
-    color: 'from-rose-500 to-rose-600',
+      'BizSuits has built a complete farm management system — from crop planning and livestock tracking to harvest logistics and financial reporting. We know agriculture because we\'ve built for it.',
+    color: 'from-green-500 to-green-600',
     benefits: [
-      'Appointment scheduling & reminders',
-      'Patient billing & insurance claims',
-      'Inventory for medical supplies',
-      'Staff scheduling & time tracking',
-      'Compliant data handling',
-      'Revenue cycle management',
+      'Crop planning & seasonal tracking',
+      'Livestock inventory & health records',
+      'Harvest & yield management',
+      'Supply chain & distribution tracking',
+      'Farm worker scheduling & payroll',
+      'Revenue & expense reports per season',
     ],
-    stats: { metric: 'admin time saved', value: 'Significant' },
+    stats: { metric: 'farm operations streamlined', value: 'Proven' },
   },
   {
     id: 'services',
@@ -142,14 +142,15 @@ export default function SolutionsPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Industry Solutions
+            Industries We&apos;ve Worked With
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Built for <span className="gradient-text">your industry</span>
+            Proven solutions for{' '}
+            <span className="text-primary-600">real industries</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            BizSuits isn&apos;t one-size-fits-all. We&apos;ve tailored our platform for the unique
-            needs of every industry, so you get exactly what you need from day one.
+            We don&apos;t just build software — we&apos;ve worked with businesses across
+            these industries and delivered custom systems that transformed their operations.
           </p>
         </div>
       </section>

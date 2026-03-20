@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
   ShoppingCart,
@@ -11,6 +13,7 @@ import {
 import Card from '@/components/ui/Card';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Button from '@/components/ui/Button';
+import { motion, staggerContainer, staggerItem } from '@/components/ui/Motion';
 
 const features = [
   {
@@ -73,8 +76,15 @@ export default function FeaturesOverview() {
           subtitle="We don\'t sell off-the-shelf software. Every BizSuits system is tailored to your operations and fully owned by you."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {features.map((feature, index) => (
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {features.map((feature) => (
+            <motion.div key={feature.title} variants={staggerItem}>
             <Card key={feature.title} elevated className="group">
               <div
                 className={`w-14 h-14 rounded-2xl ${feature.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}
@@ -90,8 +100,9 @@ export default function FeaturesOverview() {
                 Learn more <ArrowRight className="w-4 h-4" />
               </a>
             </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="text-center mt-12">
           <Button variant="primary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>

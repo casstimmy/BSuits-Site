@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
   ArrowRight,
@@ -19,6 +21,7 @@ import {
   Banknote,
 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { motion, fadeInUp, slideInLeft, slideInRight, staggerContainer, staggerItem } from '@/components/ui/Motion';
 
 export default function Hero() {
   return (
@@ -33,7 +36,11 @@ export default function Hero() {
       <div className="container-custom relative z-10 pt-24 md:pt-32 pb-16 md:pb-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
-          <div className="animate-fade-in">
+          <motion.div
+            variants={slideInLeft}
+            initial="hidden"
+            animate="visible"
+          >
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-dark-900 leading-[1.1] mb-6">
               Custom-built software{' '}
               <span className="gradient-text">tailored</span>{' '}
@@ -95,10 +102,15 @@ export default function Hero() {
                 You Own It Forever
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right - Dashboard Preview (Back Office style) */}
-          <div className="relative animate-slide-up">
+          <motion.div
+            className="relative"
+            variants={slideInRight}
+            initial="hidden"
+            animate="visible"
+          >
             <div className="relative">
               {/* Main Dashboard Card */}
               <div className="bg-white rounded-2xl shadow-2xl border border-dark-100 overflow-hidden">
@@ -335,7 +347,7 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

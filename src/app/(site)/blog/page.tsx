@@ -1,15 +1,11 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Clock, User, Tag } from 'lucide-react';
-import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Button from '@/components/ui/Button';
-
-export const metadata: Metadata = {
-  title: 'Blog - BizSuits | Tips, Guides & Business Insights',
-  description:
-    'Read the latest tips, guides, and insights from BizSuits. Learn how to grow your business with expert advice on POS, inventory, accounting, and more.',
-};
+import { motion, fadeInUp, staggerContainer, staggerItem } from '@/components/ui/Motion';
 
 const featuredPost = {
   title: 'How Nigerian Restaurant Owners Can Scale Without Losing Control',
@@ -93,6 +89,12 @@ const categories = [
 ];
 
 export default function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const filteredPosts = activeCategory === 'All'
+    ? posts
+    : posts.filter((post) => post.category === activeCategory);
+
   return (
     <>
       {/* Hero */}
@@ -118,11 +120,12 @@ export default function BlogPage() {
       <section className="border-b border-dark-100 bg-white sticky top-16 md:top-20 z-30">
         <div className="container-custom">
           <div className="flex items-center gap-2 py-4 overflow-x-auto no-scrollbar">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <button
                 key={category}
+                onClick={() => setActiveCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
-                  index === 0
+                  activeCategory === category
                     ? 'bg-primary-600 text-white'
                     : 'text-dark-500 hover:bg-dark-50 hover:text-dark-800'
                 }`}
@@ -179,10 +182,16 @@ export default function BlogPage() {
         <div className="container-custom">
           <h3 className="text-xl font-bold text-dark-900 mb-8">Latest Articles</h3>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {posts.map((post) => (
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            key={activeCategory}
+          >
+            {filteredPosts.map((post) => (
+              <motion.div key={post.title} variants={staggerItem}>
               <Link
-                key={post.title}
                 href={post.slug}
                 className="group block"
               >
@@ -218,8 +227,9 @@ export default function BlogPage() {
                   </div>
                 </article>
               </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <div className="text-center mt-12">
             <Button variant="secondary" size="lg" href="#" icon={<ArrowRight className="w-5 h-5" />}>

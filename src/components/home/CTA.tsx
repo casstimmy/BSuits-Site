@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { motion, fadeInUp } from '@/components/ui/Motion';
 
 export default function CTA() {
   return (
@@ -13,6 +16,12 @@ export default function CTA() {
       </div>
 
       <div className="container-custom relative z-10 text-center">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
         <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 text-balance">
           Ready to get your custom{' '}
           <span className="text-primary-300">business system</span>?
@@ -55,6 +64,7 @@ export default function CTA() {
             You Own It Forever
           </div>
         </div>
+        </motion.div>
       </div>
     </section>
   );

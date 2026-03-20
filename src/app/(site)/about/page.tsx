@@ -7,8 +7,6 @@ import {
   Globe,
   Award,
   ArrowRight,
-  Linkedin,
-  Twitter,
 } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';

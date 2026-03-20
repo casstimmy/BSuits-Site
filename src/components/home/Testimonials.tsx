@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import { CheckCheck } from 'lucide-react';
 import SectionHeading from '@/components/ui/SectionHeading';
+import { motion, staggerContainer, staggerItem } from '@/components/ui/Motion';
 
 const testimonials = [
   {
@@ -65,8 +68,15 @@ export default function Testimonials() {
           subtitle="Real feedback from business owners who use BizSuits every day."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {testimonials.map((testimonial) => (
+            <motion.div key={testimonial.name} variants={staggerItem}>
             <div
               key={testimonial.name}
               className={`${testimonial.bgColor} rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-dark-100/50 hover:-translate-y-1`}
@@ -95,8 +105,9 @@ export default function Testimonials() {
                 ))}
               </div>
             </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
