@@ -31,7 +31,7 @@ export default function AdminPage() {
   const [companyInfo] = useState({
     name: 'BizSuits',
     address: 'Lekki Scheme 2, Lagos, Nigeria',
-    phone: '09166843265',
+    phone: '09166843265,  08131009450',
     email: 'hello@bizsuits.com',
   });
 

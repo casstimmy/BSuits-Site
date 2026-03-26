@@ -20,7 +20,7 @@ const contactMethods = [
     icon: MessageSquare,
     title: 'WhatsApp',
     description: 'Chat with our team in real-time for quick questions.',
-    action: '09166843265',
+    action: '09166843265,  08131009450',
     color: 'bg-green-100 text-green-600',
     glowColor: 'ring-green-400 shadow-green-200',
     href: 'https://wa.me/2349166843265?text=Hello%20BizSuits%2C%20I%20have%20a%20question.',
@@ -38,7 +38,7 @@ const contactMethods = [
     icon: Phone,
     title: 'Call Us',
     description: 'Speak directly with our sales or support team.',
-    action: '09166843265',
+    action: '09166843265,  08131009450',
     color: 'bg-emerald-100 text-emerald-600',
     glowColor: 'ring-emerald-400 shadow-emerald-200',
     href: 'tel:+2349166843265',
@@ -59,7 +59,7 @@ const offices = [
     city: 'Lekki',
     country: 'Nigeria',
     address: 'Lekki Schem 2\nLagos, Nigeria',
-    phone: '09166843265',
+    phone: '09166843265,  08131009450',
     type: 'Main Office',
   },
 ];
@@ -531,7 +531,7 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-dark-900">Phone</p>
                       <a href="tel:+2349166843265" className="text-sm text-primary-600 hover:underline">
-                        09166843265
+                        09166843265,  08131009450
                       </a>
                     </div>
                   </div>

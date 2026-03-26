@@ -112,9 +112,9 @@ export default function Footer() {
                 <Mail className="w-4 h-4" />
                 hello@bizsuits.com
               </a>
-              <a href="tel:09166843265" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">
+              <a href="tel:09166843265,  08131009450" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
-                09166843265
+                09166843265,  08131009450
               </a>
               <div className="flex items-center gap-3 text-sm text-white/50">
                 <MapPin className="w-4 h-4" />
