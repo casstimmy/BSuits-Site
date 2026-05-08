@@ -58,7 +58,7 @@ export default function Header() {
               onMouseLeave={() => setIsProductsOpen(false)}
             >
               <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-lg hover:bg-dark-50 transition-all">
-                Build Library
+                Solutions Library
                 <ChevronDown className={clsx('w-4 h-4 transition-transform', isProductsOpen && 'rotate-180')} />
               </button>
 
@@ -85,10 +85,10 @@ export default function Header() {
                 ))}
                 <div className="col-span-2 mt-2 pt-3 border-t border-dark-100">
                   <Link
-                    href="/admin"
+                    href="/demo"
                     className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
                   >
-                    Open build control center <ArrowRight className="w-4 h-4" />
+                    See live demos <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -142,11 +142,11 @@ export default function Header() {
       >
         <div className="bg-white border-t border-dark-100 px-4 py-6 space-y-2">
           <Link
-            href="/admin"
+            href="/demo"
             className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Build Control Center
+            Live Demos
           </Link>
           {navLinks.map((link) => {
             const isActive = pathname === link.href;

@@ -19,19 +19,19 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div variants={slideInLeft} initial="hidden" animate="visible">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-5">
-              Current system review applied
+              Client-ready business systems
             </span>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-dark-900 leading-[1.1] mb-6">
-              BizSuits is now framed around{' '}
-              <span className="gradient-text">real delivery systems</span>{' '}
-              already built.
+              BizSuits delivers{' '}
+              <span className="gradient-text">proven business systems</span>{' '}
+              across commerce, operations, agriculture, and automation.
             </h1>
 
             <p className="text-lg md:text-xl text-dark-500 leading-relaxed mb-8 max-w-2xl">
-              Instead of generic SaaS positioning, the homepage now reflects the seven current
-              applications you shared across retail commerce, farm operations, project delivery,
-              and document automation.
+              Clients can start from live BizSuits systems, explore interactive demos, and then
+              tailor the workflow to their own business without guessing what the final product
+              will look like.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
@@ -47,18 +47,18 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button variant="primary" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                Schedule discovery call
+              <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+                See Live Demos
               </Button>
-              <Button variant="secondary" size="lg" href="/admin">
-                Review build library
+              <Button variant="secondary" size="lg" href="/solutions">
+                Explore Solutions
               </Button>
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-sm text-dark-400">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-accent-500" />
-                Seven current reference builds
+                Interactive demos clients can try
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-accent-500" />
@@ -70,14 +70,14 @@ export default function Hero() {
           <motion.div className="relative" variants={slideInRight} initial="hidden" animate="visible">
             <div className="relative bg-white rounded-3xl shadow-2xl border border-dark-100 overflow-hidden">
               <div className="px-5 py-4 border-b border-dark-100 bg-dark-900 text-white">
-                <p className="text-xs uppercase tracking-[0.24em] text-white/50 mb-1">Build map</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-white/50 mb-1">Solution map</p>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-lg font-semibold">Current BizSuits Reference Stack</h2>
-                    <p className="text-sm text-white/60">Seven systems now drive the positioning, demo language, and solution structure.</p>
+                    <h2 className="text-lg font-semibold">What BizSuits Can Launch</h2>
+                    <p className="text-sm text-white/60">From POS terminals to admin dashboards and desktop tools, these systems show clients what BizSuits can tailor and deploy.</p>
                   </div>
                   <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
-                    {portfolioApps.length} active inputs
+                    {portfolioApps.length} active systems
                   </div>
                 </div>
               </div>

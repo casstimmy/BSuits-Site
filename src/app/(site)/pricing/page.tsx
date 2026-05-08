@@ -8,9 +8,9 @@ import { deliveryTracks } from '@/data/portfolio';
 import { deliverySteps, engagementPackages, pricingFaqs } from '@/data/siteContent';
 
 export const metadata: Metadata = {
-  title: 'Pricing - BizSuits | Build-Aligned Engagements',
+  title: 'Pricing - BizSuits | Client Engagements',
   description:
-    'Review BizSuits engagement tiers built around the current delivery tracks and active application references.',
+    'Explore BizSuits engagement tiers built around proven systems, live demos, and delivery tracks that can be tailored to each client.',
 };
 
 export default function PricingPage() {
@@ -22,15 +22,15 @@ export default function PricingPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Build-Aligned Pricing
+            Client Pricing
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
             Engagements shaped around{' '}
-            <span className="gradient-text">the current build portfolio</span>
+            <span className="gradient-text">proven BizSuits systems</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            These pricing tiers are now tied to the delivery tracks already present in BizSuits,
-            so scope discussions can start from a real build reference instead of generic module lists.
+            These pricing tiers are tied to real solution tracks and demo-ready systems, so
+            scope discussions can start from what clients can already see and evaluate.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {deliveryTracks.map((track) => (
@@ -151,7 +151,7 @@ export default function PricingPage() {
           <SectionHeading
             badge="Delivery Sequence"
             title="Every engagement follows the same operating rhythm"
-            subtitle="The price tier changes the breadth of delivery, but the rollout logic stays grounded in the same reference-led process."
+            subtitle="The price tier changes the breadth of delivery, but the rollout logic stays grounded in the same system-led process."
           />
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
@@ -173,7 +173,7 @@ export default function PricingPage() {
           <SectionHeading
             badge="FAQ"
             title="Common pricing questions"
-            subtitle="These answers are based on how the refreshed portfolio is now positioned and delivered."
+            subtitle="These answers are based on how the current BizSuits solution set is positioned and delivered."
           />
 
           <div className="space-y-4">
@@ -193,7 +193,7 @@ export default function PricingPage() {
             Need help choosing the right delivery path?
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            We can match your workflow to the nearest current build and tell you where adaptation ends and new scope begins.
+            We can match your workflow to the nearest existing system and tell you where adaptation ends and new scope begins.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
@@ -202,10 +202,10 @@ export default function PricingPage() {
             <Button
               variant="ghost"
               size="lg"
-              href="/admin"
+              href="/demo"
               className="!text-white hover:!bg-white/10"
             >
-              Review Build Control Center
+              Explore Live Demos
             </Button>
           </div>
         </div>

@@ -230,7 +230,7 @@ export default function InventoryDemoPage() {
                   <h2 className="text-2xl font-bold text-dark-900 mb-2">Stock Overview</h2>
                   <p className="text-dark-500 max-w-2xl leading-relaxed">
                     The inventory admin build already includes a strong stock-management backbone.
-                    This fragment translates that workflow into a cleaner portfolio demo with filtering, table review, and replenishment cues.
+                    This fragment translates that workflow into a cleaner client demo with filtering, table review, and replenishment cues.
                   </p>
                 </div>
               </div>

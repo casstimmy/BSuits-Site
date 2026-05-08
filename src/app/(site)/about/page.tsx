@@ -10,7 +10,7 @@ import { deliveryPrinciples, deliverySteps } from '@/data/siteContent';
 export const metadata: Metadata = {
   title: 'About - BizSuits | Delivery Model',
   description:
-    'Learn how BizSuits now delivers software from active portfolio references across commerce, operations, agriculture, and automation.',
+    'Learn how BizSuits delivers software from active client systems across commerce, operations, agriculture, and automation.',
 };
 
 export default function AboutPage() {
@@ -28,11 +28,11 @@ export default function AboutPage() {
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
               BizSuits now explains itself through{' '}
-              <span className="gradient-text">real delivery references</span>
+              <span className="gradient-text">real client systems</span>
             </h1>
             <p className="text-lg md:text-xl text-dark-500 leading-relaxed">
               The current system story is no longer about selling a vague all-in-one promise.
-              It is about adapting proven builds across retail commerce, farm operations,
+              It is about adapting proven BizSuits systems across retail commerce, farm operations,
               project delivery, and document automation.
             </p>
           </div>
@@ -57,7 +57,7 @@ export default function AboutPage() {
           <SectionHeading
             badge="Operating Principles"
             title="How delivery decisions are made"
-            subtitle="These principles now describe the real pattern behind the BizSuits portfolio refresh and future project work."
+            subtitle="These principles describe the real pattern behind the BizSuits solution model and future client work."
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -78,8 +78,8 @@ export default function AboutPage() {
         <div className="container-custom">
           <SectionHeading
             badge="Solution Families"
-            title="The current portfolio already clusters into four tracks"
-            subtitle="Each track below groups the active app references now used across the refreshed site."
+            title="The current solution set already clusters into four tracks"
+            subtitle="Each track below groups the active BizSuits systems now used across the public site."
           />
 
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
@@ -128,7 +128,7 @@ export default function AboutPage() {
           <SectionHeading
             badge="Delivery Rhythm"
             title="What a BizSuits engagement now looks like"
-            subtitle="The refreshed site and the portfolio model both follow the same reference-led sequence."
+            subtitle="The public site and the solution model both follow the same system-led sequence."
           />
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
@@ -148,10 +148,10 @@ export default function AboutPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want to map your workflow to the current portfolio?
+            Want to map your workflow to the current solution set?
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            We can review your process against the closest active build and plan the smallest practical rollout path.
+            We can review your process against the closest active system and plan the smallest practical rollout path.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>

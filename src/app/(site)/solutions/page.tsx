@@ -5,11 +5,12 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { deliveryTracks, getAppsForTrack, portfolioApps } from '@/data/portfolio';
+import SolutionDeviceShowcase, { type SolutionTrackId } from '@/components/solutions/SolutionDeviceShowcase';
 
 export const metadata: Metadata = {
-  title: 'Solutions - BizSuits | Delivery Tracks',
+  title: 'Solutions - BizSuits | Client Solutions',
   description:
-    'Explore BizSuits delivery tracks across retail commerce, farm operations, project delivery, and document automation based on the current build portfolio.',
+    'Explore BizSuits client solutions across retail, agriculture, operations, and automation, each backed by device mockups and live-style demos.',
 };
 
 export default function SolutionsPage() {
@@ -22,15 +23,15 @@ export default function SolutionsPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Delivery Tracks
+            Client Solutions
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Solutions grouped by{' '}
-            <span className="text-primary-600">what has already been built</span>
+            See how BizSuits solutions come to life across{' '}
+            <span className="text-primary-600">the devices your team actually uses</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            The solution catalogue now follows the current build portfolio: retail commerce,
-            farm operations, project delivery, and document automation.
+            Each track combines proven systems, live-style demos, and device-ready deployment
+            patterns for real business operations.
           </p>
         </div>
       </section>
@@ -44,7 +45,7 @@ export default function SolutionsPage() {
                   <track.icon className="w-7 h-7" />
                 </div>
                 <p className="text-lg font-bold text-dark-900">{track.title}</p>
-                <p className="text-sm text-dark-400 mt-2">{getAppsForTrack(track.appSlugs).length} linked build references</p>
+                <p className="text-sm text-dark-400 mt-2">{getAppsForTrack(track.appSlugs).length} linked systems</p>
               </Card>
             ))}
           </div>
@@ -54,9 +55,9 @@ export default function SolutionsPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Solution Views"
-            title="Each solution track is now tied to concrete apps"
-            subtitle="This replaces the old broad industry list with delivery tracks that directly map to the current system portfolio."
+            badge="Solution Mockups"
+            title="Each solution track now includes a live-style device mockup"
+            subtitle="Clients should be able to see the shape of the product before integration begins, not just read a feature list."
           />
 
           {deliveryTracks.map((solution, index) => {
@@ -76,7 +77,7 @@ export default function SolutionsPage() {
                   >
                     <solution.icon className="w-7 h-7 text-white" />
                   </div>
-                  <p className="text-sm font-semibold text-primary-600 mb-2">Built from current reference apps</p>
+                  <p className="text-sm font-semibold text-primary-600 mb-2">Proven system bundle</p>
                   <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
                     {solution.title}
                   </h2>
@@ -92,39 +93,46 @@ export default function SolutionsPage() {
                     ))}
                   </div>
                   <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                    Discuss This Track
+                    Talk Through This Solution
                   </Button>
                 </div>
 
                 <div className="flex-1 w-full">
                   <Card elevated padding="lg" className="bg-gradient-to-br from-dark-50 to-white">
-                    <div className="text-center mb-8">
-                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-                        <solution.icon className="w-10 h-10 text-white" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-dark-900 mb-1">Apps powering this track</h3>
-                      <p className="text-sm text-dark-400">Directly mapped from the current reference builds</p>
+                    <div className="text-center mb-6">
+                      <p className="text-sm font-semibold text-primary-600 mb-2">How it looks in use</p>
+                      <h3 className="text-2xl font-bold text-dark-900 mb-1">Device-ready solution preview</h3>
+                      <p className="text-sm text-dark-400">A live-style mockup showing how this solution can span real devices and roles.</p>
                     </div>
-                    <div className="space-y-4">
-                      {apps.map((app) => (
-                        <div key={app.slug} className="p-4 bg-white rounded-xl border border-dark-100">
-                          <div className="flex items-center justify-between gap-3 mb-2">
-                            <p className="text-sm font-semibold text-dark-900">{app.name}</p>
-                            <span className="text-xs font-medium text-primary-600">{app.deliveryMode}</span>
+
+                    <SolutionDeviceShowcase trackId={solution.id as SolutionTrackId} />
+
+                    <div className="mt-6">
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-dark-400">Systems included in this solution</p>
+                        <span className="text-xs font-medium text-primary-600">{apps.length} linked systems</span>
+                      </div>
+                      <div className="space-y-4">
+                        {apps.map((app) => (
+                          <div key={app.slug} className="p-4 bg-white rounded-xl border border-dark-100">
+                            <div className="flex items-center justify-between gap-3 mb-2">
+                              <p className="text-sm font-semibold text-dark-900">{app.name}</p>
+                              <span className="text-xs font-medium text-primary-600">{app.deliveryMode}</span>
+                            </div>
+                            <p className="text-sm text-dark-500 leading-relaxed mb-3">{app.summary}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {app.signals.slice(0, 2).map((signal) => (
+                                <span
+                                  key={signal}
+                                  className="rounded-full bg-dark-50 px-2.5 py-1 text-[11px] font-medium text-dark-500 border border-dark-100"
+                                >
+                                  {signal}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-                          <p className="text-sm text-dark-500 leading-relaxed mb-3">{app.summary}</p>
-                          <div className="flex flex-wrap gap-2">
-                            {app.signals.slice(0, 2).map((signal) => (
-                              <span
-                                key={signal}
-                                className="rounded-full bg-dark-50 px-2.5 py-1 text-[11px] font-medium text-dark-500 border border-dark-100"
-                              >
-                                {signal}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </Card>
                 </div>
@@ -137,8 +145,8 @@ export default function SolutionsPage() {
       <section className="section-padding bg-dark-50/50">
         <div className="container-custom">
           <SectionHeading
-            badge="Portfolio Coverage"
-            title="The solution map now spans the full current reference set"
+            badge="Solution Coverage"
+            title="The solution map now spans the full active system set"
             subtitle="Every active project you provided is represented in one of these tracks."
           />
 
@@ -163,7 +171,7 @@ export default function SolutionsPage() {
             Need a blended solution across multiple tracks?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            The portfolio already shows how we combine operations, commerce, and back-office tooling into one delivery plan.
+            BizSuits already shows how operations, commerce, and back-office tooling can combine into one delivery plan.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>

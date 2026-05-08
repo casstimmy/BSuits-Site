@@ -22,15 +22,15 @@ export default function BlogPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Build Notes
+            Solution Notes
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Notes from the{' '}
-            <span className="gradient-text">current BizSuits build portfolio</span>
+            Insights from the{' '}
+            <span className="gradient-text">BizSuits solution library</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            The blog now acts as a build journal: short explanations of what the active apps already prove,
-            where each delivery track is strongest, and how the public site refresh was grounded in real systems.
+            Use these notes to understand how BizSuits combines commerce, operations, agriculture,
+            and automation patterns into client-ready systems.
           </p>
         </div>
       </section>
@@ -96,7 +96,7 @@ export default function BlogPage() {
 
       <section className="pb-20 md:pb-28 bg-white">
         <div className="container-custom">
-          <h3 className="text-xl font-bold text-dark-900 mb-8">Current Notes</h3>
+          <h3 className="text-xl font-bold text-dark-900 mb-8">Latest Insights</h3>
 
           <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
@@ -145,7 +145,7 @@ export default function BlogPage() {
 
           <div className="text-center mt-12">
             <Button variant="secondary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
-              Explore The Full Portfolio
+              Explore The Full Solution Library
             </Button>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function BlogPage() {
             Want a walkthrough instead of a note?
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            We can review the closest active build with you directly and turn the portfolio notes into a concrete rollout conversation.
+            We can show you the closest live demo, explain the rollout path, and turn these notes into a concrete delivery conversation.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
@@ -166,10 +166,10 @@ export default function BlogPage() {
             <Button
               variant="ghost"
               size="lg"
-              href="/admin"
+              href="/demo"
               className="!text-white hover:!bg-white/10"
             >
-              Open Build Control Center
+              Explore Live Demos
             </Button>
           </div>
         </div>

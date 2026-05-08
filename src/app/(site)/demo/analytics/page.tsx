@@ -160,7 +160,7 @@ export default function AnalyticsDemoPage() {
                   <h2 className="text-2xl font-bold text-dark-900 mb-2">Business Reporting Overview</h2>
                   <p className="text-dark-500 max-w-2xl leading-relaxed">
                     The original reporting page centered on quick period changes and high-signal metrics.
-                    This version keeps that same rhythm while presenting the refreshed portfolio as a credible demo surface.
+                    This version keeps that same rhythm while presenting BizSuits as a credible client demo surface.
                   </p>
                 </div>
               </div>

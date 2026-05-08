@@ -7,9 +7,9 @@ import Button from '@/components/ui/Button';
 import { deliveryTracks, portfolioApps, portfolioStats } from '@/data/portfolio';
 
 export const metadata: Metadata = {
-  title: 'Features - BizSuits | Current Build Breakdown',
+  title: 'Features - BizSuits | Solution Capabilities',
   description:
-    'Review the seven current build references behind BizSuits across retail commerce, agriculture, operations, and document automation.',
+    'Explore the modules and workflows BizSuits can deliver across commerce, agriculture, operations, and document automation.',
 };
 
 export default function FeaturesPage() {
@@ -22,22 +22,22 @@ export default function FeaturesPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Current Build Breakdown
+            Solution Capabilities
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Feature depth sourced from{' '}
-            <span className="gradient-text">the apps already built</span>
+            Feature depth grounded in{' '}
+            <span className="gradient-text">proven BizSuits systems</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            This page now reflects the real modules, workflows, and delivery patterns present
-            in the seven current applications you asked me to review.
+            Explore the modules, workflows, and surfaces BizSuits can adapt for clients across
+            retail commerce, agriculture, operations, and automation.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="primary" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Schedule discovery call
+            <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+              See Live Demos
             </Button>
-            <Button variant="secondary" size="lg" href="/admin">
-              Open Build Control Center
+            <Button variant="secondary" size="lg" href="/solutions">
+              Explore Solution Tracks
             </Button>
           </div>
         </div>
@@ -59,9 +59,9 @@ export default function FeaturesPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Application Level"
-            title="Each referenced build now has a place in the feature story"
-            subtitle="Every section below is mapped to one of the current projects rather than a generic module placeholder."
+            badge="Client Systems"
+            title="Each BizSuits system contributes real feature depth"
+            subtitle="Every section below maps to a deliverable system BizSuits can tailor for a client rollout."
           />
 
           {portfolioApps.map((app, index) => (
@@ -97,10 +97,10 @@ export default function FeaturesPage() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                    Discuss This Build
+                    Discuss This Solution
                   </Button>
-                  <Button variant="secondary" href="/admin">
-                    View Control Center
+                  <Button variant="secondary" href="/demo">
+                    Browse Demos
                   </Button>
                 </div>
               </div>
@@ -127,7 +127,7 @@ export default function FeaturesPage() {
                   </div>
 
                   <div className="rounded-2xl bg-white border border-dark-100 p-5 mb-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-dark-400 mb-3">Build signal</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-dark-400 mb-3">Delivery signal</p>
                     <p className="text-sm font-medium text-dark-700 leading-relaxed mb-3">{app.status}</p>
                     <p className="text-sm text-dark-500 leading-relaxed">{app.stack}</p>
                   </div>
@@ -153,8 +153,8 @@ export default function FeaturesPage() {
         <div className="container-custom">
           <SectionHeading
             badge="Delivery Tracks"
-            title="Cross-cutting patterns already proven across the portfolio"
-            subtitle="These tracks summarize how the current builds cluster into product-ready solution families."
+            title="Cross-cutting patterns already proven across BizSuits systems"
+            subtitle="These tracks summarize how the active systems cluster into product-ready solution families."
           />
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
@@ -184,7 +184,7 @@ export default function FeaturesPage() {
             Need one of these patterns tailored to your operation?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            We can now talk through concrete build references instead of vague modules.
+            We can show you live demo flows, explain the rollout path, and tailor the right modules to your operation.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>

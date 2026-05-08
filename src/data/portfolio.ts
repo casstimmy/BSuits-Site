@@ -38,10 +38,10 @@ export interface DeliveryTrack {
 }
 
 export const portfolioStats = [
-  { value: '7', label: 'current build references' },
-  { value: '4', label: 'industry delivery tracks' },
-  { value: '3', label: 'commerce surfaces already shipped' },
-  { value: 'Web + Desktop', label: 'delivery footprint' },
+  { value: '7', label: 'active systems' },
+  { value: '4', label: 'delivery tracks' },
+  { value: '5', label: 'interactive demos' },
+  { value: 'Web + Desktop', label: 'deployment coverage' },
 ];
 
 export const portfolioApps: PortfolioApp[] = [
