@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { Camera, Copy, CheckCircle, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 
 // Type definitions
@@ -349,6 +350,7 @@ export default function ManageStaff() {
   const [editingPenalty, setEditingPenalty] = useState<{ staffId: string; index: number } | null>(null);
   const [editPenaltyForm, setEditPenaltyForm] = useState({ amount: "", reason: "", date: "" });
   const [clearingPenalties, setClearingPenalties] = useState(false);
+  const [brokenProfilePhotos, setBrokenProfilePhotos] = useState<Record<string, boolean>>({});
 
   const [form, setForm] = useState({
     name: "",
@@ -758,12 +760,12 @@ export default function ManageStaff() {
             <div className="flex items-center gap-4 mb-4">
               <div
                 onClick={() => staffPhotoRef.current?.click()}
-                className="w-16 h-16 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition overflow-hidden shrink-0"
+                className="relative w-16 h-16 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition overflow-hidden shrink-0"
               >
                 {uploadingPhoto ? (
                   <Loader2 size={20} className="text-blue-400 animate-spin" />
                 ) : photoPreview ? (
-                  <img src={photoPreview} alt="Staff" className="w-full h-full object-cover" />
+                  <Image src={photoPreview} alt="Staff" fill unoptimized className="object-cover" />
                 ) : (
                   <Camera size={20} className="text-gray-400" />
                 )}
@@ -896,12 +898,12 @@ export default function ManageStaff() {
                         <div className="flex items-center gap-3">
                           <div
                             onClick={() => editPhotoRef.current?.click()}
-                            className="w-14 h-14 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400 transition overflow-hidden shrink-0"
+                            className="relative w-14 h-14 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400 transition overflow-hidden shrink-0"
                           >
                             {uploadingEditPhoto ? (
                               <Loader2 size={18} className="text-blue-400 animate-spin" />
                             ) : editPhotoPreview ? (
-                              <img src={editPhotoPreview} alt="Staff" className="w-full h-full object-cover" />
+                              <Image src={editPhotoPreview} alt="Staff" fill unoptimized className="object-cover" />
                             ) : (
                               <Camera size={18} className="text-gray-400" />
                             )}
@@ -1006,21 +1008,23 @@ export default function ManageStaff() {
                     ) : (
                       <div className="w-full">
                         <div className="flex items-start gap-4 w-full">
-                          {staff.photo ? (
-                            <img
+                          {staff.photo && !brokenProfilePhotos[staff._id] ? (
+                            <Image
                               src={staff.photo}
                               alt={staff.name}
+                              width={40}
+                              height={40}
+                              unoptimized
                               className="w-10 h-10 rounded-full object-cover shrink-0"
-                              onError={(event: React.SyntheticEvent<HTMLImageElement>) => {
-                                event.currentTarget.style.display = "none";
-                                const fallback = event.currentTarget.nextElementSibling as HTMLElement | null;
-                                if (fallback) {
-                                  fallback.style.display = "flex";
-                                }
+                              onError={() => {
+                                setBrokenProfilePhotos((prev) => ({
+                                  ...prev,
+                                  [staff._id]: true,
+                                }));
                               }}
                             />
                           ) : null}
-                          <div className={`w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg shrink-0 ${staff.photo ? "hidden" : ""}`}>
+                          <div className={`w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg shrink-0 ${staff.photo && !brokenProfilePhotos[staff._id] ? "hidden" : ""}`}>
                             {staff.name?.charAt(0).toUpperCase()}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -1167,9 +1171,12 @@ export default function ManageStaff() {
                                   )}
                                 </div>
                                 {staff.onboardingData.photo && (
-                                  <img
+                                  <Image
                                     src={staff.onboardingData.photo}
                                     alt="Staff passport"
+                                    width={64}
+                                    height={64}
+                                    unoptimized
                                     className="w-16 h-16 rounded-lg object-cover mt-2 border"
                                   />
                                 )}
@@ -1219,9 +1226,12 @@ export default function ManageStaff() {
                                   )}
                                 </div>
                                 {staff.guarantor.photo && (
-                                  <img
+                                  <Image
                                     src={staff.guarantor.photo}
                                     alt="Guarantor passport"
+                                    width={64}
+                                    height={64}
+                                    unoptimized
                                     className="w-16 h-16 rounded-lg object-cover mt-2 border"
                                   />
                                 )}
