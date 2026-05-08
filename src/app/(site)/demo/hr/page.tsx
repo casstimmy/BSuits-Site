@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import React, { useRef, useState } from "react";
 import { Camera, Copy, CheckCircle, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 
 // Type definitions
@@ -57,6 +56,8 @@ interface Staff {
   createdAt: Date;
 }
 
+type CurrentStaff = Pick<Staff, "name" | "role">;
+
 const LOCATIONS = ["Ibile 1", "Ibile 2"];
 
 function toCamelCase(str: string) {
@@ -71,19 +72,13 @@ function toCamelCase(str: string) {
 // Mock salary table component
 const SalaryTable = React.forwardRef<
   HTMLDivElement,
-  { staffList?: Staff[]; currentStaff?: any }
+  { staffList?: Staff[]; currentStaff?: CurrentStaff }
 >(({ staffList = [], currentStaff }, ref) => {
   const totalPenalties = (staff: Staff) =>
     staff.penalty?.reduce((sum: number, p) => sum + (p.amount || 0), 0) || 0;
 
   const filteredStaffList = staffList.filter(
     (staff: Staff) => (Number(staff.salary) || 0) - totalPenalties(staff) > 0
-  );
-
-  const totalAmount = filteredStaffList.reduce(
-    (total: number, staff: Staff) =>
-      total + ((Number(staff.salary) || 0) - totalPenalties(staff)),
-    0
   );
 
   const chunkedStaff: Staff[][] = [];
@@ -108,7 +103,7 @@ const SalaryTable = React.forwardRef<
       {chunkedStaff.length === 0 ? (
         <p className="text-gray-500 text-center py-8">No staff with salary data</p>
       ) : (
-        chunkedStaff.map((chunk: any, index: number) => {
+        chunkedStaff.map((chunk: Staff[], index: number) => {
           const chunkTotal = calculateSubtotal(chunk);
           return (
             <div key={index} className="space-y-2">
@@ -126,7 +121,7 @@ const SalaryTable = React.forwardRef<
                     </tr>
                   </thead>
                   <tbody className="text-gray-700">
-                    {chunk.map((staff: any) => (
+                    {chunk.map((staff: Staff) => (
                       <tr
                         key={staff._id}
                         className="hover:bg-gray-50 transition-colors duration-200"
@@ -331,18 +326,15 @@ const MOCK_STAFF: Staff[] = [
 
 export default function ManageStaff() {
   const [staffList, setStaffList] = useState<Staff[]>(MOCK_STAFF);
-  const [loadingStaffList, setLoadingStaffList] = useState(false);
   const [message, setMessage] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("list");
-  const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [downloading, setDownloading] = useState(false);
-  const [isSending, setIsSending] = useState(false);
-  const salaryMemoRef = useRef<any>(null);
+  const [isSending] = useState(false);
+  const salaryMemoRef = useRef<HTMLDivElement | null>(null);
   const staffPhotoRef = useRef<HTMLInputElement>(null);
 
-  const [currentStaff, setCurrentStaff] = useState({ role: "admin", name: "Admin User" });
+  const [currentStaff] = useState<CurrentStaff>({ role: "admin", name: "Admin User" });
 
   // Photo upload state
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -419,7 +411,7 @@ export default function ManageStaff() {
     }, 800);
   };
 
-  const copyOnboardingLink = (staffMember: any) => {
+  const copyOnboardingLink = (staffMember: Staff) => {
     const link = `${window.location.origin}/onboarding/${staffMember.onboardingToken}`;
     navigator.clipboard.writeText(link);
     setCopiedLink(staffMember._id);
@@ -662,10 +654,6 @@ export default function ManageStaff() {
     if (editingId === id) cancelEdit();
 
     setTimeout(() => setMessage(""), 3000);
-  };
-
-  const handleMemoView = () => {
-    localStorage.setItem("staffPayroll", JSON.stringify(staffList));
   };
 
   const handleEditPenalty = (staffId: string, index: number, penalty: Penalty) => {
@@ -1023,9 +1011,12 @@ export default function ManageStaff() {
                               src={staff.photo}
                               alt={staff.name}
                               className="w-10 h-10 rounded-full object-cover shrink-0"
-                              onError={(e: any) => {
-                                e.target.style.display = "none";
-                                e.target.nextElementSibling.style.display = "flex";
+                              onError={(event: React.SyntheticEvent<HTMLImageElement>) => {
+                                event.currentTarget.style.display = "none";
+                                const fallback = event.currentTarget.nextElementSibling as HTMLElement | null;
+                                if (fallback) {
+                                  fallback.style.display = "flex";
+                                }
                               }}
                             />
                           ) : null}

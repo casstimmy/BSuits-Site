@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Clock, User, Tag } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import { motion, fadeInUp, staggerContainer, staggerItem } from '@/components/ui/Motion';
+import { motion, staggerContainer, staggerItem } from '@/components/ui/Motion';
 import { buildNoteCategories, buildNotes, featuredBuildNote } from '@/data/siteContent';
 
 export default function BlogPage() {
