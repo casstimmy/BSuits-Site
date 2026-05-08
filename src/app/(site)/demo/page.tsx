@@ -1043,12 +1043,11 @@ export default function DemoPage() {
         </div>
         <div className="flex items-center gap-3">
           <Link
-            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            target="_blank"
+            href="/admin"
             className="text-dark-300 hover:text-white flex items-center gap-1 transition-colors"
           >
             <Play className="w-3 h-3" />
-            Watch Video
+            Review Builds
           </Link>
           <Link
             href="/"

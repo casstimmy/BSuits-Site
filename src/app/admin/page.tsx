@@ -1,472 +1,210 @@
-'use client';
+import React from 'react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
+import SectionHeading from '@/components/ui/SectionHeading';
+import { deliveryTracks, getAppsForTrack, portfolioApps, portfolioStats } from '@/data/portfolio';
 
-import React, { useState, useRef } from 'react';
-import {
-  Plus,
-  Trash2,
-  Download,
-  FileText,
-  Printer,
-  CheckCircle2,
-  AlertCircle,
-} from 'lucide-react';
+const reviewFindings = [
+  'The public system was still anchored to generic SaaS copy instead of the seven current build references.',
+  'Navigation and landing sections are now driven by shared portfolio data, which removes copy drift between pages.',
+  'The old invoice-generator admin route has been repurposed into a build review surface that matches this site refresh.',
+];
 
-interface InvoiceItem {
-  id: number;
-  description: string;
-  quantity: number;
-  rate: number;
-}
-
-const emptyItem: InvoiceItem = {
-  id: Date.now(),
-  description: '',
-  quantity: 1,
-  rate: 0,
-};
+const updatedSurfaces = [
+  'Header navigation and build library dropdown',
+  'Homepage hero, build-family overview, and portfolio proof section',
+  'Features and solutions pages rebuilt around current delivery tracks',
+  'Admin route converted into a review-oriented build control center',
+  'Primary placeholder demo links replaced on refreshed public pages',
+];
 
 export default function AdminPage() {
-  const printRef = useRef<HTMLDivElement>(null);
-
-  const [companyInfo] = useState({
-    name: 'BizSuits',
-    address: 'Lekki Scheme 2, Lagos, Nigeria',
-    phone: '09166843265,  08131009450',
-    email: 'hello@bizsuits.com',
-  });
-
-  const [clientInfo, setClientInfo] = useState({
-    name: '',
-    email: '',
-    address: '',
-    phone: '',
-  });
-
-  const [invoiceDetails, setInvoiceDetails] = useState({
-    invoiceNumber: `INV-${String(Date.now()).slice(-6)}`,
-    date: new Date().toISOString().split('T')[0],
-    dueDate: '',
-    notes: '',
-  });
-
-  const [items, setItems] = useState<InvoiceItem[]>([
-    { ...emptyItem, id: Date.now() },
-  ]);
-
-  const [currency] = useState('₦');
-  const [includeVat, setIncludeVat] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<'unpaid' | 'paid'>('unpaid');
-
-  const addItem = () => {
-    setItems([...items, { ...emptyItem, id: Date.now() }]);
-  };
-
-  const removeItem = (id: number) => {
-    if (items.length > 1) {
-      setItems(items.filter((item) => item.id !== id));
-    }
-  };
-
-  const updateItem = (id: number, field: keyof InvoiceItem, value: string | number) => {
-    setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, [field]: value } : item
-      )
-    );
-  };
-
-  const subtotal = items.reduce((sum, item) => sum + item.quantity * item.rate, 0);
-  const tax = includeVat ? subtotal * 0.075 : 0;
-  const total = subtotal + tax;
-
-  const formatCurrency = (amount: number) =>
-    `${currency}${amount.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Admin Header - hidden on print */}
-      <header className="bg-dark-900 text-white py-4 print:hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img
-              src="/images/logo.png"
-              alt="BizSuits"
-              width={32}
-              height={32}
-            />
-            <div>
-              <h1 className="text-lg font-bold">BizSuits Admin</h1>
-              <p className="text-xs text-white/50">Invoice Generator</p>
+    <div className="min-h-screen bg-dark-950">
+      <section className="pt-10 pb-16 gradient-bg relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container-custom relative z-10">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="max-w-3xl">
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-white/10 text-white/90 mb-5">
+                Internal review surface
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-balance">
+                BizSuits Build Control Center
+              </h1>
+              <p className="text-lg md:text-xl text-white/70 max-w-2xl">
+                This page now acts as the system review console for the seven current applications
+                you shared, replacing the unrelated invoice workflow that previously lived here.
+              </p>
             </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handlePrint}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors"
-            >
-              <Printer className="w-4 h-4" />
-              Print / Save PDF
-            </button>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
+                Schedule Working Session
+              </Button>
+              <Button
+                variant="ghost"
+                size="lg"
+                href="/features"
+                className="!text-white hover:!bg-white/10"
+              >
+                Open Public Feature Map
+              </Button>
+            </div>
           </div>
         </div>
-      </header>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Form Side - hidden on print */}
-          <div className="print:hidden space-y-6">
-            {/* Client Info */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-primary-600" />
-                Client Information
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Client Name *</label>
-                  <input
-                    type="text"
-                    required
-                    value={clientInfo.name}
-                    onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                    placeholder="Client or company name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input
-                    type="email"
-                    value={clientInfo.email}
-                    onChange={(e) => setClientInfo({ ...clientInfo, email: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                    placeholder="client@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <input
-                    type="tel"
-                    value={clientInfo.phone}
-                    onChange={(e) => setClientInfo({ ...clientInfo, phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                    placeholder="+234..."
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                  <input
-                    type="text"
-                    value={clientInfo.address}
-                    onChange={(e) => setClientInfo({ ...clientInfo, address: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                    placeholder="Client address"
-                  />
-                </div>
-              </div>
-            </div>
+      <section className="-mt-8 relative z-10">
+        <div className="container-custom">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            {portfolioStats.map((stat) => (
+              <Card key={stat.label} elevated className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-dark-900">{stat.value}</p>
+                <p className="text-sm text-dark-400 mt-2">{stat.label}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Invoice Details */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Invoice Details</h2>
-              <div className="grid sm:grid-cols-3 gap-4 mb-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Invoice #</label>
-                  <input
-                    type="text"
-                    value={invoiceDetails.invoiceNumber}
-                    onChange={(e) => setInvoiceDetails({ ...invoiceDetails, invoiceNumber: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                  <input
-                    type="date"
-                    value={invoiceDetails.date}
-                    onChange={(e) => setInvoiceDetails({ ...invoiceDetails, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
-                  <input
-                    type="date"
-                    value={invoiceDetails.dueDate}
-                    onChange={(e) => setInvoiceDetails({ ...invoiceDetails, dueDate: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-6">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={includeVat}
-                    onChange={(e) => setIncludeVat(e.target.checked)}
-                    className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-                  />
-                  <span className="text-sm font-medium text-gray-700">Include VAT (7.5%)</span>
-                </label>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-700">Status:</span>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentStatus('unpaid')}
-                    className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
-                      paymentStatus === 'unpaid'
-                        ? 'bg-amber-100 text-amber-700 ring-2 ring-amber-300'
-                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                    }`}
-                  >
-                    Unpaid
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentStatus('paid')}
-                    className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
-                      paymentStatus === 'paid'
-                        ? 'bg-green-100 text-green-700 ring-2 ring-green-300'
-                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                    }`}
-                  >
-                    Paid
-                  </button>
-                </div>
-              </div>
-            </div>
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Review Notes"
+            title="What changed in this refresh"
+            subtitle="The admin surface now summarizes the review outcome and the portfolio model driving the rest of the site."
+          />
 
-            {/* Line Items */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Items</h2>
-              <div className="space-y-3">
-                {items.map((item) => (
-                  <div key={item.id} className="flex items-start gap-3">
-                    <div className="flex-1">
-                      <input
-                        type="text"
-                        value={item.description}
-                        onChange={(e) => updateItem(item.id, 'description', e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                        placeholder="Item description"
-                      />
-                    </div>
-                    <div className="w-20">
-                      <input
-                        type="number"
-                        min="1"
-                        value={item.quantity}
-                        onChange={(e) => updateItem(item.id, 'quantity', parseInt(e.target.value) || 0)}
-                        className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none text-center"
-                        placeholder="Qty"
-                      />
-                    </div>
-                    <div className="w-32">
-                      <input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        value={item.rate || ''}
-                        onChange={(e) => updateItem(item.id, 'rate', parseFloat(e.target.value) || 0)}
-                        className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
-                        placeholder="Rate"
-                      />
-                    </div>
-                    <div className="w-28 py-2 text-sm font-medium text-gray-700 text-right">
-                      {formatCurrency(item.quantity * item.rate)}
-                    </div>
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+            <Card elevated className="h-full">
+              <h2 className="text-2xl font-bold text-dark-900 mb-5">Core findings</h2>
+              <div className="space-y-4">
+                {reviewFindings.map((finding) => (
+                  <div key={finding} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                    <p className="text-sm text-dark-600 leading-relaxed">{finding}</p>
                   </div>
                 ))}
               </div>
-              <button
-                onClick={addItem}
-                className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Add Item
-              </button>
-            </div>
+            </Card>
 
-            {/* Notes */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Notes</h2>
-              <textarea
-                value={invoiceDetails.notes}
-                onChange={(e) => setInvoiceDetails({ ...invoiceDetails, notes: e.target.value })}
-                rows={3}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none resize-none"
-                placeholder="Additional notes (e.g. payment terms, bank details)..."
-              />
-            </div>
-          </div>
-
-          {/* Invoice Preview */}
-          <div>
-            <div className="print:hidden text-sm font-medium text-gray-500 mb-3">Preview</div>
-            <div
-              ref={printRef}
-              className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 print:shadow-none print:border-0 print:p-0"
-            >
-              {/* Invoice Header */}
-              <div className="flex justify-between items-start mb-8">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <img
-                      src="/images/logo.png"
-                      alt="BizSuits"
-                      width={36}
-                      height={36}
-                    />
-                    <span className="text-xl font-bold text-gray-900">
-                      Biz<span className="text-[#4c63ae]">Suits</span>
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-500">{companyInfo.address}</p>
-                  <p className="text-xs text-gray-500">{companyInfo.phone}</p>
-                  <p className="text-xs text-gray-500">{companyInfo.email}</p>
-                </div>
-                <div className="text-right">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-1">INVOICE</h2>
-                  <p className="text-sm text-gray-600">{invoiceDetails.invoiceNumber}</p>
-                  <div className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
-                    paymentStatus === 'paid'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-amber-100 text-amber-700'
-                  }`}>
-                    {paymentStatus === 'paid' ? (
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                    ) : (
-                      <AlertCircle className="w-3.5 h-3.5" />
-                    )}
-                    {paymentStatus === 'paid' ? 'PAID' : 'UNPAID'}
-                  </div>
-                </div>
+            <Card elevated className="h-full">
+              <h2 className="text-2xl font-bold text-dark-900 mb-5">Updated surfaces</h2>
+              <div className="flex flex-wrap gap-3">
+                {updatedSurfaces.map((surface) => (
+                  <span
+                    key={surface}
+                    className="rounded-full bg-dark-50 px-4 py-2 text-sm font-medium text-dark-500 border border-dark-100"
+                  >
+                    {surface}
+                  </span>
+                ))}
               </div>
-
-              {/* Client + Dates */}
-              <div className="grid grid-cols-2 gap-8 mb-8 pb-6 border-b border-gray-200">
-                <div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase mb-1">Bill To</p>
-                  <p className="text-sm font-semibold text-gray-900">{clientInfo.name || 'Client Name'}</p>
-                  {clientInfo.email && <p className="text-xs text-gray-500">{clientInfo.email}</p>}
-                  {clientInfo.phone && <p className="text-xs text-gray-500">{clientInfo.phone}</p>}
-                  {clientInfo.address && <p className="text-xs text-gray-500">{clientInfo.address}</p>}
-                </div>
-                <div className="text-right">
-                  <div className="mb-2">
-                    <p className="text-xs font-semibold text-gray-400 uppercase">Date</p>
-                    <p className="text-sm text-gray-700">
-                      {invoiceDetails.date ? new Date(invoiceDetails.date).toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' }) : '-'}
-                    </p>
-                  </div>
-                  {invoiceDetails.dueDate && (
-                    <div>
-                      <p className="text-xs font-semibold text-gray-400 uppercase">Due Date</p>
-                      <p className="text-sm text-gray-700">
-                        {new Date(invoiceDetails.dueDate).toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' })}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Items Table */}
-              <table className="w-full mb-8">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left text-xs font-semibold text-gray-400 uppercase py-2">Description</th>
-                    <th className="text-center text-xs font-semibold text-gray-400 uppercase py-2 w-16">Qty</th>
-                    <th className="text-right text-xs font-semibold text-gray-400 uppercase py-2 w-28">Rate</th>
-                    <th className="text-right text-xs font-semibold text-gray-400 uppercase py-2 w-28">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item) => (
-                    <tr key={item.id} className="border-b border-gray-100">
-                      <td className="py-3 text-sm text-gray-700">{item.description || '-'}</td>
-                      <td className="py-3 text-sm text-gray-700 text-center">{item.quantity}</td>
-                      <td className="py-3 text-sm text-gray-700 text-right">{formatCurrency(item.rate)}</td>
-                      <td className="py-3 text-sm font-medium text-gray-900 text-right">
-                        {formatCurrency(item.quantity * item.rate)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              {/* Totals */}
-              <div className="flex justify-end mb-8">
-                <div className="w-64 space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Subtotal</span>
-                    <span className="text-gray-700">{formatCurrency(subtotal)}</span>
-                  </div>
-                  {includeVat && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">VAT (7.5%)</span>
-                      <span className="text-gray-700">{formatCurrency(tax)}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between text-base font-bold border-t border-gray-200 pt-2">
-                    <span className="text-gray-900">Total</span>
-                    <span className="text-gray-900">{formatCurrency(total)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Notes */}
-              {invoiceDetails.notes && (
-                <div className="border-t border-gray-200 pt-4">
-                  <p className="text-xs font-semibold text-gray-400 uppercase mb-1">Notes</p>
-                  <p className="text-sm text-gray-600 whitespace-pre-line">{invoiceDetails.notes}</p>
-                </div>
-              )}
-
-              {/* Footer */}
-              <div className="mt-8 pt-4 border-t border-gray-200 text-center">
-                <p className="text-xs text-gray-400">
-                  Thank you for your business — BizSuits
-                </p>
-              </div>
-            </div>
+            </Card>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Print styles */}
-      <style jsx global>{`
-        @media print {
-          body > *:not(.print-target) {
-            /* handled by print: classes */
-          }
-          header, .print\\:hidden {
-            display: none !important;
-          }
-          .bg-gray-100 {
-            background: white !important;
-          }
-          .max-w-7xl {
-            max-width: 100% !important;
-            padding: 0 !important;
-          }
-          .grid.lg\\:grid-cols-2 {
-            display: block !important;
-          }
-          .print\\:shadow-none {
-            box-shadow: none !important;
-          }
-        }
-      `}</style>
+      <section className="section-padding bg-dark-50/50">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Delivery Tracks"
+            title="How the current apps cluster into solution families"
+            subtitle="These are the same groupings now used across the refreshed home, features, and solutions pages."
+          />
+
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+            {deliveryTracks.map((track) => {
+              const apps = getAppsForTrack(track.appSlugs);
+
+              return (
+                <Card key={track.id} elevated className="h-full">
+                  <div className="flex items-start gap-4 mb-5">
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.gradient} flex items-center justify-center text-white shadow-lg`}>
+                      <track.icon className="w-7 h-7" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-dark-900 mb-1">{track.title}</h3>
+                      <p className="text-dark-500 leading-relaxed">{track.summary}</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-5">
+                    {track.capabilities.map((capability) => (
+                      <div key={capability} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                        <p className="text-sm text-dark-600 leading-relaxed">{capability}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {apps.map((app) => (
+                      <span
+                        key={app.slug}
+                        className="rounded-full bg-white px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
+                      >
+                        {app.name}
+                      </span>
+                    ))}
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Referenced Apps"
+            title="The current build inputs behind the refresh"
+            subtitle="Every app below is now represented in the shared portfolio model that drives the public site."
+          />
+
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+            {portfolioApps.map((app) => (
+              <Card key={app.slug} elevated className="h-full">
+                <div className="flex items-start justify-between gap-4 mb-5">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-lg`}>
+                    <app.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <span className="rounded-full bg-dark-50 px-3 py-1 text-xs font-semibold text-dark-500 border border-dark-100">
+                    {app.deliveryMode}
+                  </span>
+                </div>
+
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600 mb-2">
+                  {app.sourceProject}
+                </p>
+                <h3 className="text-xl font-bold text-dark-900 mb-3">{app.name}</h3>
+                <p className="text-dark-500 leading-relaxed mb-5">{app.summary}</p>
+
+                <div className="space-y-2 mb-5">
+                  {app.modules.slice(0, 2).map((module) => (
+                    <p key={module} className="text-sm text-dark-500 leading-relaxed">
+                      {module}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="rounded-2xl bg-dark-50 border border-dark-100 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-dark-400 mb-2">Build signal</p>
+                  <p className="text-sm font-medium text-dark-700 mb-2">{app.status}</p>
+                  <p className="text-sm text-dark-500">{app.stack}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Hero from '@/components/home/Hero';
 import FeaturesOverview from '@/components/home/FeaturesOverview';
-import Testimonials from '@/components/home/Testimonials';
+import BuildPortfolio from '@/components/home/BuildPortfolio';
 import CTA from '@/components/home/CTA';
 
 export default function HomePage() {
@@ -8,7 +8,7 @@ export default function HomePage() {
     <>
       <Hero />
       <FeaturesOverview />
-      <Testimonials />
+      <BuildPortfolio />
       <CTA />
     </>
   );

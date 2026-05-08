@@ -1,159 +1,20 @@
 import React from 'react';
-import {
-  Store,
-  UtensilsCrossed,
-  Sprout,
-  Briefcase,
-  ShoppingBag,
-  Building2,
-  Building,
-  CheckCircle2,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
+import { deliveryTracks, getAppsForTrack, portfolioApps } from '@/data/portfolio';
 
 export const metadata: Metadata = {
-  title: 'Solutions - BizSuits | Industry-Specific Business Solutions',
+  title: 'Solutions - BizSuits | Delivery Tracks',
   description:
-    'BizSuits is tailored for retail, restaurants, healthcare, professional services, e-commerce, and more. Find the right solution for your industry.',
+    'Explore BizSuits delivery tracks across retail commerce, farm operations, project delivery, and document automation based on the current build portfolio.',
 };
-
-const solutions = [
-  {
-    id: 'retail',
-    icon: Store,
-    title: 'Retail',
-    tagline: 'Sell smarter across every channel',
-    description:
-      'From boutique shops to multi-store chains, BizSuits gives retailers a unified platform for POS, inventory, customer management, and analytics.',
-    color: 'from-blue-500 to-blue-600',
-    benefits: [
-      'Multi-store inventory sync in real-time',
-      'Customer loyalty programs & rewards',
-      'Barcode scanning & product catalogs',
-      'Omnichannel selling (in-store + online)',
-      'Staff management & commissions',
-      'Detailed sales & product analytics',
-    ],
-    stats: { metric: 'streamlined operations', value: 'Tailored' },
-  },
-  {
-    id: 'restaurants',
-    icon: UtensilsCrossed,
-    title: 'Restaurants & Hospitality',
-    tagline: 'Serve faster, manage better',
-    description:
-      'Whether you run a single café or a restaurant chain, BizSuits streamlines ordering, table management, kitchen workflows, and financial tracking.',
-    color: 'from-orange-500 to-orange-600',
-    benefits: [
-      'Table management & floor plans',
-      'Kitchen display system (KDS)',
-      'Menu management with modifiers',
-      'Split checks & tip management',
-      'Reservation & waitlist integration',
-      'Food cost & waste tracking',
-    ],
-    stats: { metric: 'faster service delivery', value: 'Optimized' },
-  },
-  {
-    id: 'farming',
-    icon: Sprout,
-    title: 'Farm Management',
-    tagline: 'Grow smarter, manage better',
-    description:
-      'BizSuits has built a complete farm management system — from crop planning and livestock tracking to harvest logistics and financial reporting. We know agriculture because we\'ve built for it.',
-    color: 'from-green-500 to-green-600',
-    benefits: [
-      'Crop planning & seasonal tracking',
-      'Livestock inventory & health records',
-      'Harvest & yield management',
-      'Supply chain & distribution tracking',
-      'Farm worker scheduling & payroll',
-      'Revenue & expense reports per season',
-    ],
-    stats: { metric: 'farm operations streamlined', value: 'Proven' },
-  },
-  {
-    id: 'services',
-    icon: Briefcase,
-    title: 'Professional Services',
-    tagline: 'Focus on clients, not paperwork',
-    description:
-      'For consultants, agencies, law firms, and service providers — manage clients, projects, billing, and team operations from one platform.',
-    color: 'from-purple-500 to-purple-600',
-    benefits: [
-      'Client management & CRM',
-      'Project tracking & timesheets',
-      'Automated invoicing & payments',
-      'Expense tracking & reimbursements',
-      'Team scheduling & workload management',
-      'Profitability reports by project',
-    ],
-    stats: { metric: 'billing accuracy', value: 'Improved' },
-  },
-  {
-    id: 'ecommerce',
-    icon: ShoppingBag,
-    title: 'E-Commerce',
-    tagline: 'Sell online with confidence',
-    description:
-      'Sync your online store with BizSuits for unified inventory, orders, customers, and financials across every sales channel.',
-    color: 'from-emerald-500 to-emerald-600',
-    benefits: [
-      'Custom e-commerce platform',
-      'Unified inventory across channels',
-      'Order management & fulfillment',
-      'Customer segmentation & marketing',
-      'Shipping & returns management',
-      'Multi-channel sales analytics',
-    ],
-    stats: { metric: 'operational efficiency', value: 'Enhanced' },
-  },
-  {
-    id: 'facility',
-    icon: Building,
-    title: 'Facility Management',
-    tagline: 'Manage spaces, assets & operations',
-    description:
-      'BizSuits has built facility management systems that handle everything from maintenance scheduling and asset tracking to space management and vendor coordination — all in one platform.',
-    color: 'from-cyan-500 to-cyan-600',
-    benefits: [
-      'Building & space management',
-      'Preventive maintenance scheduling',
-      'Asset tracking & lifecycle management',
-      'Work order management & dispatch',
-      'Vendor & contractor coordination',
-      'Utility monitoring & cost reports',
-    ],
-    stats: { metric: 'facility operations managed', value: 'Complete' },
-  },
-  {
-    id: 'enterprise',
-    icon: Building2,
-    title: 'Enterprise',
-    tagline: 'Scale without limits',
-    description:
-      'For large organizations with complex needs — unlimited locations, custom workflows, dedicated support, and enterprise-grade security.',
-    color: 'from-dark-600 to-dark-800',
-    benefits: [
-      'Unlimited locations & terminals',
-      'Custom workflow automation',
-      'Advanced role-based permissions',
-      'White-label & custom branding',
-      'Dedicated account manager',
-      'SLA-backed priority support',
-    ],
-    stats: { metric: 'complete customization', value: 'Full' },
-  },
-];
 
 export default function SolutionsPage() {
   return (
     <>
-      {/* Hero */}
       <section className="pt-28 md:pt-36 pb-16 md:pb-24 gradient-bg-light relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
@@ -161,97 +22,152 @@ export default function SolutionsPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Industries We&apos;ve Worked With
+            Delivery Tracks
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Proven solutions for{' '}
-            <span className="text-primary-600">real industries</span>
+            Solutions grouped by{' '}
+            <span className="text-primary-600">what has already been built</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            We don&apos;t just build software — we&apos;ve worked with businesses across
-            these industries and delivered custom systems that transformed their operations.
+            The solution catalogue now follows the current build portfolio: retail commerce,
+            farm operations, project delivery, and document automation.
           </p>
         </div>
       </section>
 
-      {/* Solutions */}
-      <section className="section-padding bg-white">
+      <section className="-mt-8 relative z-10">
         <div className="container-custom">
-          {solutions.map((solution, index) => (
-            <div
-              key={solution.id}
-              id={solution.id}
-              className={`flex flex-col ${
-                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } gap-12 lg:gap-16 items-center ${index < solutions.length - 1 ? 'mb-24 md:mb-32' : ''}`}
-            >
-              {/* Content */}
-              <div className="flex-1">
-                <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center mb-5 shadow-lg`}
-                >
-                  <solution.icon className="w-7 h-7 text-white" />
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            {deliveryTracks.map((track) => (
+              <Card key={track.id} elevated className="text-center">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.gradient} text-white flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                  <track.icon className="w-7 h-7" />
                 </div>
-                <p className="text-sm font-semibold text-primary-600 mb-2">{solution.tagline}</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
-                  {solution.title}
-                </h2>
-                <p className="text-lg text-dark-500 leading-relaxed mb-6">
-                  {solution.description}
-                </p>
-                <div className="space-y-3 mb-8">
-                  {solution.benefits.map((benefit) => (
-                    <div key={benefit} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                      <span className="text-sm text-dark-600">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-                <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                  Request a Demo
-                </Button>
-              </div>
-
-              {/* Stats Card */}
-              <div className="flex-1 w-full">
-                <Card elevated padding="lg" className="bg-gradient-to-br from-dark-50 to-white">
-                  <div className="text-center mb-8">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-                      <solution.icon className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-dark-900 mb-1">BizSuits for {solution.title}</h3>
-                    <p className="text-sm text-dark-400">Built for your needs</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-4 bg-white rounded-xl border border-dark-100">
-                      <p className="text-2xl font-bold text-accent-600">{solution.stats.value}</p>
-                      <p className="text-xs text-dark-400 mt-1">{solution.stats.metric}</p>
-                    </div>
-                    <div className="text-center p-4 bg-white rounded-xl border border-dark-100">
-                      <p className="text-2xl font-bold text-primary-600">Custom</p>
-                      <p className="text-xs text-dark-400 mt-1">Built for you</p>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          ))}
+                <p className="text-lg font-bold text-dark-900">{track.title}</p>
+                <p className="text-sm text-dark-400 mt-2">{getAppsForTrack(track.appSlugs).length} linked build references</p>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Solution Views"
+            title="Each solution track is now tied to concrete apps"
+            subtitle="This replaces the old broad industry list with delivery tracks that directly map to the current system portfolio."
+          />
+
+          {deliveryTracks.map((solution, index) => {
+            const apps = getAppsForTrack(solution.appSlugs);
+
+            return (
+              <div
+                key={solution.id}
+                id={solution.id}
+                className={`flex flex-col ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } gap-12 lg:gap-16 items-stretch ${index < deliveryTracks.length - 1 ? 'mb-24 md:mb-32' : ''}`}
+              >
+                <div className="flex-1">
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center mb-5 shadow-lg`}
+                  >
+                    <solution.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <p className="text-sm font-semibold text-primary-600 mb-2">Built from current reference apps</p>
+                  <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
+                    {solution.title}
+                  </h2>
+                  <p className="text-lg text-dark-500 leading-relaxed mb-6">
+                    {solution.summary}
+                  </p>
+                  <div className="space-y-3 mb-8">
+                    {solution.capabilities.map((benefit) => (
+                      <div key={benefit} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                        <span className="text-sm text-dark-600">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
+                    Discuss This Track
+                  </Button>
+                </div>
+
+                <div className="flex-1 w-full">
+                  <Card elevated padding="lg" className="bg-gradient-to-br from-dark-50 to-white">
+                    <div className="text-center mb-8">
+                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                        <solution.icon className="w-10 h-10 text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-dark-900 mb-1">Apps powering this track</h3>
+                      <p className="text-sm text-dark-400">Directly mapped from the current reference builds</p>
+                    </div>
+                    <div className="space-y-4">
+                      {apps.map((app) => (
+                        <div key={app.slug} className="p-4 bg-white rounded-xl border border-dark-100">
+                          <div className="flex items-center justify-between gap-3 mb-2">
+                            <p className="text-sm font-semibold text-dark-900">{app.name}</p>
+                            <span className="text-xs font-medium text-primary-600">{app.deliveryMode}</span>
+                          </div>
+                          <p className="text-sm text-dark-500 leading-relaxed mb-3">{app.summary}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {app.signals.slice(0, 2).map((signal) => (
+                              <span
+                                key={signal}
+                                className="rounded-full bg-dark-50 px-2.5 py-1 text-[11px] font-medium text-dark-500 border border-dark-100"
+                              >
+                                {signal}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="section-padding bg-dark-50/50">
+        <div className="container-custom">
+          <SectionHeading
+            badge="Portfolio Coverage"
+            title="The solution map now spans the full current reference set"
+            subtitle="Every active project you provided is represented in one of these tracks."
+          />
+
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
+            {portfolioApps.map((app) => (
+              <Card key={app.slug} className="h-full">
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center mb-4 text-white shadow-lg`}>
+                  <app.icon className="w-6 h-6" />
+                </div>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary-600 mb-2">{app.sourceProject}</p>
+                <h3 className="text-lg font-bold text-dark-900 mb-2">{app.name}</h3>
+                <p className="text-sm text-dark-500">{app.category}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Don&apos;t see your industry?
+            Need a blended solution across multiple tracks?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            BizSuits is highly customizable. Talk to our team to see how we can
-            build the perfect system for your specific needs.
+            The portfolio already shows how we combine operations, commerce, and back-office tooling into one delivery plan.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Talk to Sales
+              Talk Through Your Workflow
             </Button>
             <Button
               variant="ghost"
@@ -259,7 +175,7 @@ export default function SolutionsPage() {
               href="/features"
               className="!text-white hover:!bg-white/10"
             >
-              Explore Features
+              Explore Feature Depth
             </Button>
           </div>
         </div>

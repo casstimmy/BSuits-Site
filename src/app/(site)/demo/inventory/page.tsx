@@ -1,68 +1,197 @@
-import React from 'react';
-import { ArrowLeft, ShieldAlert, FlaskConical, HelpCircle } from 'lucide-react';
+'use client';
+
+import React, { useMemo, useState } from 'react';
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Boxes,
+  MapPin,
+  Package,
+  RefreshCcw,
+  Search,
+  SlidersHorizontal,
+} from 'lucide-react';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 
-const findings = [
+type StockFilter = 'all' | 'healthy' | 'low' | 'critical';
+
+type InventoryItem = {
+  sku: string;
+  name: string;
+  category: string;
+  location: string;
+  quantity: number;
+  minStock: number;
+  reorderLevel: number;
+  unitCost: string;
+  lastMovement: string;
+};
+
+const stockItems: InventoryItem[] = [
   {
-    severity: 'Medium',
-    text:
-      'Products table uses colSpan="13" while the header has 14 columns, causing misalignment on loading/empty states.',
-    refs: 'pages/manage/products.js:282, pages/manage/products.js:289',
+    sku: 'INV-1042',
+    name: 'Premium Rice 25kg',
+    category: 'Staples',
+    location: 'Lekki Outlet',
+    quantity: 34,
+    minStock: 20,
+    reorderLevel: 24,
+    unitCost: 'NGN 42,000',
+    lastMovement: 'Received 12 bags today',
   },
   {
-    severity: 'Medium',
-    text:
-      'Stock management "Search by product or category..." does not actually search category names if categories are stored as IDs (it checks item.category directly). This makes category search misleading.',
-    refs: 'pages/stock/management.js:169',
+    sku: 'INV-2218',
+    name: 'Sunflower Oil 5L',
+    category: 'Consumables',
+    location: 'Lekki Outlet',
+    quantity: 11,
+    minStock: 12,
+    reorderLevel: 18,
+    unitCost: 'NGN 11,500',
+    lastMovement: '8 units sold this morning',
   },
   {
-    severity: 'Medium',
-    text:
-      'Stock movement list shows "Loading movements..." whenever filteredMovements is empty, even when no results match filters. There is no true empty state.',
-    refs: 'pages/stock/movement/index.js:210',
+    sku: 'INV-3371',
+    name: 'Bottled Water 75cl',
+    category: 'Beverages',
+    location: 'Ikeja Outlet',
+    quantity: 8,
+    minStock: 16,
+    reorderLevel: 22,
+    unitCost: 'NGN 320',
+    lastMovement: 'Courier dispatch reduced stock',
   },
   {
-    severity: 'Low',
-    text:
-      '"SEARCH" button on stock movement does nothing (filtering already happens on input change).',
-    refs: 'pages/stock/movement/index.js:177',
+    sku: 'INV-4410',
+    name: 'Office Paper A4',
+    category: 'Operations',
+    location: 'HQ Store',
+    quantity: 56,
+    minStock: 15,
+    reorderLevel: 20,
+    unitCost: 'NGN 7,800',
+    lastMovement: 'Monthly office stock refill',
   },
   {
-    severity: 'Low',
-    text:
-      'Mojibake symbols appear in currency and icons, indicating encoding issues.',
-    refs:
-      'pages/manage/products.js:220, pages/stock/management.js:310, pages/stock/movement/index.js:236, pages/stock/movement/[id].js:159, pages/manage/categories.js:324',
+    sku: 'INV-5524',
+    name: 'Frozen Chicken Pack',
+    category: 'Cold Room',
+    location: 'Ikeja Outlet',
+    quantity: 14,
+    minStock: 14,
+    reorderLevel: 20,
+    unitCost: 'NGN 8,600',
+    lastMovement: 'Supplier drop confirmed',
+  },
+  {
+    sku: 'INV-6630',
+    name: 'Cleaning Detergent',
+    category: 'Household',
+    location: 'Yaba Outlet',
+    quantity: 61,
+    minStock: 22,
+    reorderLevel: 30,
+    unitCost: 'NGN 2,450',
+    lastMovement: 'Steady shelf movement',
+  },
+  {
+    sku: 'INV-7741',
+    name: 'POS Receipt Rolls',
+    category: 'Operations',
+    location: 'HQ Store',
+    quantity: 5,
+    minStock: 10,
+    reorderLevel: 16,
+    unitCost: 'NGN 850',
+    lastMovement: 'Rollout to three outlets',
+  },
+  {
+    sku: 'INV-8849',
+    name: 'Goat Feed Mix',
+    category: 'Agriculture',
+    location: 'Farm Store',
+    quantity: 29,
+    minStock: 18,
+    reorderLevel: 25,
+    unitCost: 'NGN 18,200',
+    lastMovement: 'Field transfer completed',
   },
 ];
 
-const uiNotes = [
-  'Color system feels fragmented: amber-heavy in products (pages/manage/products.js:231), neutral gray in categories (pages/manage/categories.js:243), gray/amber in stock management (pages/stock/management.js:195), and bluish background in stock movement (pages/stock/movement/index.js:70). Consider a shared palette via CSS variables or Tailwind config.',
-  'Typography scale is inconsistent: text-2xl vs text-3xl for primary page titles varies across pages without hierarchy (pages/manage/products.js:231, pages/stock/management.js:197).',
-  "Button style inconsistency: rounded-sm vs rounded, uppercase vs normal casing, different hover treatments across pages. This dilutes the product's visual language.",
-];
+function getStockState(item: InventoryItem): StockFilter {
+  if (item.quantity <= Math.max(5, Math.floor(item.minStock * 0.65))) {
+    return 'critical';
+  }
 
-const testGaps = [
-  'No UI tests or visual regression checks for these pages. If these screens are business-critical, snapshot tests (e.g., Playwright) would catch the empty-state and mojibake regressions.',
-];
+  if (item.quantity <= item.minStock) {
+    return 'low';
+  }
 
-const openQuestions = [
-  'Are product categories stored as IDs or names in product documents? This affects the search/filter logic on pages/stock/management.js:169.',
-  'Should stock movement empty state show "No movements found" (vs "Loading movements...") when filters exclude all records?',
-];
+  return 'healthy';
+}
 
-function SeverityPill({ level }: { level: string }) {
-  const base = 'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold';
-  const tone =
-    level === 'Medium'
-      ? 'bg-yellow-100 text-yellow-700'
-      : 'bg-gray-100 text-gray-700';
-  return <span className={`${base} ${tone}`}>{level}</span>;
+function getStockTone(state: StockFilter) {
+  if (state === 'critical') {
+    return 'bg-red-50 text-red-700 border-red-100';
+  }
+
+  if (state === 'low') {
+    return 'bg-amber-50 text-amber-700 border-amber-100';
+  }
+
+  return 'bg-emerald-50 text-emerald-700 border-emerald-100';
 }
 
 export default function InventoryDemoPage() {
+  const [query, setQuery] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('All locations');
+  const [stockFilter, setStockFilter] = useState<StockFilter>('all');
+
+  const locations = useMemo(
+    () => ['All locations', ...Array.from(new Set(stockItems.map((item) => item.location)))],
+    []
+  );
+
+  const filteredItems = useMemo(() => {
+    return stockItems.filter((item) => {
+      const state = getStockState(item);
+      const matchesQuery =
+        query.trim().length === 0 ||
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.category.toLowerCase().includes(query.toLowerCase()) ||
+        item.sku.toLowerCase().includes(query.toLowerCase());
+      const matchesLocation = selectedLocation === 'All locations' || item.location === selectedLocation;
+      const matchesStock = stockFilter === 'all' || state === stockFilter;
+
+      return matchesQuery && matchesLocation && matchesStock;
+    });
+  }, [query, selectedLocation, stockFilter]);
+
+  const inventorySummary = useMemo(() => {
+    const totalUnits = filteredItems.reduce((sum, item) => sum + item.quantity, 0);
+    const lowStock = filteredItems.filter((item) => getStockState(item) === 'low').length;
+    const criticalStock = filteredItems.filter((item) => getStockState(item) === 'critical').length;
+    const healthyStock = filteredItems.filter((item) => getStockState(item) === 'healthy').length;
+
+    return { totalUnits, lowStock, criticalStock, healthyStock };
+  }, [filteredItems]);
+
+  const locationBreakdown = useMemo(() => {
+    return locations
+      .filter((location) => location !== 'All locations')
+      .map((location) => {
+        const items = stockItems.filter((item) => item.location === location);
+        const total = items.reduce((sum, item) => sum + item.quantity, 0);
+        const alerts = items.filter((item) => getStockState(item) !== 'healthy').length;
+
+        return { location, total, alerts };
+      });
+  }, [locations]);
+
+  const alertItems = filteredItems.filter((item) => getStockState(item) !== 'healthy');
+
   return (
     <div className="min-h-screen bg-dark-50/40">
       <section className="pt-24 pb-10 gradient-bg-light">
@@ -73,8 +202,8 @@ export default function InventoryDemoPage() {
           </div>
           <SectionHeading
             badge="Inventory Demo"
-            title="Inventory management review and preview"
-            subtitle="This demo summarizes the current inventory UI review and highlights the most important findings, gaps, and next questions."
+            title="Stock management surface rebuilt from the current inventory admin workflow"
+            subtitle="This demo now mirrors the source stock-management page: searchable inventory, location filters, stock-state badges, and a practical alert rail for replenishment work."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">
@@ -88,97 +217,225 @@ export default function InventoryDemoPage() {
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container-custom grid lg:grid-cols-2 gap-8">
+      <section className="section-padding pt-10">
+        <div className="container-custom space-y-8">
           <Card padding="lg" elevated>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
-                <ShieldAlert className="w-6 h-6 text-primary-700" />
-              </div>
-              <div>
-                <p className="text-sm text-dark-500">Preview</p>
-                <h3 className="text-xl font-bold text-dark-900">Inventory UI Snapshot</h3>
-              </div>
-            </div>
-            <div className="aspect-[16/10] rounded-2xl border border-dark-200 bg-white flex items-center justify-center">
-              <div className="text-center px-6">
-                <p className="text-sm font-semibold text-dark-900">Inventory Management Preview</p>
-                <p className="text-xs text-dark-400">Image placeholder</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card padding="lg">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-accent-100 flex items-center justify-center">
-                <FlaskConical className="w-6 h-6 text-accent-700" />
-              </div>
-              <div>
-                <p className="text-sm text-dark-500">Summary</p>
-                <h3 className="text-xl font-bold text-dark-900">Key findings at a glance</h3>
-              </div>
-            </div>
-            <div className="space-y-4">
-              {findings.slice(0, 3).map((item) => (
-                <div key={item.text} className="flex gap-3">
-                  <SeverityPill level={item.severity} />
-                  <p className="text-sm text-dark-600">{item.text}</p>
+            <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6 mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-primary-100 flex items-center justify-center shrink-0">
+                  <Boxes className="w-7 h-7 text-primary-700" />
                 </div>
-              ))}
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      <section className="section-padding pt-0">
-        <div className="container-custom grid lg:grid-cols-3 gap-6">
-          <Card padding="md">
-            <div className="flex items-center gap-2 mb-4">
-              <ShieldAlert className="w-4 h-4 text-yellow-600" />
-              <h4 className="text-base font-bold text-dark-900">Findings</h4>
-            </div>
-            <div className="space-y-4">
-              {findings.map((item) => (
-                <div key={item.text} className="space-y-2">
-                  <SeverityPill level={item.severity} />
-                  <p className="text-sm text-dark-600">{item.text}</p>
-                  <p className="text-xs text-dark-400">{item.refs}</p>
+                <div>
+                  <p className="text-sm text-dark-500">Source pattern</p>
+                  <h2 className="text-2xl font-bold text-dark-900 mb-2">Stock Overview</h2>
+                  <p className="text-dark-500 max-w-2xl leading-relaxed">
+                    The inventory admin build already includes a strong stock-management backbone.
+                    This fragment translates that workflow into a cleaner portfolio demo with filtering, table review, and replenishment cues.
+                  </p>
                 </div>
-              ))}
-            </div>
-          </Card>
+              </div>
 
-          <Card padding="md">
-            <div className="flex items-center gap-2 mb-4">
-              <FlaskConical className="w-4 h-4 text-primary-600" />
-              <h4 className="text-base font-bold text-dark-900">UI Consistency Notes</h4>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="secondary" size="sm" href="/demo/analytics">
+                  Review Sales Signals
+                </Button>
+                <button className="rounded-xl border border-dark-100 bg-white px-4 py-3 text-sm font-semibold text-dark-700 flex items-center gap-2 hover:bg-dark-50 transition-colors">
+                  <RefreshCcw className="w-4 h-4" />
+                  Sync Snapshot
+                </button>
+              </div>
             </div>
-            <ul className="space-y-3 text-sm text-dark-600 list-disc list-inside">
-              {uiNotes.map((note) => (
-                <li key={note}>{note}</li>
-              ))}
-            </ul>
-          </Card>
 
-          <Card padding="md">
-            <div className="flex items-center gap-2 mb-4">
-              <HelpCircle className="w-4 h-4 text-rose-500" />
-              <h4 className="text-base font-bold text-dark-900">Test Gaps</h4>
+            <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+              <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+                <p className="text-sm font-semibold text-sky-700">Visible SKUs</p>
+                <p className="text-2xl font-bold text-sky-800 mt-2">{filteredItems.length}</p>
+              </div>
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+                <p className="text-sm font-semibold text-emerald-700">Healthy Stock</p>
+                <p className="text-2xl font-bold text-emerald-800 mt-2">{inventorySummary.healthyStock}</p>
+              </div>
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+                <p className="text-sm font-semibold text-amber-700">Low Stock</p>
+                <p className="text-2xl font-bold text-amber-800 mt-2">{inventorySummary.lowStock}</p>
+              </div>
+              <div className="rounded-2xl border border-red-200 bg-red-50 p-5">
+                <p className="text-sm font-semibold text-red-700">Critical Items</p>
+                <p className="text-2xl font-bold text-red-800 mt-2">{inventorySummary.criticalStock}</p>
+              </div>
             </div>
-            <ul className="space-y-3 text-sm text-dark-600 list-disc list-inside mb-6">
-              {testGaps.map((gap) => (
-                <li key={gap}>{gap}</li>
-              ))}
-            </ul>
-            <div className="flex items-center gap-2 mb-4">
-              <HelpCircle className="w-4 h-4 text-rose-500" />
-              <h4 className="text-base font-bold text-dark-900">Open Questions</h4>
+
+            <div className="grid lg:grid-cols-[1.45fr_0.9fr] gap-6">
+              <div className="space-y-4">
+                <div className="rounded-2xl border border-dark-100 bg-dark-50 p-4">
+                  <div className="flex items-center gap-3 rounded-xl border border-dark-100 bg-white px-4 py-3 mb-4">
+                    <Search className="w-4 h-4 text-dark-400" />
+                    <input
+                      value={query}
+                      onChange={(event) => setQuery(event.target.value)}
+                      placeholder="Search by product, category, or SKU"
+                      className="w-full bg-transparent text-sm text-dark-700 placeholder:text-dark-400 outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-dark-600">
+                        <MapPin className="w-4 h-4 text-primary-600" />
+                        Location filter
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {locations.map((location) => (
+                          <button
+                            key={location}
+                            onClick={() => setSelectedLocation(location)}
+                            className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                              selectedLocation === location
+                                ? 'bg-primary-600 text-white'
+                                : 'bg-white text-dark-500 border border-dark-100 hover:bg-dark-100'
+                            }`}
+                          >
+                            {location}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-dark-600">
+                        <SlidersHorizontal className="w-4 h-4 text-primary-600" />
+                        Stock state
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {(['all', 'healthy', 'low', 'critical'] as StockFilter[]).map((filter) => (
+                          <button
+                            key={filter}
+                            onClick={() => setStockFilter(filter)}
+                            className={`px-3 py-2 rounded-full text-sm font-medium capitalize transition-colors ${
+                              stockFilter === filter
+                                ? 'bg-dark-900 text-white'
+                                : 'bg-white text-dark-500 border border-dark-100 hover:bg-dark-100'
+                            }`}
+                          >
+                            {filter}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="overflow-hidden rounded-2xl border border-dark-100 bg-white shadow-sm">
+                  <div className="grid grid-cols-[1.4fr_0.7fr_0.7fr_0.8fr_0.9fr] gap-4 border-b border-dark-100 bg-dark-50 px-5 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-dark-400">
+                    <span>Item</span>
+                    <span>Location</span>
+                    <span className="text-right">Qty</span>
+                    <span className="text-right">Reorder</span>
+                    <span className="text-right">Status</span>
+                  </div>
+                  <div className="divide-y divide-dark-100">
+                    {filteredItems.map((item) => {
+                      const state = getStockState(item);
+
+                      return (
+                        <div key={item.sku} className="grid grid-cols-[1.4fr_0.7fr_0.7fr_0.8fr_0.9fr] gap-4 px-5 py-4 items-center text-sm">
+                          <div>
+                            <p className="font-semibold text-dark-900">{item.name}</p>
+                            <p className="text-xs text-dark-400 mt-1">
+                              {item.sku} • {item.category} • {item.unitCost}
+                            </p>
+                            <p className="text-xs text-dark-500 mt-2">{item.lastMovement}</p>
+                          </div>
+                          <span className="text-dark-600">{item.location}</span>
+                          <span className="text-right font-semibold text-dark-700">{item.quantity}</span>
+                          <span className="text-right text-dark-500">{item.reorderLevel}</span>
+                          <div className="flex justify-end">
+                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border capitalize ${getStockTone(state)}`}>
+                              {state}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {filteredItems.length === 0 ? (
+                      <div className="px-5 py-12 text-center">
+                        <p className="text-sm font-semibold text-dark-900">No items match this filter set</p>
+                        <p className="text-sm text-dark-500 mt-2">
+                          Try widening the location or stock-state filters to return more products.
+                        </p>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <Card padding="md" elevated>
+                  <div className="flex items-center gap-2 mb-4">
+                    <AlertTriangle className="w-4 h-4 text-amber-600" />
+                    <h3 className="text-base font-bold text-dark-900">Replenishment alerts</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {alertItems.length > 0 ? (
+                      alertItems.map((item) => {
+                        const state = getStockState(item);
+
+                        return (
+                          <div key={item.sku} className="rounded-2xl border border-dark-100 bg-dark-50 p-4">
+                            <div className="flex items-start justify-between gap-4">
+                              <div>
+                                <p className="text-sm font-semibold text-dark-900">{item.name}</p>
+                                <p className="text-xs text-dark-400 mt-1">{item.location}</p>
+                              </div>
+                              <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border capitalize ${getStockTone(state)}`}>
+                                {state}
+                              </span>
+                            </div>
+                            <p className="text-sm text-dark-500 mt-3">
+                              {item.quantity} units left. Reorder target is {item.reorderLevel}.
+                            </p>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p className="text-sm text-dark-500">No active stock alerts for the current filter.</p>
+                    )}
+                  </div>
+                </Card>
+
+                <Card padding="md" elevated>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Package className="w-4 h-4 text-primary-600" />
+                    <h3 className="text-base font-bold text-dark-900">Location summary</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {locationBreakdown.map((entry) => (
+                      <div key={entry.location} className="rounded-2xl border border-dark-100 bg-white p-4">
+                        <div className="flex items-center justify-between gap-4">
+                          <p className="text-sm font-semibold text-dark-900">{entry.location}</p>
+                          <span className="text-sm font-semibold text-dark-700">{entry.total} units</span>
+                        </div>
+                        <p className="text-xs text-dark-400 mt-2">
+                          {entry.alerts === 0 ? 'No active alerts' : `${entry.alerts} items need attention`}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <div className="rounded-2xl border border-dark-100 bg-dark-900 text-white p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50 mb-3">
+                    Source alignment
+                  </p>
+                  <p className="text-sm leading-relaxed text-white/80">
+                    This demo keeps the stock-management emphasis of the source inventory admin app,
+                    but removes the review-only framing so buyers see a usable operations surface.
+                  </p>
+                  <p className="text-lg font-bold text-white mt-4">{inventorySummary.totalUnits} units in current filtered view</p>
+                </div>
+              </div>
             </div>
-            <ul className="space-y-3 text-sm text-dark-600 list-disc list-inside">
-              {openQuestions.map((question) => (
-                <li key={question}>{question}</li>
-              ))}
-            </ul>
           </Card>
         </div>
       </section>
