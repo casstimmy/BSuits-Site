@@ -194,7 +194,20 @@ export default function InventoryDemoPage() {
 
   return (
     <div className="min-h-screen bg-dark-50/40">
-      <section className="pt-24 pb-10 gradient-bg-light">
+      {/* Browser chrome bar */}
+      <div className="sticky top-0 z-50 bg-[#f1f3f4] border-b border-gray-300 px-3 py-2 flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+          <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+        </div>
+        <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-gray-500 border border-gray-200 flex items-center gap-1.5">
+          <span className="text-green-600 text-[11px]">🔒</span>
+          demo.bizsuits.com/inventory
+        </div>
+        <a href="/demo" className="text-xs text-gray-500 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-200 transition-colors shrink-0">← All Demos</a>
+      </div>
+      <section className="pt-10 pb-10 gradient-bg-light">
         <div className="container-custom">
           <div className="flex items-center gap-3 text-sm text-dark-500 mb-6">
             <ArrowLeft className="w-4 h-4" />

@@ -1,15 +1,23 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { deliveryTracks, portfolioApps, portfolioStats } from '@/data/portfolio';
+import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
 
 export const metadata: Metadata = {
   title: 'Features - BizSuits | Solution Capabilities',
   description:
-    'Explore the modules and workflows BizSuits can deliver across commerce, agriculture, operations, and document automation.',
+    'Explore the modules and workflows BizSuits can deliver across retail commerce, agriculture, operations, and document automation.',
+};
+
+const trackDemoLinks: Record<string, string> = {
+  'retail-commerce': '/demo/pos',
+  'farm-operations': '/demo/farm',
+  'ops-delivery': '/demo/ops',
+  'document-automation': '/demo/document',
 };
 
 export default function FeaturesPage() {
@@ -25,19 +33,19 @@ export default function FeaturesPage() {
             Solution Capabilities
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Feature depth grounded in{' '}
-            <span className="gradient-text">proven BizSuits systems</span>
+            Features organized by{' '}
+            <span className="gradient-text">what each solution includes</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            Explore the modules, workflows, and surfaces BizSuits can adapt for clients across
-            retail commerce, agriculture, operations, and automation.
+            Each BizSuits solution is made up of connected systems. Explore what every system brings
+            to the table — the modules, workflows, and surfaces it delivers.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
-              See Live Demos
+              Try the Demos
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
-              Explore Solution Tracks
+              Explore Solutions
             </Button>
           </div>
         </div>
@@ -59,136 +67,132 @@ export default function FeaturesPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Client Systems"
-            title="Each BizSuits system contributes real feature depth"
-            subtitle="Every section below maps to a deliverable system BizSuits can tailor for a client rollout."
+            badge="Solution Features"
+            title="Each solution is built from proven, connected systems"
+            subtitle="Browse by solution to see exactly which systems it includes and what each one covers."
           />
 
-          {portfolioApps.map((app, index) => (
-            <div
-              key={app.slug}
-              id={app.slug}
-              className={`flex flex-col ${
-                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } gap-12 lg:gap-16 items-stretch ${index < portfolioApps.length - 1 ? 'mb-24 md:mb-32' : ''}`}
-            >
-              <div className="flex-1">
-                <div
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center mb-6 shadow-lg`}
-                >
-                  <app.icon className="w-8 h-8 text-white" />
-                </div>
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary-600 mb-2">
-                  {app.sourceProject}
-                </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
-                  {app.name}
-                </h2>
-                <p className="text-lg text-dark-500 leading-relaxed mb-8">
-                  {app.summary}
-                </p>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {app.modules.map((highlight) => (
-                    <div key={highlight} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                      <span className="text-sm text-dark-600">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                  <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                    Discuss This Solution
-                  </Button>
-                  <Button variant="secondary" href="/demo">
-                    Browse Demos
-                  </Button>
-                </div>
-              </div>
+          {deliveryTracks.map((track, trackIndex) => {
+            const apps = getAppsForTrack(track.appSlugs);
+            const demoHref = trackDemoLinks[track.id] ?? '/demo';
 
-              <div className="flex-1 w-full">
-                <Card elevated padding="lg" className="bg-gradient-to-br from-dark-50 to-white h-full">
-                  <div className="text-center mb-8">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-                      <app.icon className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-dark-900 mb-1">{app.category}</h3>
-                    <p className="text-sm text-dark-400">{app.deliveryMode}</p>
+            return (
+              <div
+                key={track.id}
+                id={track.id}
+                className={trackIndex < deliveryTracks.length - 1 ? 'mb-24 md:mb-32' : ''}
+              >
+                {/* Track header */}
+                <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start mb-10">
+                  <div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.gradient} flex items-center justify-center shadow-lg shrink-0`}
+                  >
+                    <track.icon className="w-8 h-8 text-white" />
                   </div>
-
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="text-center p-4 bg-white rounded-xl border border-dark-100">
-                      <p className="text-sm font-semibold text-dark-400 uppercase tracking-[0.16em]">Status</p>
-                      <p className="text-base font-bold text-accent-600 mt-2">Active</p>
-                    </div>
-                    <div className="text-center p-4 bg-white rounded-xl border border-dark-100">
-                      <p className="text-sm font-semibold text-dark-400 uppercase tracking-[0.16em]">Delivery</p>
-                      <p className="text-base font-bold text-primary-600 mt-2">{app.deliveryMode}</p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl bg-white border border-dark-100 p-5 mb-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-dark-400 mb-3">Delivery signal</p>
-                    <p className="text-sm font-medium text-dark-700 leading-relaxed mb-3">{app.status}</p>
-                    <p className="text-sm text-dark-500 leading-relaxed">{app.stack}</p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {app.signals.map((signal) => (
-                      <span
-                        key={signal}
-                        className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
-                      >
-                        {signal}
-                      </span>
-                    ))}
-                  </div>
-                </Card>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-padding bg-dark-50/50">
-        <div className="container-custom">
-          <SectionHeading
-            badge="Delivery Tracks"
-            title="Cross-cutting patterns already proven across BizSuits systems"
-            subtitle="These tracks summarize how the active systems cluster into product-ready solution families."
-          />
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
-            {deliveryTracks.map((track) => (
-              <Card key={track.id} padding="md" className="group h-full">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${track.gradient} flex items-center justify-center mb-4 text-white shadow-lg`}>
-                  <track.icon className="w-6 h-6" />
-                </div>
-                <h3 className="text-base font-bold text-dark-900 mb-2">{track.title}</h3>
-                <p className="text-sm text-dark-500 mb-4">{track.summary}</p>
-                <div className="space-y-2">
-                  {track.capabilities.map((capability) => (
-                    <p key={capability} className="text-sm text-dark-500 leading-relaxed">
-                      {capability}
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-primary-600 mb-1 uppercase tracking-wider">
+                      Solution Track
                     </p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-3">
+                      {track.title}
+                    </h2>
+                    <p className="text-lg text-dark-500 leading-relaxed mb-5">{track.summary}</p>
+                    <div className="flex flex-wrap gap-3">
+                      <Button
+                        variant="primary"
+                        href={demoHref}
+                        icon={<ExternalLink className="w-4 h-4" />}
+                      >
+                        Try Demo
+                      </Button>
+                      <Button variant="secondary" href="/contact">
+                        Discuss This Solution
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Component systems (the "features" of this solution) */}
+                <div
+                  className={`grid gap-6 ${
+                    apps.length === 1
+                      ? 'max-w-2xl'
+                      : apps.length === 2
+                      ? 'md:grid-cols-2'
+                      : 'md:grid-cols-2 xl:grid-cols-3'
+                  }`}
+                >
+                  {apps.map((app) => (
+                    <Card key={app.slug} elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
+                      {/* Preview image (POS screenshot) */}
+                      {app.previewImage && (
+                        <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden rounded-t-2xl">
+                          <Image
+                            src={app.previewImage}
+                            alt={`${app.name} preview`}
+                            fill
+                            className="object-cover object-top"
+                          />
+                        </div>
+                      )}
+                      {/* App header */}
+                      <div className="flex items-center gap-4 mb-5">
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-md shrink-0`}
+                        >
+                          <app.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-dark-900">{app.name}</h3>
+                          <p className="text-xs text-dark-400 mt-0.5">
+                            {app.category} &middot; {app.deliveryMode}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-dark-500 leading-relaxed mb-5">{app.summary}</p>
+
+                      {/* Module list */}
+                      <div className="space-y-2.5 flex-1">
+                        {app.modules.map((mod) => (
+                          <div key={mod} className="flex items-start gap-2.5">
+                            <CheckCircle2 className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
+                            <span className="text-sm text-dark-600">{mod}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tags */}
+                      <div className="mt-5 pt-5 border-t border-dark-100 flex flex-wrap gap-2">
+                        {app.signals.map((signal) => (
+                          <span
+                            key={signal}
+                            className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
+                          >
+                            {signal}
+                          </span>
+                        ))}
+                      </div>
+                    </Card>
                   ))}
                 </div>
-              </Card>
-            ))}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Need one of these patterns tailored to your operation?
+            Want to see these systems in action?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            We can show you live demo flows, explain the rollout path, and tailor the right modules to your operation.
+            Each BizSuits system has an interactive demo you can try right now. No setup needed.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Book A Working Session
+            <Button variant="accent" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+              Browse All Demos
             </Button>
             <Button
               variant="ghost"
@@ -196,7 +200,7 @@ export default function FeaturesPage() {
               href="/solutions"
               className="!text-white hover:!bg-white/10"
             >
-              Explore Solution Tracks
+              Explore Solutions
             </Button>
           </div>
         </div>

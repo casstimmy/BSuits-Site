@@ -16,6 +16,7 @@ export interface PortfolioApp {
   sourceProject: string;
   category: string;
   deliveryMode: string;
+  previewImage?: string;
   icon: LucideIcon;
   gradient: string;
   summary: string;
@@ -71,7 +72,8 @@ export const portfolioApps: PortfolioApp[] = [
     name: 'Sales Point POS',
     sourceProject: 'sales-point-app',
     category: 'Frontline checkout',
-    deliveryMode: 'Web POS',
+    deliveryMode: 'Desktop / Web App',
+    previewImage: '/images/Point of sales preview 1.png',
     icon: ShoppingCart,
     gradient: 'from-amber-500 to-orange-600',
     summary:
