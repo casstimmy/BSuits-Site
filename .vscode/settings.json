@@ -7,6 +7,10 @@
         "/^npx next build 2>&1 \\| Select-Object -Last 30$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^Test-Path \"C:\\\\Users\\\\hp\\\\Desktop\\\\Projects\\\\BizSuits\\\\BizSuits_System\\\\src\\\\app\\\\\\(site\\)\\\\demo\\\\pos\\\\page\\.tsx\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
