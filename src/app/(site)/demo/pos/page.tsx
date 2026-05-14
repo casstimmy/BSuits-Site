@@ -9,6 +9,28 @@
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 import Image from 'next/image';
+import {
+  ArrowLeft,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  CircleHelp,
+  ClipboardList,
+  Clock3,
+  CreditCard,
+  LogOut,
+  Menu as MenuIcon,
+  Minus,
+  Pause,
+  Power,
+  Printer,
+  RefreshCcw,
+  Search,
+  Trash2,
+  UtensilsCrossed,
+  Wifi,
+  X,
+} from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 
 // â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -31,17 +53,17 @@ const STAFF = [
 
 const CATEGORIES = ['Breakfast','Drinks','Extra','Pasta','Pastry','Pepper Soup','Protein','Rooms','Soup'];
 
-// Category gradient + large emoji used as a simulated food-photo thumbnail
-const CAT_STYLE: Record<string, { grad: string; emoji: string }> = {
-  'Breakfast':   { grad: 'from-orange-500 to-yellow-400',  emoji: 'ðŸ³' },
-  'Drinks':      { grad: 'from-amber-900 to-amber-600',    emoji: 'ðŸ¥ƒ' },
-  'Extra':       { grad: 'from-slate-600 to-slate-400',    emoji: 'âž•' },
-  'Pasta':       { grad: 'from-red-700 to-orange-500',     emoji: 'ðŸ' },
-  'Pastry':      { grad: 'from-yellow-600 to-amber-400',   emoji: 'ðŸ¥' },
-  'Pepper Soup': { grad: 'from-red-800 to-red-500',        emoji: 'ðŸ²' },
-  'Protein':     { grad: 'from-orange-700 to-orange-400',  emoji: 'ðŸ—' },
-  'Rooms':       { grad: 'from-blue-900 to-blue-600',      emoji: 'ðŸ›ï¸' },
-  'Soup':        { grad: 'from-amber-700 to-yellow-500',   emoji: 'ðŸœ' },
+// Category gradients paired with ASCII tile marks to avoid encoding issues.
+const CAT_STYLE: Record<string, { grad: string; mark: string }> = {
+  'Breakfast':   { grad: 'from-orange-500 to-yellow-400',  mark: 'BRF' },
+  'Drinks':      { grad: 'from-amber-900 to-amber-600',    mark: 'DRK' },
+  'Extra':       { grad: 'from-slate-600 to-slate-400',    mark: 'EXT' },
+  'Pasta':       { grad: 'from-red-700 to-orange-500',     mark: 'PAS' },
+  'Pastry':      { grad: 'from-yellow-600 to-amber-400',   mark: 'PTY' },
+  'Pepper Soup': { grad: 'from-red-800 to-red-500',        mark: 'PPS' },
+  'Protein':     { grad: 'from-orange-700 to-orange-400',  mark: 'PRO' },
+  'Rooms':       { grad: 'from-blue-900 to-blue-600',      mark: 'ROM' },
+  'Soup':        { grad: 'from-amber-700 to-yellow-500',   mark: 'SUP' },
 };
 
 const PRODUCTS: Product[] = [
@@ -114,14 +136,48 @@ const PAY_METHODS = [
   { id: 'tips',       label: 'Staff Tips'     },
 ];
 
+const PRODUCT_TOKEN_IGNORE = new Set([
+  'AND',
+  'OR',
+  'OF',
+  'WITH',
+  'PACK',
+  'UNIT',
+  'NIGHT',
+  'PCS',
+  'X40',
+  'LTR',
+  'ML',
+  'CL',
+]);
+
 // â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-function fmt(n: number) { return 'â‚¦' + n.toLocaleString(); }
+function fmt(n: number) { return 'N' + n.toLocaleString(); }
 function fmtFixed(n: number) {
   const s = n.toFixed(2);
   const parts = s.split('.');
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return 'â‚¦' + parts.join('.');
+  return 'N' + parts.join('.');
+}
+
+function getProductMark(name: string) {
+  const words = name
+    .replace(/[^A-Za-z0-9 ]+/g, ' ')
+    .split(/\s+/)
+    .map((word) => word.trim().toUpperCase())
+    .filter(Boolean)
+    .filter((word) => !PRODUCT_TOKEN_IGNORE.has(word) && !/^\d/.test(word));
+
+  if (words.length === 0) {
+    return 'PRD';
+  }
+
+  if (words.length === 1) {
+    return words[0].slice(0, 3);
+  }
+
+  return words.slice(0, 3).map((word) => word[0]).join('');
 }
 
 // â”€â”€â”€ Shared: App Header Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -157,7 +213,9 @@ function AppHeader({
       style={{ backgroundColor: '#0e6ba8' }}
     >
       <div className="flex items-center gap-3">
-        <button className="text-white text-xl leading-none">â˜°</button>
+        <button className="text-white transition-colors hover:text-blue-200" aria-label="Open navigation">
+          <MenuIcon className="h-5 w-5" />
+        </button>
         <div>
           <p className="text-white text-sm font-bold leading-tight">{STORE_NAME}</p>
           <p className="text-blue-200 text-[11px]">{location}</p>
@@ -172,8 +230,15 @@ function AppHeader({
           <p className="text-white text-xs font-semibold">{dateStr}</p>
           <p className="text-blue-200 text-[10px]">{time}</p>
         </div>
-        <span className="text-white text-sm">ðŸ“¶</span>
-        <button onClick={onLogout} className="text-white hover:text-blue-200 text-xl transition-colors" title="Log out">â†ª</button>
+        <Wifi className="h-4 w-4 text-white" />
+        <button
+          onClick={onLogout}
+          className="text-white transition-colors hover:text-blue-200"
+          title="Log out"
+          aria-label="Log out"
+        >
+          <LogOut className="h-5 w-5" />
+        </button>
       </div>
     </div>
   );
@@ -233,7 +298,7 @@ function CartPanel({
           <div className="flex-1 overflow-y-auto">
             {cart.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center px-4 py-10">
-                <div className="text-slate-200 mb-3" style={{ fontSize: 48 }}>ðŸ½ï¸</div>
+                <UtensilsCrossed className="mb-3 h-12 w-12 text-slate-200" />
                 <p className="text-slate-500 text-sm font-semibold">Add a Dish or Drink</p>
                 <p className="text-slate-400 text-xs mt-1">Tap a product to add to the bill</p>
               </div>
@@ -281,7 +346,10 @@ function CartPanel({
                         <button
                           onClick={e => { e.stopPropagation(); onUpdateQty(item.name, -1); if (item.qty <= 1) onSelectItem(null); }}
                           className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white font-bold text-lg flex items-center justify-center"
-                        >âˆ’</button>
+                          aria-label="Decrease quantity"
+                        >
+                          <Minus className="h-4 w-4" />
+                        </button>
                         <span className="text-white font-bold text-base w-8 text-center">{item.qty}</span>
                         <button
                           onClick={e => { e.stopPropagation(); onUpdateQty(item.name, 1); }}
@@ -310,7 +378,7 @@ function CartPanel({
             <div className="border-t border-slate-200 shrink-0">
               {/* Chevron separator */}
               <div className="flex justify-center py-1.5 border-b border-slate-100">
-                <span className="text-slate-400 text-xs select-none">Ë…</span>
+                <ChevronUp className="h-4 w-4 text-slate-400" />
               </div>
               {/* Subtotal row */}
               <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-100 text-[11px]">
@@ -329,22 +397,26 @@ function CartPanel({
               {/* Print */}
               <div className="px-3 py-2 border-b border-slate-100">
                 <button className="w-full py-1.5 border border-slate-200 rounded-lg text-slate-600 text-xs font-medium flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors">
-                  ðŸ–¨ï¸ PRINT
+                  <Printer className="h-4 w-4" />
+                  PRINT
                 </button>
               </div>
               {/* DELETE / HOLD / PAY */}
               <div className="px-3 py-2.5 grid grid-cols-3 gap-2">
                 <button className="bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold py-3 rounded-lg flex flex-col items-center gap-0.5 transition-colors">
-                  <span className="text-sm">ðŸ—‘ï¸</span>DELETE
+                  <Trash2 className="h-4 w-4" />
+                  DELETE
                 </button>
                 <button className="text-white text-[10px] font-bold py-3 rounded-lg flex flex-col items-center gap-0.5 transition-colors hover:brightness-110" style={{ backgroundColor: '#0e6ba8' }}>
-                  <span className="text-sm">â¸ï¸</span>HOLD
+                  <Pause className="h-4 w-4" />
+                  HOLD
                 </button>
                 <button
                   onClick={onCheckout}
                   className="bg-green-500 hover:bg-green-600 text-white text-[10px] font-bold py-3 rounded-lg flex flex-col items-center gap-0.5 transition-colors"
                 >
-                  <span className="text-sm">ðŸ’³</span>PAY
+                  <CreditCard className="h-4 w-4" />
+                  PAY
                 </button>
               </div>
             </div>
@@ -388,7 +460,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
   }, []);
 
   function handlePin(digit: string) {
-    if (digit === 'âŒ«') { setPin(p => p.slice(0,-1)); setError(''); return; }
+    if (digit === 'BACKSPACE') { setPin(p => p.slice(0,-1)); setError(''); return; }
     if (pin.length >= 4) return;
     const next = pin + digit;
     setPin(next);
@@ -413,7 +485,8 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
         style={{ backgroundColor: '#0a4d7a' }}
       >
         <button className="flex items-center gap-1.5 border border-white/50 rounded-full px-3 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition-colors">
-          â° CLOCK IN / OUT
+          <Clock3 className="h-4 w-4" />
+          CLOCK IN / OUT
         </button>
         <div className="flex flex-col items-center">
           <div className="relative h-9 w-9 overflow-hidden rounded-full bg-white shadow-lg ring-2 ring-white/20">
@@ -429,10 +502,12 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
         </div>
         <div className="flex items-center gap-2">
           <button className="border border-white/50 rounded-full px-3 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition-colors">
-            â“ HELP
+            <CircleHelp className="h-4 w-4" />
+            HELP
           </button>
           <button className="bg-red-500 hover:bg-red-600 rounded-full px-3 py-1.5 text-white text-xs font-bold transition-colors">
-            â» EXIT
+            <Power className="h-4 w-4" />
+            EXIT
           </button>
         </div>
       </div>
@@ -446,12 +521,13 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
           {/* Pending-transactions card */}
           <div className="rounded-xl p-4 border border-white/10" style={{ backgroundColor: '#083d5e' }}>
             <div className="flex items-center gap-2 mb-3">
-              <span>ðŸ“‹</span>
+              <ClipboardList className="h-4 w-4 text-amber-200" />
               <span className="text-white text-xs font-bold uppercase tracking-wide">HAS PENDING TRANSACTIONS</span>
             </div>
             <div className="flex items-center justify-between mb-3">
               <span className="flex items-center gap-1.5 text-green-400 text-xs font-semibold">
-                ðŸŸ¢ ONLINE
+                <Wifi className="h-3.5 w-3.5" />
+                ONLINE
               </span>
               <span className="text-blue-300 text-xs">2 locations cached</span>
             </div>
@@ -459,7 +535,8 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
               onClick={() => { setSyncing(true); setTimeout(() => setSyncing(false), 1500); }}
               className="w-full bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-lg py-2.5 text-sm flex items-center justify-center gap-2 transition-colors"
             >
-              â†» {syncing ? 'Syncing...' : 'Sync Data from Cloud'}
+              <RefreshCcw className={`h-4 w-4 ${syncing ? 'animate-spin' : ''}`} />
+              {syncing ? 'Syncing...' : 'Sync Data from Cloud'}
             </button>
             <p className="text-center text-[11px] text-blue-400 mt-2">Last synced: 6 mins ago</p>
           </div>
@@ -478,10 +555,14 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
           {/* Select Location */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-red-400">
-                â–¼ SELECT LOCATION
+              <p className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-red-400">
+                <ChevronDown className="h-3 w-3" />
+                SELECT LOCATION
               </p>
-              <button className="text-blue-300 text-[10px] hover:text-white transition-colors">â†» Refresh</button>
+              <button className="flex items-center gap-1 text-blue-300 text-[10px] hover:text-white transition-colors">
+                <RefreshCcw className="h-3 w-3" />
+                Refresh
+              </button>
             </div>
             <div className="flex gap-2">
               {LOCATIONS.map(loc => (
@@ -565,7 +646,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
                 {k}
               </button>
             ))}
-            {/* 0 spans 2 columns, âŒ« takes the 3rd */}
+            {/* 0 spans 2 columns, backspace takes the 3rd */}
             <button
               onClick={() => handlePin('0')}
               className="col-span-2 h-12 rounded-xl text-white font-semibold text-xl border border-white/25 hover:brightness-110 active:scale-95 transition-all"
@@ -574,11 +655,11 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
               0
             </button>
             <button
-              onClick={() => handlePin('âŒ«')}
+              onClick={() => handlePin('BACKSPACE')}
               className="h-12 rounded-xl text-white font-semibold text-xl border border-white/25 hover:brightness-110 active:scale-95 transition-all"
               style={{ backgroundColor: '#0e6ba8' }}
             >
-              âŒ«
+              DEL
             </button>
           </div>
 
@@ -643,21 +724,23 @@ function POSScreen({
           {/* Sync bar */}
           <div className="flex items-center justify-between px-4 py-2 border-b border-slate-100 shrink-0">
             <span className="text-green-600 text-xs font-semibold">
-              ðŸ“¶ Online{' '}
+              <Wifi className="mr-1 inline h-3.5 w-3.5" />
+              Online{' '}
               <span className="text-slate-400 font-normal">Last sync: 11:27:31 PM</span>
             </span>
             <button
               className="flex items-center gap-1.5 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors hover:brightness-110"
               style={{ backgroundColor: '#0e6ba8' }}
             >
-              â†» Sync Products
+              <RefreshCcw className="h-4 w-4" />
+              Sync Products
             </button>
           </div>
 
           {/* Search */}
           <div className="px-4 py-2.5 border-b border-slate-100 flex gap-2 shrink-0">
             <div className="flex-1 flex items-center border border-slate-200 rounded-lg overflow-hidden">
-              <span className="px-3 text-slate-400 text-sm">ðŸ”</span>
+              <Search className="mx-3 h-4 w-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search products or categories..."
@@ -670,7 +753,8 @@ function POSScreen({
               className="text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-1.5 hover:brightness-110 transition-colors"
               style={{ backgroundColor: '#0e6ba8' }}
             >
-              ðŸ” Search
+              <Search className="h-4 w-4" />
+              Search
             </button>
           </div>
 
@@ -697,9 +781,9 @@ function POSScreen({
                       className="absolute inset-0 opacity-30"
                       style={{ backgroundImage: 'radial-gradient(circle at 28% 24%, rgba(255,255,255,0.5) 0%, transparent 52%), linear-gradient(180deg, transparent 32%, rgba(0,0,0,0.22) 100%)' }}
                     />
-                    {/* Central emoji */}
+                    {/* Central tile mark */}
                     <div className="absolute inset-0 flex items-center justify-center pb-4">
-                      <span style={{ fontSize: 34, lineHeight: 1 }}>{s.emoji}</span>
+                      <span className="font-black tracking-[0.14em] text-slate-900/80" style={{ fontSize: 26, lineHeight: 1 }}>{s.mark}</span>
                     </div>
                     {/* Label band at bottom (dark overlay) */}
                     <div className="absolute bottom-0 left-0 right-0 bg-black/35 px-2 py-1.5">
@@ -722,6 +806,7 @@ function POSScreen({
                   const isOut  = p.stock === null;
                   const inCart = cart.find(c => c.name === p.name);
                   const style = CAT_STYLE[p.category] ?? CAT_STYLE.Breakfast;
+                  const productMark = getProductMark(p.name);
                   return (
                     <button
                       key={p.name}
@@ -739,7 +824,7 @@ function POSScreen({
                           className="absolute inset-0 opacity-30"
                           style={{ backgroundImage: 'radial-gradient(circle at 26% 24%, rgba(255,255,255,0.55) 0%, transparent 48%), linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)' }}
                         />
-                        <span className="relative" style={{ fontSize: 28, lineHeight: 1 }}>{p.emoji}</span>
+                        <span className="relative font-black tracking-[0.14em] text-slate-900/75" style={{ fontSize: 22, lineHeight: 1 }}>{productMark}</span>
                         {isOut && (
                           <span className="absolute top-0.5 right-0.5 bg-red-500 text-white text-[8px] font-bold px-1 py-px rounded leading-none">
                             Out
@@ -843,7 +928,9 @@ function PaymentScreen({
 
           {/* Back header row */}
           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-100 shrink-0">
-            <button onClick={onCancel} className="text-slate-600 hover:text-slate-900 font-bold text-lg leading-none">â†</button>
+            <button onClick={onCancel} className="text-slate-600 hover:text-slate-900" aria-label="Back to menu">
+              <ArrowLeft className="h-5 w-5" />
+            </button>
             <span className="text-slate-700 font-semibold text-sm">Complete Payment</span>
           </div>
 
@@ -859,7 +946,9 @@ function PaymentScreen({
                   <p className="text-white font-bold text-base leading-tight">Complete Payment</p>
                   <p className="text-blue-200 text-xs mt-0.5">Select payment method and enter amount</p>
                 </div>
-                <button onClick={onCancel} className="text-white/60 hover:text-white text-xl ml-4 leading-none">âœ•</button>
+                <button onClick={onCancel} className="ml-4 text-white/60 hover:text-white" aria-label="Close payment modal">
+                  <X className="h-5 w-5" />
+                </button>
               </div>
 
               {/* 3-column body */}
@@ -921,7 +1010,7 @@ function PaymentScreen({
                     >
                       {m.label}
                       <span className="block text-[10px] opacity-60 mt-0.5 font-normal">
-                        {payments[m.id] ? fmt(payments[m.id]) : 'â‚¦0.00'}
+                        {payments[m.id] ? fmt(payments[m.id]) : 'N0.00'}
                       </span>
                     </button>
                   ))}
@@ -965,7 +1054,7 @@ function PaymentScreen({
                       ENTERING FOR: {activeLabel.toUpperCase()}
                     </p>
                     <p className="text-white text-xl font-bold">
-                      {input ? fmt(parseInt(input)) : 'â‚¦0'}
+                      {input ? fmt(parseInt(input)) : 'N0'}
                     </p>
                   </div>
                   <div className="flex gap-1.5 mb-1.5 shrink-0">
@@ -981,7 +1070,10 @@ function PaymentScreen({
                       className="flex-1 h-9 rounded-lg text-white text-xs font-semibold border border-white/20 hover:brightness-110 transition-all"
                       style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
                     >
-                      â† BACK
+                      <span className="inline-flex items-center gap-1">
+                        <ArrowLeft className="h-3.5 w-3.5" />
+                        BACK
+                      </span>
                     </button>
                   </div>
                   <button
@@ -1008,7 +1100,8 @@ function PaymentScreen({
               onClick={onCancel}
               className="flex-1 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-2 text-sm transition-colors"
             >
-              âœ• Cancel
+              <X className="h-4 w-4" />
+              Cancel
             </button>
             <button
               onClick={() => isComplete && onConfirm(payments)}
@@ -1020,7 +1113,8 @@ function PaymentScreen({
                   : { backgroundColor: '#e2e8f0', color: '#94a3b8' }
               }
             >
-              âœ“ Confirm
+              <Check className="h-4 w-4" />
+              Confirm
             </button>
           </div>
         </div>
@@ -1075,7 +1169,7 @@ function ReceiptScreen({
               {cart.map(item => (
                 <div key={item.name} className="flex justify-between">
                   <span className="flex-1 truncate uppercase">{item.name}</span>
-                  <span className="ml-2 shrink-0">{item.qty} Ã— {fmt(item.price)}</span>
+                  <span className="ml-2 shrink-0">{item.qty} x {fmt(item.price)}</span>
                 </div>
               ))}
             </div>
@@ -1091,7 +1185,8 @@ function ReceiptScreen({
               ))}
             </div>
             <div className="text-center pt-2 text-slate-400 text-[10px]">
-              âœ“ Transaction Approved<br />Thank you for your purchase!
+              <Check className="mx-auto mb-1 h-4 w-4" />
+              Transaction Approved<br />Thank you for your purchase!
             </div>
           </div>
         </div>
@@ -1139,8 +1234,8 @@ export default function POSDemoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      <div className="min-h-screen overflow-hidden flex flex-col">
+    <div className="bg-slate-100 pt-16 md:pt-20">
+      <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] overflow-hidden flex flex-col">
         {screen === 'login' && (
           <LoginScreen
             onLogin={(staff, loc) => {
