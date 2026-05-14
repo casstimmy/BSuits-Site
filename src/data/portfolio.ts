@@ -16,6 +16,7 @@ export interface PortfolioApp {
   sourceProject: string;
   category: string;
   deliveryMode: string;
+  demoHref?: string;
   previewImage?: string;
   icon: LucideIcon;
   gradient: string;
@@ -52,6 +53,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'inventory-admin-app',
     category: 'Retail back office',
     deliveryMode: 'Web app',
+    demoHref: '/demo/inventory',
     icon: Package,
     gradient: 'from-cyan-500 to-blue-600',
     summary:
@@ -73,6 +75,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'sales-point-app',
     category: 'Frontline checkout',
     deliveryMode: 'Desktop / Web App',
+    demoHref: '/demo/pos',
     previewImage: '/images/Point of sales preview 1.png',
     icon: ShoppingCart,
     gradient: 'from-amber-500 to-orange-600',
@@ -95,6 +98,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'webpage-app',
     category: 'Customer storefront',
     deliveryMode: 'Web storefront',
+    demoHref: '/demo',
     icon: Store,
     gradient: 'from-sky-500 to-indigo-600',
     summary:
@@ -116,6 +120,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'farm-health-app',
     category: 'Farm operations',
     deliveryMode: 'Web operations suite',
+    demoHref: '/demo/farm',
     icon: Sprout,
     gradient: 'from-emerald-500 to-green-600',
     summary:
@@ -137,6 +142,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'Web_Place',
     category: 'Agri-commerce storefront',
     deliveryMode: 'Web storefront',
+    demoHref: '/demo/farm-store',
     icon: Leaf,
     gradient: 'from-lime-500 to-green-700',
     summary:
@@ -158,6 +164,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'Pdf extracter',
     category: 'Document automation',
     deliveryMode: 'Windows desktop app',
+    demoHref: '/demo/document',
     icon: FileText,
     gradient: 'from-slate-700 to-slate-900',
     summary:
@@ -179,6 +186,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'project_management',
     category: 'Operations and facility management',
     deliveryMode: 'Web operations suite',
+    demoHref: '/demo/ops',
     icon: FolderKanban,
     gradient: 'from-violet-600 to-fuchsia-600',
     summary:

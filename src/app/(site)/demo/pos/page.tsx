@@ -8,6 +8,7 @@
 //  Receipt:          (centred receipt slip)
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
 // â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -21,6 +22,7 @@ interface Product  { name: string; price: number; stock: number | null; emoji: s
 
 const STORE_NAME = "St's Michael's Place";
 const LOCATIONS  = ['Warehouse', 'Hotel'];
+const STORE_LOGO = '/images/logo.png';
 
 const STAFF = [
   { name: 'Ayoola',   role: 'Admin',       initial: 'A', pin: '1234' },
@@ -150,7 +152,10 @@ function AppHeader({
     d.getFullYear();
 
   return (
-    <div className="flex items-center justify-between px-4 py-2 shrink-0" style={{ backgroundColor: '#0e6ba8' }}>
+    <div
+      className="flex items-center justify-between border-b-[3px] border-[#0b5d8f] px-4 py-2.5 shrink-0"
+      style={{ backgroundColor: '#0e6ba8' }}
+    >
       <div className="flex items-center gap-3">
         <button className="text-white text-xl leading-none">â˜°</button>
         <div>
@@ -191,23 +196,25 @@ function CartPanel({
   const itemCount = cart.reduce((s, i) => s + i.qty, 0);
 
   return (
-    <div className="w-[280px] xl:w-[300px] border-l border-slate-200 flex flex-col shrink-0 bg-white">
+    <div className="w-[34%] min-w-[360px] max-w-[520px] border-l border-slate-200 flex flex-col shrink-0 bg-white">
 
       {/* Tab bar */}
-      <div className="flex border-b border-slate-200 shrink-0">
-        {(['MENU','CUSTOMERS','ORDERS'] as const).map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`flex-1 py-3 text-[11px] font-bold uppercase tracking-wide transition-colors ${
-              activeTab === tab
-                ? 'text-slate-900 border-b-2 border-slate-900 -mb-px'
-                : 'text-slate-400 hover:text-slate-600'
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
+      <div className="border-b border-slate-200 px-3 py-3 shrink-0">
+        <div className="grid grid-cols-3 gap-2 rounded-xl bg-slate-200 p-1">
+          {(['MENU','CUSTOMERS','ORDERS'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`rounded-lg py-2.5 text-[11px] font-bold uppercase tracking-wide transition-all ${
+                activeTab === tab
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
       </div>
 
       {activeTab === 'MENU' && (
@@ -402,14 +409,22 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
 
       {/* â”€â”€ Top bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div
-        className="flex items-center justify-between px-5 py-2.5 shrink-0"
+        className="flex items-center justify-between border-b-[3px] border-[#083d5e] px-5 py-2.5 shrink-0"
         style={{ backgroundColor: '#0a4d7a' }}
       >
         <button className="flex items-center gap-1.5 border border-white/50 rounded-full px-3 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition-colors">
           â° CLOCK IN / OUT
         </button>
         <div className="flex flex-col items-center">
-          <div className="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-white font-bold text-sm">B</div>
+          <div className="relative h-9 w-9 overflow-hidden rounded-full bg-white shadow-lg ring-2 ring-white/20">
+            <Image
+              src={STORE_LOGO}
+              alt="BizSuits store logo"
+              fill
+              sizes="36px"
+              className="object-contain p-1"
+            />
+          </div>
           <span className="text-white text-[10px] font-medium mt-0.5">TILL 1 - {clock}</span>
         </div>
         <div className="flex items-center gap-2">
@@ -423,7 +438,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
       </div>
 
       {/* â”€â”€ Body: left content + right passcode card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="flex flex-1 overflow-hidden p-5 gap-5">
+      <div className="flex flex-1 overflow-hidden p-4 md:p-5 gap-4 md:gap-5">
 
         {/* Left content */}
         <div className="flex-1 flex flex-col gap-4 overflow-y-auto min-w-0">
@@ -515,8 +530,8 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
 
         {/* Right: passcode card */}
         <div
-          className="w-[288px] shrink-0 rounded-2xl p-5 flex flex-col items-center border border-white/20"
-          style={{ backgroundColor: '#0d5f91' }}
+          className="w-full max-w-[320px] shrink-0 rounded-2xl p-5 flex flex-col items-center border border-white/20 shadow-2xl backdrop-blur-sm"
+          style={{ backgroundColor: 'rgba(13, 95, 145, 0.9)' }}
         >
           <p className="text-white text-sm font-bold tracking-widest text-center mb-5">
             PLEASE ENTER YOUR PASSCODE
@@ -571,10 +586,10 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
           <button
             onClick={() => canLogin && onLogin(selectedStaff!, selectedLocation)}
             disabled={!canLogin}
-            className="w-full py-3 rounded-xl text-sm font-bold tracking-widest mb-3 transition-all"
+            className="w-full py-3 rounded-xl text-sm font-bold tracking-widest mb-3 transition-all shadow-sm"
             style={{
-              backgroundColor: canLogin ? '#1d4ed8' : '#1e3a5f',
-              color: canLogin ? '#fff' : '#4a7a9a',
+              backgroundColor: canLogin ? '#49b3f3' : '#c7d2de',
+              color: canLogin ? '#083d5e' : '#5b6b7c',
             }}
           >
             LOGIN
@@ -670,25 +685,25 @@ function POSScreen({
                   <button
                     key={cat}
                     onClick={() => { setActiveCategory(cat); setSearch(''); }}
-                    className={`shrink-0 relative rounded-xl overflow-hidden border-2 transition-all ${
-                      active ? 'border-sky-400 shadow-md scale-105' : 'border-transparent hover:scale-102 hover:brightness-105'
+                    className={`shrink-0 relative rounded-2xl overflow-hidden border-2 transition-all ${
+                      active ? 'border-sky-400 shadow-md scale-[1.02]' : 'border-transparent hover:brightness-105'
                     }`}
-                    style={{ width: 90, height: 72 }}
+                    style={{ width: 164, height: 96 }}
                   >
                     {/* Gradient "photo" background */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${s.grad}`} />
                     {/* Highlight shimmer to fake a photo texture */}
                     <div
-                      className="absolute inset-0 opacity-25"
-                      style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.5) 0%, transparent 60%)' }}
+                      className="absolute inset-0 opacity-30"
+                      style={{ backgroundImage: 'radial-gradient(circle at 28% 24%, rgba(255,255,255,0.5) 0%, transparent 52%), linear-gradient(180deg, transparent 32%, rgba(0,0,0,0.22) 100%)' }}
                     />
                     {/* Central emoji */}
                     <div className="absolute inset-0 flex items-center justify-center pb-4">
-                      <span style={{ fontSize: 28, lineHeight: 1 }}>{s.emoji}</span>
+                      <span style={{ fontSize: 34, lineHeight: 1 }}>{s.emoji}</span>
                     </div>
                     {/* Label band at bottom (dark overlay) */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/40 px-1 py-1">
-                      <span className="text-white text-[9px] font-bold block text-center leading-none">{cat}</span>
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/35 px-2 py-1.5">
+                      <span className="text-white text-[10px] font-bold block text-center leading-none">{cat}</span>
                     </div>
                   </button>
                 );
@@ -702,10 +717,11 @@ function POSScreen({
             {filtered.length === 0 ? (
               <p className="text-slate-400 text-sm text-center py-8">No products found</p>
             ) : (
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-5 gap-2.5">
                 {filtered.map(p => {
                   const isOut  = p.stock === null;
                   const inCart = cart.find(c => c.name === p.name);
+                  const style = CAT_STYLE[p.category] ?? CAT_STYLE.Breakfast;
                   return (
                     <button
                       key={p.name}
@@ -718,8 +734,12 @@ function POSScreen({
                       } ${inCart ? 'ring-2 ring-blue-400' : ''}`}
                     >
                       {/* Tile image area */}
-                      <div className="w-full bg-slate-50 flex items-center justify-center relative" style={{ height: 52 }}>
-                        <span style={{ fontSize: 26, lineHeight: 1 }}>{p.emoji}</span>
+                      <div className={`relative flex w-full items-center justify-center overflow-hidden bg-gradient-to-br ${style.grad}`} style={{ height: 60 }}>
+                        <div
+                          className="absolute inset-0 opacity-30"
+                          style={{ backgroundImage: 'radial-gradient(circle at 26% 24%, rgba(255,255,255,0.55) 0%, transparent 48%), linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)' }}
+                        />
+                        <span className="relative" style={{ fontSize: 28, lineHeight: 1 }}>{p.emoji}</span>
                         {isOut && (
                           <span className="absolute top-0.5 right-0.5 bg-red-500 text-white text-[8px] font-bold px-1 py-px rounded leading-none">
                             Out
@@ -732,17 +752,17 @@ function POSScreen({
                         )}
                       </div>
                       {/* Name + stock */}
-                      <div className="px-1.5 pt-1 pb-0.5 flex-1">
-                        <p className="text-[9px] font-semibold text-slate-700 uppercase leading-tight line-clamp-2">
+                      <div className="px-2 pt-1.5 pb-1 flex-1 bg-white">
+                        <p className="text-[9px] font-semibold text-slate-700 uppercase leading-tight line-clamp-2 min-h-[2.25rem]">
                           {p.name}
                         </p>
                         {p.stock !== null && (
-                          <p className="text-[8px] text-green-600 font-medium mt-0.5">{p.stock.toLocaleString()}</p>
+                          <p className="text-[8px] text-emerald-600 font-medium mt-1">{p.stock.toLocaleString()}</p>
                         )}
                       </div>
                       {/* Price bar */}
                       <div
-                        className="text-white text-[10px] font-bold text-center py-1"
+                        className="text-white text-[10px] font-bold text-center py-1.5"
                         style={{ backgroundColor: '#0e6ba8' }}
                       >
                         {fmt(p.price)}
@@ -819,7 +839,7 @@ function PaymentScreen({
       <div className="flex flex-1 overflow-hidden">
 
         {/* â”€â”€ Left: payment panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0 bg-slate-100">
 
           {/* Back header row */}
           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-100 shrink-0">
@@ -1119,28 +1139,8 @@ export default function POSDemoPage() {
   }
 
   return (
-    <div className="fixed inset-0 flex flex-col">
-      {/* Simulated browser chrome */}
-      <div className="bg-[#f1f3f4] border-b border-gray-300 px-3 py-2 flex items-center gap-2 shrink-0">
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-          <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-          <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-        </div>
-        <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-gray-500 border border-gray-200 flex items-center gap-1.5">
-          <span className="text-green-600 text-[11px]">ðŸ”’</span>
-          demo.bizsuits.com/pos
-        </div>
-        <a
-          href="/demo"
-          className="text-xs text-gray-500 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-200 transition-colors shrink-0"
-        >
-          â† All Demos
-        </a>
-      </div>
-
-      {/* App content */}
-      <div className="flex-1 overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-slate-100">
+      <div className="min-h-screen overflow-hidden flex flex-col">
         {screen === 'login' && (
           <LoginScreen
             onLogin={(staff, loc) => {

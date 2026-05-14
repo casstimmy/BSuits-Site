@@ -123,7 +123,8 @@ export default function FeaturesPage() {
                   }`}
                 >
                   {apps.map((app) => (
-                    <Card key={app.slug} elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
+                    <div key={app.slug} id={app.slug} className="scroll-mt-32">
+                      <Card elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
                       {/* Preview image (POS screenshot) */}
                       {app.previewImage && (
                         <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden rounded-t-2xl">
@@ -173,7 +174,19 @@ export default function FeaturesPage() {
                           </span>
                         ))}
                       </div>
-                    </Card>
+
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          href={app.demoHref ?? demoHref}
+                          icon={<ExternalLink className="w-4 h-4" />}
+                        >
+                          Try Demo
+                        </Button>
+                      </div>
+                      </Card>
+                    </div>
                   ))}
                 </div>
               </div>
