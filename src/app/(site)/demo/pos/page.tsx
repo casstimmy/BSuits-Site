@@ -16,13 +16,11 @@ import {
   ChevronUp,
   CircleHelp,
   ClipboardList,
-  Clock3,
   CreditCard,
   LogOut,
   Menu as MenuIcon,
   Minus,
   Pause,
-  Power,
   Printer,
   RefreshCcw,
   Search,
@@ -481,14 +479,11 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
 
       {/* â”€â”€ Top bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div
-        className="flex items-center justify-between border-b-[3px] border-[#083d5e] px-5 py-2.5 shrink-0"
+        className="grid grid-cols-[1fr_auto_1fr] items-center border-b-[3px] border-[#083d5e] px-4 sm:px-5 py-2.5 shrink-0"
         style={{ backgroundColor: '#0a4d7a' }}
       >
-        <button className="flex items-center gap-1.5 border border-white/50 rounded-full px-3 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition-colors">
-          <Clock3 className="h-4 w-4" />
-          CLOCK IN / OUT
-        </button>
-        <div className="flex flex-col items-center">
+        <div className="h-10 w-[104px] justify-self-start" aria-hidden="true" />
+        <div className="flex flex-col items-center justify-self-center">
           <div className="relative h-9 w-9 overflow-hidden rounded-full bg-white shadow-lg ring-2 ring-white/20">
             <Image
               src={STORE_LOGO}
@@ -500,23 +495,20 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
           </div>
           <span className="text-white text-[10px] font-medium mt-0.5">TILL 1 - {clock}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <button className="border border-white/50 rounded-full px-3 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition-colors">
+        <div className="justify-self-end">
+          <button className="inline-flex items-center gap-1.5 border-2 border-white/70 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition-colors">
             <CircleHelp className="h-4 w-4" />
             HELP
-          </button>
-          <button className="bg-red-500 hover:bg-red-600 rounded-full px-3 py-1.5 text-white text-xs font-bold transition-colors">
-            <Power className="h-4 w-4" />
-            EXIT
           </button>
         </div>
       </div>
 
       {/* â”€â”€ Body: left content + right passcode card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="flex flex-1 overflow-hidden p-4 md:p-5 gap-4 md:gap-5">
+      <div className="flex flex-1 overflow-hidden flex-col lg:flex-row">
 
         {/* Left content */}
-        <div className="flex-1 flex flex-col gap-4 overflow-y-auto min-w-0">
+        <div className="min-w-0 flex-1 overflow-y-auto px-4 py-4 md:px-5 md:py-5">
+          <div className="flex flex-col gap-4">
 
           {/* Pending-transactions card */}
           <div className="rounded-xl p-4 border border-white/10" style={{ backgroundColor: '#083d5e' }}>
@@ -542,7 +534,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
           </div>
 
           {/* Select Store */}
-          <div>
+          <div className="max-w-[470px]">
             <p className="text-white text-[10px] font-bold uppercase tracking-wider mb-1.5">SELECT STORE</p>
             <div
               className="rounded-lg py-2.5 px-4 text-center text-white text-sm font-medium border border-white/20"
@@ -590,7 +582,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
                 <button
                   key={s.name}
                   onClick={() => { setSelectedStaff(s.name); setPin(''); setError(''); }}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all min-w-[100px] ${
+                  className={`flex w-[184px] flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all ${
                     selectedStaff === s.name ? 'border-amber-400' : 'border-white/15 hover:border-white/30'
                   }`}
                   style={{ backgroundColor: '#083d5e' }}
@@ -607,83 +599,80 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
               ))}
             </div>
           </div>
+          </div>
         </div>
 
         {/* Right: passcode card */}
-        <div
-          className="w-full max-w-[320px] shrink-0 rounded-2xl p-5 flex flex-col items-center border border-white/20 shadow-2xl backdrop-blur-sm"
-          style={{ backgroundColor: 'rgba(13, 95, 145, 0.9)' }}
-        >
-          <p className="text-white text-sm font-bold tracking-widest text-center mb-5">
-            PLEASE ENTER YOUR PASSCODE
-          </p>
-
-          {/* Dots */}
-          <div className="flex gap-4 mb-2">
-            {[0,1,2,3].map(i => (
-              <div
-                key={i}
-                className={`w-4 h-4 rounded-full border-2 transition-all ${
-                  pin.length > i ? 'bg-white border-white' : 'bg-transparent border-white/40'
-                }`}
-              />
-            ))}
-          </div>
-
-          {error && <p className="text-red-400 text-xs text-center mb-1">{error}</p>}
-
-          <div className="w-full border-t border-white/20 my-3" />
-
-          {/* Keypad */}
-          <div className="grid grid-cols-3 gap-2 w-full mb-2">
-            {['1','2','3','4','5','6','7','8','9'].map(k => (
-              <button
-                key={k}
-                onClick={() => handlePin(k)}
-                className="h-12 rounded-xl text-white font-semibold text-xl border border-white/25 hover:brightness-110 active:scale-95 transition-all"
-                style={{ backgroundColor: '#0e6ba8' }}
-              >
-                {k}
-              </button>
-            ))}
-            {/* 0 spans 2 columns, backspace takes the 3rd */}
-            <button
-              onClick={() => handlePin('0')}
-              className="col-span-2 h-12 rounded-xl text-white font-semibold text-xl border border-white/25 hover:brightness-110 active:scale-95 transition-all"
-              style={{ backgroundColor: '#0e6ba8' }}
-            >
-              0
-            </button>
-            <button
-              onClick={() => handlePin('BACKSPACE')}
-              className="h-12 rounded-xl text-white font-semibold text-xl border border-white/25 hover:brightness-110 active:scale-95 transition-all"
-              style={{ backgroundColor: '#0e6ba8' }}
-            >
-              DEL
-            </button>
-          </div>
-
-          {/* LOGIN */}
-          <button
-            onClick={() => canLogin && onLogin(selectedStaff!, selectedLocation)}
-            disabled={!canLogin}
-            className="w-full py-3 rounded-xl text-sm font-bold tracking-widest mb-3 transition-all shadow-sm"
-            style={{
-              backgroundColor: canLogin ? '#49b3f3' : '#c7d2de',
-              color: canLogin ? '#083d5e' : '#5b6b7c',
-            }}
+        <div className="border-t border-[#146c9a] lg:border-t-0 lg:border-l flex items-center justify-center px-4 py-8 lg:w-[38%] lg:min-w-[360px] lg:px-8">
+          <div
+            className="w-full max-w-[325px] shrink-0 rounded-[22px] p-5 flex flex-col items-center border shadow-2xl"
+            style={{ backgroundColor: 'rgba(13, 95, 145, 0.45)', borderColor: 'rgba(255,255,255,0.45)' }}
           >
-            LOGIN
-          </button>
-
-          <p className="text-blue-300 text-[10px] text-center leading-relaxed">
-            Enter 4-digit passcode and select a Staff &amp; Location to continue
-          </p>
-          {selectedStaff && (
-            <p className="text-amber-400 text-[10px] mt-2 text-center">
-              Demo PIN: {STAFF.find(s => s.name === selectedStaff)?.pin}
+            <p className="text-white text-[14px] font-bold tracking-wide text-center mb-6">
+              PLEASE ENTER YOUR PASSCODE
             </p>
-          )}
+
+            {/* Dots */}
+            <div className="flex gap-3 mb-4">
+              {[0,1,2,3].map(i => (
+                <div
+                  key={i}
+                  className={`h-4 w-4 rounded-full transition-all ${
+                    pin.length > i ? 'bg-[#8db7c8]' : 'bg-[#8db7c8]/45'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {error && <p className="text-red-300 text-xs text-center mb-2">{error}</p>}
+
+            <div className="w-full border-t border-white/25 my-4" />
+
+            {/* Keypad */}
+            <div className="grid grid-cols-3 gap-2.5 w-full mb-3">
+              {['1','2','3','4','5','6','7','8','9'].map(k => (
+                <button
+                  key={k}
+                  onClick={() => handlePin(k)}
+                  className="h-12 rounded-xl text-white font-semibold text-xl border border-white/55 hover:bg-white/10 active:scale-95 transition-all"
+                  style={{ backgroundColor: 'transparent' }}
+                >
+                  {k}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePin('0')}
+                className="col-span-2 h-12 rounded-xl text-white font-semibold text-xl border border-white/55 hover:bg-white/10 active:scale-95 transition-all"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                0
+              </button>
+              <button
+                onClick={() => handlePin('BACKSPACE')}
+                className="h-12 rounded-xl text-white font-semibold text-sm border border-white/55 hover:bg-white/10 active:scale-95 transition-all"
+                style={{ backgroundColor: 'transparent' }}
+              >
+                DEL
+              </button>
+            </div>
+
+            {/* LOGIN */}
+            <button
+              onClick={() => canLogin && onLogin(selectedStaff!, selectedLocation)}
+              disabled={!canLogin}
+              className="w-full py-3 rounded-xl text-sm font-bold tracking-wide mb-3 transition-all shadow-sm"
+              style={{
+                backgroundColor: canLogin ? '#f2b957' : '#b8becb',
+                color: canLogin ? '#083d5e' : '#4f5d6f',
+              }}
+            >
+              LOGIN
+            </button>
+
+            <p className="text-blue-200/80 text-[10px] text-center leading-relaxed">
+              Enter 4-digit passcode and select a Staff &amp; Location to continue
+            </p>
+          </div>
         </div>
       </div>
     </div>
