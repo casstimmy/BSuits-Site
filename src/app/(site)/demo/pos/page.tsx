@@ -626,7 +626,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
 
             {error && <p className="text-red-300 text-xs text-center mb-2">{error}</p>}
 
-            <div className="w-full border-t border-white/25 my-4" />
+            <div className="h-4" />
 
             {/* Keypad */}
             <div className="grid grid-cols-3 gap-2.5 w-full mb-3">
