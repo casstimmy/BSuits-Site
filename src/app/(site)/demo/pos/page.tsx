@@ -43,11 +43,25 @@ interface Product  { name: string; price: number; stock: number | null; emoji: s
 const STORE_NAME = 'Demo Business';
 const LOCATIONS  = ['Warehouse', 'Hotel'];
 const STORE_LOGO = '/images/logo.png';
+const PRODUCT_PLACEHOLDER = '/images/product-placeholder.svg';
 
 const STAFF = [
   { name: 'Jane Doe', role: 'Admin',        initial: 'J', pin: '1234' },
   { name: 'John Doe', role: 'Junior Staff', initial: 'J', pin: '5678' },
 ];
+
+const UNAVAILABLE_PRODUCTS = new Set([
+  'PORRIDE BEANS',
+  'WHITE RICE & TURKEY',
+  'FEARLESS ENERGY DRINK 500ML (Pack)',
+  'GRILLED FISH',
+  'STANDARD ROOM (1 NIGHT)',
+  'SCOTCH EGG',
+]);
+
+function getDemoStock(index: number) {
+  return 8 + (index % 7) * 4;
+}
 
 const CATEGORIES = ['Breakfast','Drinks','Extra','Pasta','Pastry','Pepper Soup','Protein','Rooms','Soup'];
 
@@ -125,7 +139,13 @@ const PRODUCTS: Product[] = [
   { name: 'EXTRA STEW',    price: 500, stock: null, category: 'Extra', emoji: 'ðŸ²' },
   { name: 'EXTRA EGG',     price: 300, stock: null, category: 'Extra', emoji: 'ðŸ¥š' },
   { name: 'EXTRA PLANTAIN',price: 500, stock: null, category: 'Extra', emoji: 'ðŸŒ' },
-];
+].map((product, index) => {
+  if (UNAVAILABLE_PRODUCTS.has(product.name)) {
+    return { ...product, stock: null };
+  }
+
+  return { ...product, stock: getDemoStock(index) };
+});
 
 const PAY_METHODS = [
   { id: 'moniepoint', label: 'Moniepoint Pos' },
@@ -133,21 +153,6 @@ const PAY_METHODS = [
   { id: 'transfer',   label: 'Bank Transfer'  },
   { id: 'tips',       label: 'Staff Tips'     },
 ];
-
-const PRODUCT_TOKEN_IGNORE = new Set([
-  'AND',
-  'OR',
-  'OF',
-  'WITH',
-  'PACK',
-  'UNIT',
-  'NIGHT',
-  'PCS',
-  'X40',
-  'LTR',
-  'ML',
-  'CL',
-]);
 
 // â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -157,25 +162,6 @@ function fmtFixed(n: number) {
   const parts = s.split('.');
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return 'N' + parts.join('.');
-}
-
-function getProductMark(name: string) {
-  const words = name
-    .replace(/[^A-Za-z0-9 ]+/g, ' ')
-    .split(/\s+/)
-    .map((word) => word.trim().toUpperCase())
-    .filter(Boolean)
-    .filter((word) => !PRODUCT_TOKEN_IGNORE.has(word) && !/^\d/.test(word));
-
-  if (words.length === 0) {
-    return 'PRD';
-  }
-
-  if (words.length === 1) {
-    return words[0].slice(0, 3);
-  }
-
-  return words.slice(0, 3).map((word) => word[0]).join('');
 }
 
 // â”€â”€â”€ Shared: App Header Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -603,7 +589,10 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
         </div>
 
         {/* Right: passcode card */}
-        <div className="flex items-center justify-center px-4 py-8 lg:w-[38%] lg:min-w-[360px] lg:px-8">
+        <div
+          className="flex items-center justify-center border-t px-4 py-8 lg:w-[38%] lg:min-w-[360px] lg:border-l lg:border-t-0 lg:px-8"
+          style={{ backgroundColor: 'rgba(6, 61, 94, 0.24)', borderColor: 'rgba(255,255,255,0.2)' }}
+        >
           <div
             className="w-full max-w-[325px] shrink-0 rounded-[22px] p-5 flex flex-col items-center border shadow-2xl"
             style={{ backgroundColor: 'rgba(13, 95, 145, 0.45)', borderColor: 'rgba(255,255,255,0.45)' }}
@@ -750,7 +739,7 @@ function POSScreen({
           {/* Category tiles â€” photo-style rectangles */}
           <div className="px-4 pt-3 pb-2 shrink-0">
             <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">CATEGORIES</p>
-            <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-4">
               {CATEGORIES.map(cat => {
                 const s = CAT_STYLE[cat];
                 const active = activeCategory === cat;
@@ -758,10 +747,10 @@ function POSScreen({
                   <button
                     key={cat}
                     onClick={() => { setActiveCategory(cat); setSearch(''); }}
-                    className={`shrink-0 relative rounded-2xl overflow-hidden border-2 transition-all ${
+                    className={`relative w-full rounded-2xl overflow-hidden border-2 transition-all ${
                       active ? 'border-sky-400 shadow-md scale-[1.02]' : 'border-transparent hover:brightness-105'
                     }`}
-                    style={{ width: 164, height: 96 }}
+                    style={{ height: 96 }}
                   >
                     {/* Gradient "photo" background */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${s.grad}`} />
@@ -790,49 +779,51 @@ function POSScreen({
             {filtered.length === 0 ? (
               <p className="text-slate-400 text-sm text-center py-8">No products found</p>
             ) : (
-              <div className="grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-5 gap-2.5">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 {filtered.map(p => {
                   const isOut  = p.stock === null;
                   const inCart = cart.find(c => c.name === p.name);
                   const style = CAT_STYLE[p.category] ?? CAT_STYLE.Breakfast;
-                  const productMark = getProductMark(p.name);
                   return (
                     <button
                       key={p.name}
                       onClick={() => !isOut && onAddToCart(p)}
                       disabled={isOut}
-                      className={`relative flex flex-col rounded-lg border overflow-hidden text-left transition-all ${
+                      className={`relative flex min-h-[188px] flex-col overflow-hidden rounded-lg border bg-white text-left transition-all ${
                         isOut
                           ? 'border-slate-200 cursor-not-allowed opacity-80'
                           : 'border-slate-200 hover:border-blue-300 hover:shadow active:scale-95'
                       } ${inCart ? 'ring-2 ring-blue-400' : ''}`}
                     >
                       {/* Tile image area */}
-                      <div className={`relative flex w-full items-center justify-center overflow-hidden bg-gradient-to-br ${style.grad}`} style={{ height: 60 }}>
+                      <div className={`relative flex w-full items-center justify-center overflow-hidden bg-gradient-to-br ${style.grad}`} style={{ height: 82 }}>
                         <div
-                          className="absolute inset-0 opacity-30"
+                          className="absolute inset-0 opacity-25"
                           style={{ backgroundImage: 'radial-gradient(circle at 26% 24%, rgba(255,255,255,0.55) 0%, transparent 48%), linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)' }}
                         />
-                        <span className="relative font-black tracking-[0.14em] text-slate-900/75" style={{ fontSize: 22, lineHeight: 1 }}>{productMark}</span>
-                        {isOut && (
-                          <span className="absolute top-0.5 right-0.5 bg-red-500 text-white text-[8px] font-bold px-1 py-px rounded leading-none">
-                            Out
-                          </span>
-                        )}
+                        <div className="relative h-12 w-16 overflow-hidden rounded-xl border border-white/40 bg-white/15 p-2 shadow-sm backdrop-blur-sm">
+                          <Image
+                            src={PRODUCT_PLACEHOLDER}
+                            alt={`${p.name} placeholder preview`}
+                            fill
+                            sizes="64px"
+                            className="object-contain p-1"
+                          />
+                        </div>
                         {inCart && !isOut && (
-                          <span className="absolute top-0.5 right-0.5 bg-blue-500 text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                          <span className="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[9px] font-bold text-white">
                             {inCart.qty}
                           </span>
                         )}
                       </div>
                       {/* Name + stock */}
-                      <div className="px-2 pt-1.5 pb-1 flex-1 bg-white">
-                        <p className="text-[9px] font-semibold text-slate-700 uppercase leading-tight line-clamp-2 min-h-[2.25rem]">
+                      <div className="flex-1 bg-white px-2.5 pb-2 pt-2">
+                        <p className="min-h-[2.25rem] text-[9px] font-semibold uppercase leading-tight text-slate-700 line-clamp-2">
                           {p.name}
                         </p>
-                        {p.stock !== null && (
-                          <p className="text-[8px] text-emerald-600 font-medium mt-1">{p.stock.toLocaleString()}</p>
-                        )}
+                        <p className={`mt-1 text-[8px] font-semibold ${isOut ? 'text-red-500' : 'text-emerald-600'}`}>
+                          {isOut ? 'Out of stock' : `Qty: ${p.stock?.toLocaleString()}`}
+                        </p>
                       </div>
                       {/* Price bar */}
                       <div
