@@ -40,13 +40,13 @@ interface Product  { name: string; price: number; stock: number | null; emoji: s
 
 // â”€â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-const STORE_NAME = "St's Michael's Place";
+const STORE_NAME = 'Demo Business';
 const LOCATIONS  = ['Warehouse', 'Hotel'];
 const STORE_LOGO = '/images/logo.png';
 
 const STAFF = [
-  { name: 'Ayoola',   role: 'Admin',       initial: 'A', pin: '1234' },
-  { name: 'Precious', role: 'Junior Staff', initial: 'P', pin: '5678' },
+  { name: 'Jane Doe', role: 'Admin',        initial: 'J', pin: '1234' },
+  { name: 'John Doe', role: 'Junior Staff', initial: 'J', pin: '5678' },
 ];
 
 const CATEGORIES = ['Breakfast','Drinks','Extra','Pasta','Pastry','Pepper Soup','Protein','Rooms','Soup'];
@@ -603,7 +603,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
         </div>
 
         {/* Right: passcode card */}
-        <div className="border-t border-[#146c9a] lg:border-t-0 lg:border-l flex items-center justify-center px-4 py-8 lg:w-[38%] lg:min-w-[360px] lg:px-8">
+        <div className="flex items-center justify-center px-4 py-8 lg:w-[38%] lg:min-w-[360px] lg:px-8">
           <div
             className="w-full max-w-[325px] shrink-0 rounded-[22px] p-5 flex flex-col items-center border shadow-2xl"
             style={{ backgroundColor: 'rgba(13, 95, 145, 0.45)', borderColor: 'rgba(255,255,255,0.45)' }}
