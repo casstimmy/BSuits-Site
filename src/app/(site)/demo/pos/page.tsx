@@ -36,8 +36,9 @@ import React, { useState, useEffect } from 'react';
 type Screen = 'login' | 'pos' | 'payment' | 'receipt';
 type LocationName = 'Warehouse' | 'Hotel' | 'SuperMarket';
 
-interface CartItem { name: string; price: number; qty: number; }
+interface CartItem { name: string; price: number; qty: number; details?: string; }
 interface Product  { name: string; price: number; stock: number | null; emoji: string; category: string; }
+interface ReservationFormState { guestName: string; checkIn: string; nights: string; guests: string; }
 
 // â”€â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -56,7 +57,6 @@ const UNAVAILABLE_PRODUCTS = new Set([
   'WHITE RICE & TURKEY',
   'FEARLESS ENERGY DRINK 500ML (Pack)',
   'GRILLED FISH',
-  'STANDARD ROOM (1 NIGHT)',
   'SCOTCH EGG',
 ]);
 
@@ -174,6 +174,21 @@ function fmtFixed(n: number) {
   const parts = s.split('.');
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return 'N' + parts.join('.');
+}
+
+function getDefaultReservationDate() {
+  const today = new Date();
+  const offsetDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
+  return offsetDate.toISOString().slice(0, 10);
+}
+
+function formatReservationDate(value: string) {
+  const [year, month, day] = value.split('-');
+  if (!year || !month || !day) {
+    return value;
+  }
+
+  return `${day}/${month}/${year}`;
 }
 
 function isProductAvailableAtLocation(product: Product, location: LocationName) {
@@ -313,8 +328,8 @@ function CartPanel({
             {cart.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center px-4 py-10">
                 <UtensilsCrossed className="mb-3 h-12 w-12 text-slate-200" />
-                <p className="text-slate-500 text-sm font-semibold">Add a Dish or Drink</p>
-                <p className="text-slate-400 text-xs mt-1">Tap a product to add to the bill</p>
+                <p className="text-slate-500 text-sm font-semibold">Add a Product or Reservation</p>
+                <p className="text-slate-400 text-xs mt-1">Tap a product or room card to add it to the bill</p>
               </div>
             ) : cart.map(item => {
               const isSelected = selectedItem === item.name;
@@ -328,9 +343,16 @@ function CartPanel({
                     }`}
                     style={isSelected ? { backgroundColor: '#0e6ba8' } : {}}
                   >
-                    <span className={`text-[10px] font-semibold uppercase leading-tight ${isSelected ? 'text-white' : 'text-slate-700'}`}>
-                      {item.name}
-                    </span>
+                    <div className="min-w-0">
+                      <span className={`block text-[10px] font-semibold uppercase leading-tight ${isSelected ? 'text-white' : 'text-slate-700'}`}>
+                        {item.name}
+                      </span>
+                      {item.details && (
+                        <span className={`mt-0.5 block text-[9px] leading-tight ${isSelected ? 'text-blue-200' : 'text-slate-400'}`}>
+                          {item.details}
+                        </span>
+                      )}
+                    </div>
                     <span className={`text-[10px] font-bold text-center ${isSelected ? 'text-white' : 'text-slate-700'}`}>
                       {item.qty}
                     </span>
@@ -702,10 +724,11 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: LocationN
 
 function POSScreen({
   staffName, location, cart, selectedItem,
-  onAddToCart, onSelectItem, onUpdateQty, onRemoveItem, onCheckout, onLogout,
+  onAddToCart, onAddReservation, onSelectItem, onUpdateQty, onRemoveItem, onCheckout, onLogout,
 }: {
   staffName: string; location: LocationName; cart: CartItem[]; selectedItem: string | null;
   onAddToCart:  (p: Product) => void;
+  onAddReservation: (item: CartItem) => void;
   onSelectItem: (name: string | null) => void;
   onUpdateQty:  (name: string, delta: number) => void;
   onRemoveItem: (name: string) => void;
@@ -716,11 +739,84 @@ function POSScreen({
   const availableCategories = CATEGORIES.filter(cat => locationProducts.some(p => p.category === cat));
   const [activeCategory, setActiveCategory] = useState(availableCategories[0] ?? CATEGORIES[0]);
   const [search, setSearch] = useState('');
+  const [reservationProduct, setReservationProduct] = useState<Product | null>(null);
+  const [reservationForm, setReservationForm] = useState<ReservationFormState>({
+    guestName: '',
+    checkIn: getDefaultReservationDate(),
+    nights: '1',
+    guests: '1',
+  });
+  const [reservationError, setReservationError] = useState('');
   const staffRole = STAFF.find(s => s.name === staffName)?.role ?? 'Staff';
   const filtered  = locationProducts.filter(p =>
     p.category === activeCategory &&
     p.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  useEffect(() => {
+    if (!availableCategories.includes(activeCategory)) {
+      setActiveCategory(availableCategories[0] ?? CATEGORIES[0]);
+    }
+  }, [activeCategory, availableCategories, location]);
+
+  function openReservation(product: Product) {
+    setReservationProduct(product);
+    setReservationForm({
+      guestName: '',
+      checkIn: getDefaultReservationDate(),
+      nights: '1',
+      guests: '1',
+    });
+    setReservationError('');
+  }
+
+  function closeReservation() {
+    setReservationProduct(null);
+    setReservationError('');
+  }
+
+  function updateReservationField(field: keyof ReservationFormState, value: string) {
+    setReservationForm(prev => ({ ...prev, [field]: value }));
+    setReservationError('');
+  }
+
+  function handleProductSelect(product: Product) {
+    if (product.category === 'Rooms') {
+      openReservation(product);
+      return;
+    }
+
+    onAddToCart(product);
+  }
+
+  function submitReservation() {
+    if (!reservationProduct) {
+      return;
+    }
+
+    const guestName = reservationForm.guestName.trim();
+    if (!guestName) {
+      setReservationError('Enter a guest name');
+      return;
+    }
+
+    if (!reservationForm.checkIn) {
+      setReservationError('Select a check-in date');
+      return;
+    }
+
+    const nights = Math.max(1, Number.parseInt(reservationForm.nights, 10) || 1);
+    const guests = Math.max(1, Number.parseInt(reservationForm.guests, 10) || 1);
+    const checkInLabel = formatReservationDate(reservationForm.checkIn);
+
+    onAddReservation({
+      name: `${reservationProduct.name} - ${guestName} (${checkInLabel})`,
+      price: reservationProduct.price,
+      qty: nights,
+      details: `Reservation • Check-in ${checkInLabel} • ${guests} guest${guests === 1 ? '' : 's'}`,
+    });
+    closeReservation();
+  }
 
   return (
     <div className="flex flex-col h-full bg-white">
@@ -729,7 +825,7 @@ function POSScreen({
       <div className="flex flex-1 overflow-hidden">
 
         {/* â”€â”€ Left: product browser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+        <div className="relative flex-1 flex flex-col overflow-hidden min-w-0">
 
           {/* Sync bar */}
           <div className="flex items-center justify-between px-4 py-2 border-b border-slate-100 shrink-0">
@@ -819,7 +915,7 @@ function POSScreen({
                   return (
                     <button
                       key={p.name}
-                      onClick={() => !isOut && onAddToCart(p)}
+                      onClick={() => !isOut && handleProductSelect(p)}
                       disabled={isOut}
                       className={`relative flex min-h-[188px] flex-col overflow-hidden rounded-lg border bg-white text-left transition-all ${
                         isOut
@@ -854,7 +950,11 @@ function POSScreen({
                           {p.name}
                         </p>
                         <p className={`mt-1 text-[8px] font-semibold ${isOut ? 'text-red-500' : 'text-emerald-600'}`}>
-                          {isOut ? 'Out of stock' : `Qty: ${p.stock?.toLocaleString()}`}
+                          {isOut
+                            ? 'Unavailable'
+                            : p.category === 'Rooms'
+                              ? `${p.stock?.toLocaleString()} rooms available`
+                              : `Qty: ${p.stock?.toLocaleString()}`}
                         </p>
                       </div>
                       {/* Price bar */}
@@ -870,6 +970,114 @@ function POSScreen({
               </div>
             )}
           </div>
+
+          {reservationProduct && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/35 p-4">
+              <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
+                <div className="flex items-start justify-between px-5 py-4 text-white" style={{ backgroundColor: '#0e6ba8' }}>
+                  <div>
+                    <p className="text-sm font-bold uppercase tracking-wide">Room Reservation</p>
+                    <p className="mt-1 text-xs text-blue-100">{reservationProduct.name}</p>
+                  </div>
+                  <button
+                    onClick={closeReservation}
+                    className="rounded-full p-1 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                    aria-label="Close reservation form"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="space-y-4 p-5">
+                  <div>
+                    <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                      Guest Name
+                    </label>
+                    <input
+                      type="text"
+                      value={reservationForm.guestName}
+                      onChange={e => updateReservationField('guestName', e.target.value)}
+                      placeholder="Enter guest name"
+                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors focus:border-sky-400"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                        Check-in
+                      </label>
+                      <input
+                        type="date"
+                        value={reservationForm.checkIn}
+                        onChange={e => updateReservationField('checkIn', e.target.value)}
+                        className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors focus:border-sky-400"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                        Guests
+                      </label>
+                      <input
+                        type="number"
+                        min={1}
+                        value={reservationForm.guests}
+                        onChange={e => updateReservationField('guests', e.target.value)}
+                        className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors focus:border-sky-400"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                      Nights
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      value={reservationForm.nights}
+                      onChange={e => updateReservationField('nights', e.target.value)}
+                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors focus:border-sky-400"
+                    />
+                  </div>
+
+                  <div className="rounded-xl bg-slate-50 px-4 py-3">
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">Reservation Summary</p>
+                    <div className="mt-2 flex items-center justify-between text-sm text-slate-600">
+                      <span>Rate per night</span>
+                      <span className="font-semibold">{fmt(reservationProduct.price)}</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-sm text-slate-600">
+                      <span>Total</span>
+                      <span className="font-semibold text-slate-900">
+                        {fmt(reservationProduct.price * Math.max(1, Number.parseInt(reservationForm.nights, 10) || 1))}
+                      </span>
+                    </div>
+                  </div>
+
+                  {reservationError && (
+                    <p className="text-sm text-red-500">{reservationError}</p>
+                  )}
+
+                  <div className="flex gap-3">
+                    <button
+                      onClick={closeReservation}
+                      className="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={submitReservation}
+                      className="flex-1 rounded-xl px-4 py-3 text-sm font-semibold text-white transition-colors hover:brightness-110"
+                      style={{ backgroundColor: '#0e6ba8' }}
+                    >
+                      Add Reservation
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* â”€â”€ Right: cart â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
@@ -1179,9 +1387,14 @@ function ReceiptScreen({
             </div>
             <div className="border-t border-dashed border-slate-200 pt-3 space-y-1">
               {cart.map(item => (
-                <div key={item.name} className="flex justify-between">
-                  <span className="flex-1 truncate uppercase">{item.name}</span>
-                  <span className="ml-2 shrink-0">{item.qty} x {fmt(item.price)}</span>
+                <div key={item.name} className="flex justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <span className="block truncate uppercase">{item.name}</span>
+                    {item.details && (
+                      <span className="mt-0.5 block text-[10px] normal-case text-slate-400">{item.details}</span>
+                    )}
+                  </div>
+                  <span className="shrink-0">{item.qty} x {fmt(item.price)}</span>
                 </div>
               ))}
             </div>
@@ -1232,6 +1445,10 @@ export default function POSDemoPage() {
     });
   }
 
+  function addReservation(item: CartItem) {
+    setCart(prev => [...prev, item]);
+  }
+
   function updateQty(name: string, delta: number) {
     setCart(prev =>
       prev
@@ -1265,6 +1482,7 @@ export default function POSDemoPage() {
             cart={cart}
             selectedItem={selectedItem}
             onAddToCart={addToCart}
+            onAddReservation={addReservation}
             onSelectItem={setSelectedItem}
             onUpdateQty={updateQty}
             onRemoveItem={removeItem}
