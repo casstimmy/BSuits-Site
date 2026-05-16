@@ -98,7 +98,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'webpage-app',
     category: 'Customer storefront',
     deliveryMode: 'Web storefront',
-    demoHref: '/demo',
+    demoHref: '/features#commerce-web',
     icon: Store,
     gradient: 'from-sky-500 to-indigo-600',
     summary:

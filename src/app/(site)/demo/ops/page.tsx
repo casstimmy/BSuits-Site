@@ -370,7 +370,7 @@ export default function OpsDemoPage() {
           <span className="text-green-600 text-[11px]">🔒</span>
           demo.bizsuits.com/ops
         </div>
-        <a href="/demo" className="text-xs text-gray-500 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-200 transition-colors shrink-0">← All Demos</a>
+        <a href="/features" className="text-xs text-gray-500 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-200 transition-colors shrink-0">← Back to Features</a>
       </div>
 
       {/* Page header */}

@@ -47,7 +47,7 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+              <Button variant="primary" size="lg" href="/features#retail-commerce" icon={<ArrowRight className="w-5 h-5" />}>
                 See Live Demos
               </Button>
               <Button variant="secondary" size="lg" href="/solutions">

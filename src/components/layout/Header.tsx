@@ -12,7 +12,6 @@ import { portfolioApps } from '@/data/portfolio';
 const navLinks = [
   { name: 'Features', href: '/features' },
   { name: 'Solutions', href: '/solutions' },
-  { name: 'Demo', href: '/demo' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
@@ -85,7 +84,7 @@ export default function Header() {
                 ))}
                 <div className="col-span-2 mt-2 pt-3 border-t border-dark-100">
                   <Link
-                    href="/demo"
+                    href="/features#retail-commerce"
                     className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
                   >
                     See live demos <ArrowRight className="w-4 h-4" />
@@ -142,7 +141,7 @@ export default function Header() {
       >
         <div className="bg-white border-t border-dark-100 px-4 py-6 space-y-2">
           <Link
-            href="/demo"
+            href="/features#retail-commerce"
             className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
             onClick={() => setIsMobileMenuOpen(false)}
           >
