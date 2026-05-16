@@ -34,6 +34,7 @@ import React, { useState, useEffect } from 'react';
 // â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 type Screen = 'login' | 'pos' | 'payment' | 'receipt';
+type LocationName = 'Warehouse' | 'Hotel' | 'SuperMarket';
 
 interface CartItem { name: string; price: number; qty: number; }
 interface Product  { name: string; price: number; stock: number | null; emoji: string; category: string; }
@@ -41,7 +42,7 @@ interface Product  { name: string; price: number; stock: number | null; emoji: s
 // â”€â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const STORE_NAME = 'Demo Business';
-const LOCATIONS  = ['Warehouse', 'Hotel'];
+const LOCATIONS: LocationName[] = ['Warehouse', 'Hotel', 'SuperMarket'];
 const STORE_LOGO = '/images/logo.png';
 const PRODUCT_PLACEHOLDER = '/images/product-placeholder.svg';
 
@@ -154,6 +155,17 @@ const PAY_METHODS = [
   { id: 'tips',       label: 'Staff Tips'     },
 ];
 
+const HOTEL_ONLY_CATEGORIES = new Set([
+  'Breakfast',
+  'Extra',
+  'Pasta',
+  'Pastry',
+  'Pepper Soup',
+  'Protein',
+  'Rooms',
+  'Soup',
+]);
+
 // â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function fmt(n: number) { return 'N' + n.toLocaleString(); }
@@ -164,12 +176,30 @@ function fmtFixed(n: number) {
   return 'N' + parts.join('.');
 }
 
+function isProductAvailableAtLocation(product: Product, location: LocationName) {
+  if (HOTEL_ONLY_CATEGORIES.has(product.category)) {
+    return location === 'Hotel';
+  }
+
+  if (product.category === 'Drinks') {
+    if (product.name.includes('(Pack)')) {
+      return location === 'Warehouse';
+    }
+
+    if (product.name.includes('(Unit)')) {
+      return location === 'SuperMarket';
+    }
+  }
+
+  return location === 'Hotel';
+}
+
 // â”€â”€â”€ Shared: App Header Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function AppHeader({
   staffName, role, location, onLogout,
 }: {
-  staffName: string; role: string; location: string; onLogout: () => void;
+  staffName: string; role: string; location: LocationName; onLogout: () => void;
 }) {
   const [time, setTime] = useState('');
   useEffect(() => {
@@ -421,9 +451,9 @@ function CartPanel({
 
 // â”€â”€â”€ Screen 1: Login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) => void }) {
+function LoginScreen({ onLogin }: { onLogin: (staff: string, location: LocationName) => void }) {
   const [selectedStaff,    setSelectedStaff]    = useState<string | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState('Warehouse');
+  const [selectedLocation, setSelectedLocation] = useState<LocationName>('Warehouse');
   const [pin,   setPin]   = useState('');
   const [error, setError] = useState('');
   const [syncing, setSyncing] = useState(false);
@@ -470,13 +500,13 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
       >
         <div className="h-10 w-[104px] justify-self-start" aria-hidden="true" />
         <div className="flex flex-col items-center justify-self-center">
-          <div className="relative h-9 w-9 overflow-hidden rounded-full bg-white shadow-lg ring-2 ring-white/20">
+          <div className="relative h-10 w-10 overflow-hidden rounded-[14px] shadow-lg ring-2 ring-white/20">
             <Image
               src={STORE_LOGO}
-              alt="BizSuits store logo"
+              alt="Demo Business logo"
               fill
-              sizes="36px"
-              className="object-contain p-1"
+              sizes="40px"
+              className="object-cover"
             />
           </div>
           <span className="text-white text-[10px] font-medium mt-0.5">TILL 1 - {clock}</span>
@@ -507,7 +537,7 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
                 <Wifi className="h-3.5 w-3.5" />
                 ONLINE
               </span>
-              <span className="text-blue-300 text-xs">2 locations cached</span>
+              <span className="text-blue-300 text-xs">{LOCATIONS.length} locations cached</span>
             </div>
             <button
               onClick={() => { setSyncing(true); setTimeout(() => setSyncing(false), 1500); }}
@@ -542,12 +572,12 @@ function LoginScreen({ onLogin }: { onLogin: (staff: string, location: string) =
                 Refresh
               </button>
             </div>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
               {LOCATIONS.map(loc => (
                 <button
                   key={loc}
                   onClick={() => setSelectedLocation(loc)}
-                  className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all border ${
+                  className={`py-2.5 rounded-lg text-sm font-bold transition-all border ${
                     selectedLocation === loc
                       ? 'bg-amber-500 text-amber-900 border-amber-400'
                       : 'border-white/20 text-white hover:bg-white/10'
@@ -674,7 +704,7 @@ function POSScreen({
   staffName, location, cart, selectedItem,
   onAddToCart, onSelectItem, onUpdateQty, onRemoveItem, onCheckout, onLogout,
 }: {
-  staffName: string; location: string; cart: CartItem[]; selectedItem: string | null;
+  staffName: string; location: LocationName; cart: CartItem[]; selectedItem: string | null;
   onAddToCart:  (p: Product) => void;
   onSelectItem: (name: string | null) => void;
   onUpdateQty:  (name: string, delta: number) => void;
@@ -682,10 +712,12 @@ function POSScreen({
   onCheckout:   () => void;
   onLogout:     () => void;
 }) {
-  const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
+  const locationProducts = PRODUCTS.filter(p => isProductAvailableAtLocation(p, location));
+  const availableCategories = CATEGORIES.filter(cat => locationProducts.some(p => p.category === cat));
+  const [activeCategory, setActiveCategory] = useState(availableCategories[0] ?? CATEGORIES[0]);
   const [search, setSearch] = useState('');
   const staffRole = STAFF.find(s => s.name === staffName)?.role ?? 'Staff';
-  const filtered  = PRODUCTS.filter(p =>
+  const filtered  = locationProducts.filter(p =>
     p.category === activeCategory &&
     p.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -740,7 +772,7 @@ function POSScreen({
           <div className="px-4 pt-3 pb-2 shrink-0">
             <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">CATEGORIES</p>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-4">
-              {CATEGORIES.map(cat => {
+              {availableCategories.map(cat => {
                 const s = CAT_STYLE[cat];
                 const active = activeCategory === cat;
                 return (
@@ -863,7 +895,7 @@ function PaymentScreen({
   onConfirm, onCancel, onLogout,
   onSelectItem, onUpdateQty, onRemoveItem,
 }: {
-  staffName: string; location: string; cart: CartItem[]; selectedItem: string | null;
+  staffName: string; location: LocationName; cart: CartItem[]; selectedItem: string | null;
   onConfirm:    (payments: Record<string, number>) => void;
   onCancel:     () => void;
   onLogout:     () => void;
@@ -1187,7 +1219,7 @@ function ReceiptScreen({
 export default function POSDemoPage() {
   const [screen,       setScreen]       = useState<Screen>('login');
   const [staffName,    setStaffName]    = useState('');
-  const [location,     setLocation]     = useState('Hotel');
+  const [location,     setLocation]     = useState<LocationName>('Warehouse');
   const [cart,         setCart]         = useState<CartItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [payments,     setPayments]     = useState<Record<string, number>>({});
