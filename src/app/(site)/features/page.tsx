@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
+import { deliveryTracks, getAppsForTrack } from '@/data/portfolio';
 
 export const metadata: Metadata = {
   title: 'Features - BizSuits | Solution Capabilities',
@@ -51,19 +51,6 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      <section className="-mt-8 relative z-10">
-        <div className="container-custom">
-          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            {portfolioStats.map((stat) => (
-              <Card key={stat.label} elevated className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-dark-900">{stat.value}</p>
-                <p className="text-sm text-dark-400 mt-2">{stat.label}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
@@ -98,13 +85,6 @@ export default function FeaturesPage() {
                     </h2>
                     <p className="text-lg text-dark-500 leading-relaxed mb-5">{track.summary}</p>
                     <div className="flex flex-wrap gap-3">
-                      <Button
-                        variant="primary"
-                        href={demoHref}
-                        icon={<ExternalLink className="w-4 h-4" />}
-                      >
-                        Try Demo
-                      </Button>
                       <Button variant="secondary" href="/contact">
                         Discuss This Solution
                       </Button>

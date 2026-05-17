@@ -10,7 +10,7 @@ import BizFaceLogo from '@/components/ui/BizFaceLogo';
 import { portfolioApps } from '@/data/portfolio';
 
 const navLinks = [
-  { name: 'Features', href: '/features' },
+  { name: 'Systems', href: '/features' },
   { name: 'Solutions', href: '/solutions' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'About', href: '/about' },
