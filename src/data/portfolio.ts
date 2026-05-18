@@ -18,6 +18,7 @@ export interface PortfolioApp {
   deliveryMode: string;
   demoHref?: string;
   previewImage?: string;
+  previewImageClassName?: string;
   icon: LucideIcon;
   gradient: string;
   summary: string;
@@ -55,6 +56,7 @@ export const portfolioApps: PortfolioApp[] = [
     deliveryMode: 'Web app',
     demoHref: '/demo/inventory',
     previewImage: '/images/Inventory System preview.png',
+    previewImageClassName: 'object-cover object-center scale-[1.14]',
     icon: Package,
     gradient: 'from-cyan-500 to-blue-600',
     summary:
@@ -123,6 +125,7 @@ export const portfolioApps: PortfolioApp[] = [
     deliveryMode: 'Web operations suite',
     demoHref: '/demo/farm',
     previewImage: '/images/Farm Managment System preview.png',
+    previewImageClassName: 'object-cover object-center scale-[1.18]',
     icon: Sprout,
     gradient: 'from-emerald-500 to-green-600',
     summary:
@@ -146,6 +149,7 @@ export const portfolioApps: PortfolioApp[] = [
     deliveryMode: 'Web storefront',
     demoHref: '/demo/farm-store',
     previewImage: '/images/Farm ecom System preview.svg',
+    previewImageClassName: 'object-cover object-center scale-[1.2]',
     icon: Leaf,
     gradient: 'from-lime-500 to-green-700',
     summary:

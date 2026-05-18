@@ -112,7 +112,7 @@ export default function FeaturesPage() {
                             src={app.previewImage}
                             alt={`${app.name} preview`}
                             fill
-                            className="object-cover object-top"
+                            className={app.previewImageClassName ?? 'object-cover object-top'}
                           />
                         </div>
                       )}
