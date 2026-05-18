@@ -122,6 +122,7 @@ export const portfolioApps: PortfolioApp[] = [
     category: 'Farm operations',
     deliveryMode: 'Web operations suite',
     demoHref: '/demo/farm',
+    previewImage: '/images/Farm Managment System preview.png',
     icon: Sprout,
     gradient: 'from-emerald-500 to-green-600',
     summary:
@@ -144,6 +145,7 @@ export const portfolioApps: PortfolioApp[] = [
     category: 'Agri-commerce storefront',
     deliveryMode: 'Web storefront',
     demoHref: '/demo/farm-store',
+    previewImage: '/images/Farm ecom System preview.svg',
     icon: Leaf,
     gradient: 'from-lime-500 to-green-700',
     summary:

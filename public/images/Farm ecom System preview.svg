@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 720" role="img" aria-labelledby="title desc">
+  <title>Farm Web Place preview</title>
+  <desc>Device showcase preview for the Farm Web Place agri-commerce storefront.</desc>
+  <defs>
+    <linearGradient id="bg" x1="180" y1="60" x2="1410" y2="690" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7fbf6" />
+      <stop offset="1" stop-color="#eef7f0" />
+    </linearGradient>
+    <linearGradient id="hero" x1="590" y1="120" x2="1235" y2="340" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#205a36" />
+      <stop offset="1" stop-color="#7fc971" />
+    </linearGradient>
+    <linearGradient id="laptopHero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f57f0" />
+      <stop offset="1" stop-color="#6c4cf5" />
+    </linearGradient>
+    <linearGradient id="tabletHero" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#129650" />
+      <stop offset="1" stop-color="#29ba67" />
+    </linearGradient>
+    <linearGradient id="deviceGloss" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="720" rx="36" fill="url(#bg)" />
+  <path d="M0 362C184 294 351 301 500 335C654 370 790 437 980 430C1181 422 1365 306 1600 334V720H0Z" fill="#d9efdc" />
+  <path d="M0 402C190 336 374 346 533 387C684 426 846 486 1016 475C1202 464 1372 360 1600 390V720H0Z" fill="#c4e5cb" fill-opacity="0.65" />
+  <ellipse cx="824" cy="675" rx="612" ry="28" fill="#000000" fill-opacity="0.08" />
+  <ellipse cx="324" cy="683" rx="326" ry="22" fill="#000000" fill-opacity="0.09" />
+  <ellipse cx="1282" cy="688" rx="248" ry="18" fill="#000000" fill-opacity="0.1" />
+
+  <g>
+    <rect x="493" y="24" width="806" height="555" rx="28" fill="#1c1c1f" />
+    <rect x="522" y="47" width="748" height="456" rx="12" fill="#ffffff" />
+    <path d="M522 47H1270V99H522Z" fill="#214d31" />
+    <rect x="522" y="99" width="748" height="34" fill="#ffffff" />
+    <circle cx="1186" cy="116" r="6" fill="#1d9f58" />
+    <circle cx="1206" cy="116" r="6" fill="#d2d8d4" />
+    <circle cx="1226" cy="116" r="6" fill="#d2d8d4" />
+    <text x="896" y="79" fill="#d5eed8" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle">Fresh from the farm • Quality livestock, products and services</text>
+    <rect x="558" y="107" width="182" height="18" rx="9" fill="#ffffff" />
+    <rect x="1002" y="106" width="184" height="20" rx="4" fill="#f6faf6" stroke="#d5dfd5" />
+    <rect x="1200" y="106" width="46" height="20" rx="4" fill="#ffffff" stroke="#1d9f58" />
+    <text x="633" y="120" fill="#1f2830" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="700">My Farm</text>
+    <text x="766" y="120" fill="#4a5a53" font-family="Segoe UI, Arial, sans-serif" font-size="8">Animals</text>
+    <text x="815" y="120" fill="#4a5a53" font-family="Segoe UI, Arial, sans-serif" font-size="8">Shop</text>
+    <text x="856" y="120" fill="#4a5a53" font-family="Segoe UI, Arial, sans-serif" font-size="8">Services</text>
+    <text x="912" y="120" fill="#4a5a53" font-family="Segoe UI, Arial, sans-serif" font-size="8">Blog</text>
+    <text x="1223" y="120" fill="#1d9f58" font-family="Segoe UI, Arial, sans-serif" font-size="8" text-anchor="middle">Sign In</text>
+
+    <rect x="522" y="133" width="748" height="263" fill="url(#hero)" />
+    <rect x="522" y="133" width="748" height="263" fill="#0b2f16" fill-opacity="0.22" />
+    <path d="M571 212C662 132 710 145 810 164C896 180 974 228 1071 198C1174 167 1221 119 1270 135V396H522V213C542 214 555 220 571 212Z" fill="#ffffff" fill-opacity="0.08" />
+    <path d="M564 354C656 306 714 320 826 337C937 354 1020 394 1132 378C1214 367 1248 338 1270 326V396H522V355C540 355 551 359 564 354Z" fill="#9fe0a8" fill-opacity="0.18" />
+    <text x="715" y="217" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Quality Livestock, Farm</text>
+    <text x="715" y="258" fill="#91f0af" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Products &amp; Services</text>
+    <text x="716" y="299" fill="#e6f7e8" font-family="Segoe UI, Arial, sans-serif" font-size="12">Browse healthy, well-raised animals, farm supplies, and professional</text>
+    <text x="716" y="318" fill="#e6f7e8" font-family="Segoe UI, Arial, sans-serif" font-size="12">agricultural services all from one trusted source.</text>
+    <rect x="714" y="336" width="167" height="28" rx="6" fill="#ffffff" />
+    <rect x="880" y="336" width="48" height="28" rx="6" fill="#22b15d" />
+    <text x="797" y="354" fill="#8ba198" font-family="Segoe UI, Arial, sans-serif" font-size="10" text-anchor="middle">Search animals, products, services...</text>
+    <text x="904" y="354" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="10" text-anchor="middle">Search</text>
+    <circle cx="742" cy="385" r="6" fill="#8ed89c" />
+    <text x="756" y="389" fill="#e6f7e8" font-family="Segoe UI, Arial, sans-serif" font-size="10">10 Services</text>
+
+    <rect x="522" y="396" width="748" height="107" fill="#ffffff" />
+    <text x="628" y="438" fill="#1e2523" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Shop by Animal Type</text>
+    <text x="627" y="460" fill="#67806f" font-family="Segoe UI, Arial, sans-serif" font-size="10">Browse available livestock from the farm marketplace.</text>
+    <text x="1121" y="447" fill="#1d9f58" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="600">View All Animals</text>
+    <rect x="625" y="476" width="78" height="16" rx="8" fill="#ecf5ed" />
+    <rect x="713" y="476" width="78" height="16" rx="8" fill="#ecf5ed" />
+    <rect x="801" y="476" width="78" height="16" rx="8" fill="#ecf5ed" />
+    <rect x="889" y="476" width="78" height="16" rx="8" fill="#ecf5ed" />
+  </g>
+
+  <g transform="translate(155 300) rotate(-11 255 200)">
+    <rect x="0" y="0" width="514" height="313" rx="24" fill="#0f1114" />
+    <rect x="18" y="18" width="478" height="238" rx="12" fill="#ffffff" />
+    <rect x="18" y="18" width="478" height="18" rx="12" fill="#f9fbfa" />
+    <circle cx="33" cy="27" r="3" fill="#1d9f58" />
+    <circle cx="48" cy="27" r="3" fill="#d9dedb" />
+    <circle cx="63" cy="27" r="3" fill="#d9dedb" />
+    <rect x="88" y="52" width="310" height="70" rx="12" fill="url(#laptopHero)" />
+    <text x="107" y="81" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">Our Services</text>
+    <text x="107" y="98" fill="#cad7ff" font-family="Segoe UI, Arial, sans-serif" font-size="8">Professional farm support for feeding, health and delivery.</text>
+    <rect x="88" y="135" width="110" height="12" rx="6" fill="#eff3f0" />
+    <rect x="378" y="135" width="90" height="12" rx="6" fill="#eff3f0" />
+    <rect x="88" y="156" width="68" height="52" rx="10" fill="#f7faf8" stroke="#dbe7dd" />
+    <rect x="167" y="156" width="68" height="52" rx="10" fill="#f7faf8" stroke="#dbe7dd" />
+    <rect x="246" y="156" width="68" height="52" rx="10" fill="#f7faf8" stroke="#dbe7dd" />
+    <rect x="325" y="156" width="68" height="52" rx="10" fill="#f7faf8" stroke="#dbe7dd" />
+    <rect x="404" y="156" width="64" height="52" rx="10" fill="#f7faf8" stroke="#dbe7dd" />
+    <rect x="196" y="257" width="122" height="10" rx="5" fill="#6f7780" />
+    <rect x="66" y="269" width="382" height="16" rx="8" fill="#1d1f22" />
+    <rect x="191" y="282" width="132" height="8" rx="4" fill="#676d75" />
+    <path d="M186 308H328L360 321H154Z" fill="#d7dde2" />
+    <path d="M38 247H476" stroke="url(#deviceGloss)" stroke-width="2" />
+  </g>
+
+  <g>
+    <rect x="1116" y="433" width="403" height="247" rx="20" fill="#1c1f22" />
+    <rect x="1130" y="446" width="375" height="222" rx="12" fill="#ffffff" />
+    <rect x="1130" y="446" width="375" height="12" rx="12" fill="#f7faf7" />
+    <circle cx="1148" cy="452" r="2.6" fill="#1d9f58" />
+    <circle cx="1158" cy="452" r="2.6" fill="#d0d6d1" />
+    <circle cx="1168" cy="452" r="2.6" fill="#d0d6d1" />
+    <rect x="1154" y="470" width="288" height="10" rx="5" fill="#f4f8f4" />
+    <rect x="1148" y="490" width="316" height="50" rx="8" fill="url(#tabletHero)" />
+    <text x="1170" y="513" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">Livestock for Sale</text>
+    <text x="1170" y="529" fill="#d7f7e2" font-family="Segoe UI, Arial, sans-serif" font-size="8">Browse healthy animals ready for purchase and farm delivery.</text>
+    <rect x="1170" y="553" width="116" height="10" rx="5" fill="#eef6ef" />
+    <rect x="1170" y="574" width="72" height="72" rx="10" fill="#ecf7ef" />
+    <rect x="1252" y="574" width="98" height="72" rx="10" fill="#f6faf7" stroke="#dbe5dc" />
+    <rect x="1360" y="574" width="98" height="72" rx="10" fill="#ecf7ef" />
+    <rect x="1265" y="585" width="72" height="40" rx="6" fill="#a56a41" />
+    <ellipse cx="1302" cy="606" rx="25" ry="16" fill="#b97d53" />
+    <circle cx="1287" cy="600" r="10" fill="#f0e2cf" />
+    <path d="M1281 598C1287 592 1299 592 1306 598" stroke="#8a4d2e" stroke-width="2" fill="none" />
+    <rect x="1258" y="651" width="84" height="10" rx="5" fill="#1d9f58" />
+    <rect x="1369" y="651" width="84" height="10" rx="5" fill="#1d9f58" />
+  </g>
+</svg>
