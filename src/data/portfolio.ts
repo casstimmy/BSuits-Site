@@ -54,6 +54,7 @@ export const portfolioApps: PortfolioApp[] = [
     category: 'Retail back office',
     deliveryMode: 'Web app',
     demoHref: '/demo/inventory',
+    previewImage: '/images/Inventory System preview.png',
     icon: Package,
     gradient: 'from-cyan-500 to-blue-600',
     summary:
