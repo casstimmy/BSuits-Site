@@ -16,9 +16,7 @@ export interface PortfolioApp {
   sourceProject: string;
   category: string;
   deliveryMode: string;
-  demoHref?: string;
   previewImage?: string;
-  previewImageClassName?: string;
   icon: LucideIcon;
   gradient: string;
   summary: string;
@@ -54,9 +52,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'inventory-admin-app',
     category: 'Retail back office',
     deliveryMode: 'Web app',
-    demoHref: '/demo/inventory',
-    previewImage: '/images/Inventory System preview.png',
-    previewImageClassName: 'object-cover object-center scale-[1.14]',
     icon: Package,
     gradient: 'from-cyan-500 to-blue-600',
     summary:
@@ -78,7 +73,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'sales-point-app',
     category: 'Frontline checkout',
     deliveryMode: 'Desktop / Web App',
-    demoHref: '/demo/pos',
     previewImage: '/images/Point of sales preview 1.png',
     icon: ShoppingCart,
     gradient: 'from-amber-500 to-orange-600',
@@ -101,7 +95,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'webpage-app',
     category: 'Customer storefront',
     deliveryMode: 'Web storefront',
-    demoHref: '/features#commerce-web',
     icon: Store,
     gradient: 'from-sky-500 to-indigo-600',
     summary:
@@ -123,9 +116,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'farm-health-app',
     category: 'Farm operations',
     deliveryMode: 'Web operations suite',
-    demoHref: '/demo/farm',
-    previewImage: '/images/Farm Managment System preview.png',
-    previewImageClassName: 'object-cover object-center scale-[1.18]',
     icon: Sprout,
     gradient: 'from-emerald-500 to-green-600',
     summary:
@@ -147,9 +137,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'Web_Place',
     category: 'Agri-commerce storefront',
     deliveryMode: 'Web storefront',
-    demoHref: '/demo/farm-store',
-    previewImage: '/images/Farm ecom System preview.svg',
-    previewImageClassName: 'object-cover object-center scale-[1.2]',
     icon: Leaf,
     gradient: 'from-lime-500 to-green-700',
     summary:
@@ -171,7 +158,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'Pdf extracter',
     category: 'Document automation',
     deliveryMode: 'Windows desktop app',
-    demoHref: '/demo/document',
     icon: FileText,
     gradient: 'from-slate-700 to-slate-900',
     summary:
@@ -193,7 +179,6 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'project_management',
     category: 'Operations and facility management',
     deliveryMode: 'Web operations suite',
-    demoHref: '/demo/ops',
     icon: FolderKanban,
     gradient: 'from-violet-600 to-fuchsia-600',
     summary:
@@ -259,7 +244,7 @@ export const deliveryTracks: DeliveryTrack[] = [
   },
   {
     id: 'document-automation',
-    title: 'Document extraction and reporting',
+    title: 'System App',
     summary:
       'Automation workflows that turn raw operational documents into clean, usable spreadsheets and outputs.',
     icon: FileText,

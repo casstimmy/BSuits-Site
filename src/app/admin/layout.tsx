@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Admin - Build Control Center | BizSuits',
+  title: 'Admin - Invoice Desk | BizSuits',
   robots: { index: false, follow: false },
 };
 

@@ -166,7 +166,7 @@ export default function BlogPage() {
             <Button
               variant="ghost"
               size="lg"
-              href="/features#retail-commerce"
+              href="/demo"
               className="!text-white hover:!bg-white/10"
             >
               Explore Live Demos

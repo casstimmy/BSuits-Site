@@ -1,12 +1,47 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import { motion, slideInLeft, slideInRight, staggerContainer, staggerItem } from '@/components/ui/Motion';
-import { deliveryTracks, portfolioApps, portfolioStats } from '@/data/portfolio';
+import { motion, slideInLeft, slideInRight } from '@/components/ui/Motion';
+import { deliveryTracks } from '@/data/portfolio';
+
+const systemPreviews = [
+  {
+    slug: 'inventory-admin',
+    label: 'Back Office',
+    name: 'Inventory Admin',
+    image: '/images/Inventory System preview.png',
+    accent: 'bg-cyan-500',
+  },
+  {
+    slug: 'sales-point',
+    label: 'POS',
+    name: 'Sales Point POS',
+    image: '/images/Point of sales preview 1.png',
+    accent: 'bg-amber-500',
+  },
+  {
+    slug: 'farm-health',
+    label: 'Farm Ops',
+    name: 'Farm Health Manager',
+    image: '/images/Farm Managment System preview.png',
+    accent: 'bg-emerald-500',
+  },
+  {
+    slug: 'farm-web',
+    label: 'Agri-Commerce',
+    name: 'Farm Web Place',
+    image: '/images/Farm ecom System preview.svg',
+    accent: 'bg-lime-500',
+  },
+];
 
 export default function Hero() {
+  const [activeTab, setActiveTab] = useState(0);
+  const active = systemPreviews[activeTab];
+
   return (
     <section className="relative overflow-hidden gradient-bg-light min-h-screen flex items-center">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -47,7 +82,7 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button variant="primary" size="lg" href="/features#retail-commerce" icon={<ArrowRight className="w-5 h-5" />}>
+              <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
                 See Live Demos
               </Button>
               <Button variant="secondary" size="lg" href="/solutions">
@@ -69,58 +104,68 @@ export default function Hero() {
 
           <motion.div className="relative" variants={slideInRight} initial="hidden" animate="visible">
             <div className="relative bg-white rounded-3xl shadow-2xl border border-dark-100 overflow-hidden">
+              {/* Panel header */}
               <div className="px-5 py-4 border-b border-dark-100 bg-dark-900 text-white">
-                <p className="text-xs uppercase tracking-[0.24em] text-white/50 mb-1">Solution map</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-white/50 mb-1">System previews</p>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-lg font-semibold">What BizSuits Can Launch</h2>
-                    <p className="text-sm text-white/60">From POS terminals to admin dashboards and desktop tools, these systems show clients what BizSuits can tailor and deploy.</p>
+                    <h2 className="text-lg font-semibold">Live System Builds</h2>
+                    <p className="text-sm text-white/60">Real screens from running BizSuits applications.</p>
                   </div>
-                  <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80">
-                    {portfolioApps.length} active systems
+                  <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80 shrink-0">
+                    {systemPreviews.length} systems
                   </div>
                 </div>
               </div>
 
-              <div className="p-5 md:p-6 space-y-5">
-                <motion.div
-                  className="space-y-3"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {portfolioApps.map((app) => (
-                    <motion.div
-                      key={app.slug}
-                      variants={staggerItem}
-                      className="rounded-2xl border border-dark-100 bg-dark-50/70 p-4 flex items-start justify-between gap-4"
-                    >
-                      <div className="flex items-start gap-3 min-w-0">
-                        <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-lg shrink-0`}>
-                          <app.icon className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-bold text-dark-900">{app.name}</p>
-                          <p className="text-xs text-primary-600 font-semibold uppercase tracking-[0.16em] mt-1">
-                            {app.sourceProject}
-                          </p>
-                          <p className="text-sm text-dark-500 mt-2 leading-relaxed">{app.category}</p>
-                        </div>
-                      </div>
-                      <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold text-dark-500 border border-dark-100 shrink-0">
-                        {app.deliveryMode}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
+              {/* Tab bar */}
+              <div className="flex border-b border-dark-100 bg-dark-50/60 overflow-x-auto">
+                {systemPreviews.map((sys, idx) => (
+                  <button
+                    key={sys.slug}
+                    onClick={() => setActiveTab(idx)}
+                    className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold whitespace-nowrap transition-all border-b-2 ${
+                      activeTab === idx
+                        ? 'border-primary-500 text-primary-600 bg-white'
+                        : 'border-transparent text-dark-400 hover:text-dark-700 hover:bg-dark-100/50'
+                    }`}
+                  >
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${sys.accent}`} />
+                    {sys.label}
+                  </button>
+                ))}
+              </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  {portfolioStats.map((stat) => (
-                    <div key={stat.label} className="rounded-2xl bg-white border border-dark-100 px-4 py-3">
-                      <p className="text-xl md:text-2xl font-bold text-dark-900">{stat.value}</p>
-                      <p className="text-xs text-dark-400 mt-1">{stat.label}</p>
-                    </div>
-                  ))}
+              {/* Preview image */}
+              <div className="p-5 md:p-6">
+                <div className="relative w-full rounded-2xl overflow-hidden bg-dark-50 border border-dark-100">
+                  <Image
+                    key={active.slug}
+                    src={active.image}
+                    alt={`${active.name} preview`}
+                    width={900}
+                    height={560}
+                    className="w-full h-auto object-contain"
+                    priority={activeTab === 0}
+                  />
+                </div>
+                <div className="mt-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-bold text-dark-900">{active.name}</p>
+                    <p className="text-xs text-dark-400 mt-0.5">{active.label} system</p>
+                  </div>
+                  <div className="flex gap-1.5">
+                    {systemPreviews.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveTab(idx)}
+                        className={`h-2 rounded-full transition-all ${
+                          activeTab === idx ? 'bg-primary-500 w-5' : 'bg-dark-200 hover:bg-dark-400 w-2'
+                        }`}
+                        aria-label={`View ${systemPreviews[idx].name}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

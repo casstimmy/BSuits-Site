@@ -53,8 +53,7 @@ export default function BuildPortfolio() {
 
                 <div className="rounded-2xl bg-dark-50 border border-dark-100 p-4 mb-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-dark-400 mb-2">Why it matters</p>
-                  <p className="text-sm font-medium text-dark-700 mb-2">{app.status}</p>
-                  <p className="text-sm text-dark-500">{app.stack}</p>
+                  <p className="text-sm font-medium text-dark-700">{app.status}</p>
                 </div>
 
                 <Button variant="secondary" href={app.href} className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>

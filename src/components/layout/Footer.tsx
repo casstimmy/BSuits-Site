@@ -104,8 +104,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
-              The all-in-one business management platform that brings POS, inventory,
-              accounting, and HR into a single powerful suite.
+              Proven business systems across retail, farm operations, project management,
+              and document automation — built from real foundations and tailored for your clients.
             </p>
             <div className="space-y-3">
               <a href="mailto:hello@bizsuits.com" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">

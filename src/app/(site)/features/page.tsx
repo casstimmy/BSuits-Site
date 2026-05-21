@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { deliveryTracks, getAppsForTrack } from '@/data/portfolio';
+import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
 
 export const metadata: Metadata = {
   title: 'Features - BizSuits | Solution Capabilities',
@@ -41,12 +41,25 @@ export default function FeaturesPage() {
             to the table — the modules, workflows, and surfaces it delivers.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="primary" size="lg" href="/features#retail-commerce" icon={<ArrowRight className="w-5 h-5" />}>
-              Jump to Demo Tracks
+            <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+              Try the Demos
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
               Explore Solutions
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="-mt-8 relative z-10">
+        <div className="container-custom">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            {portfolioStats.map((stat) => (
+              <Card key={stat.label} elevated className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-dark-900">{stat.value}</p>
+                <p className="text-sm text-dark-400 mt-2">{stat.label}</p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -61,7 +74,7 @@ export default function FeaturesPage() {
 
           {deliveryTracks.map((track, trackIndex) => {
             const apps = getAppsForTrack(track.appSlugs);
-            const demoHref = trackDemoLinks[track.id] ?? `/features#${track.id}`;
+            const demoHref = trackDemoLinks[track.id] ?? '/demo';
 
             return (
               <div
@@ -85,6 +98,13 @@ export default function FeaturesPage() {
                     </h2>
                     <p className="text-lg text-dark-500 leading-relaxed mb-5">{track.summary}</p>
                     <div className="flex flex-wrap gap-3">
+                      <Button
+                        variant="primary"
+                        href={demoHref}
+                        icon={<ExternalLink className="w-4 h-4" />}
+                      >
+                        Try Demo
+                      </Button>
                       <Button variant="secondary" href="/contact">
                         Discuss This Solution
                       </Button>
@@ -103,8 +123,7 @@ export default function FeaturesPage() {
                   }`}
                 >
                   {apps.map((app) => (
-                    <div key={app.slug} id={app.slug} className="scroll-mt-32">
-                      <Card elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
+                    <Card key={app.slug} elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
                       {/* Preview image (POS screenshot) */}
                       {app.previewImage && (
                         <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden rounded-t-2xl">
@@ -112,7 +131,7 @@ export default function FeaturesPage() {
                             src={app.previewImage}
                             alt={`${app.name} preview`}
                             fill
-                            className={app.previewImageClassName ?? 'object-cover object-top'}
+                            className="object-cover object-top"
                           />
                         </div>
                       )}
@@ -154,19 +173,7 @@ export default function FeaturesPage() {
                           </span>
                         ))}
                       </div>
-
-                      <div className="mt-5 flex flex-wrap gap-3">
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          href={app.demoHref ?? demoHref}
-                          icon={<ExternalLink className="w-4 h-4" />}
-                        >
-                          Try Demo
-                        </Button>
-                      </div>
-                      </Card>
-                    </div>
+                    </Card>
                   ))}
                 </div>
               </div>
@@ -184,8 +191,8 @@ export default function FeaturesPage() {
             Each BizSuits system has an interactive demo you can try right now. No setup needed.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="accent" size="lg" href="/features#retail-commerce" icon={<ArrowRight className="w-5 h-5" />}>
-              Jump to Demo Tracks
+            <Button variant="accent" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+              Browse All Demos
             </Button>
             <Button
               variant="ghost"

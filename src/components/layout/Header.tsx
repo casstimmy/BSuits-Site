@@ -4,14 +4,15 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import BizFaceLogo from '@/components/ui/BizFaceLogo';
 import { portfolioApps } from '@/data/portfolio';
 
 const navLinks = [
-  { name: 'Systems', href: '/features' },
+  { name: 'Features', href: '/features' },
   { name: 'Solutions', href: '/solutions' },
+  { name: 'Demo', href: '/demo' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
@@ -82,14 +83,6 @@ export default function Header() {
                     </div>
                   </Link>
                 ))}
-                <div className="col-span-2 mt-2 pt-3 border-t border-dark-100">
-                  <Link
-                    href="/features#retail-commerce"
-                    className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
-                  >
-                    See live demos <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
               </div>
             </div>
 
@@ -141,7 +134,7 @@ export default function Header() {
       >
         <div className="bg-white border-t border-dark-100 px-4 py-6 space-y-2">
           <Link
-            href="/features#retail-commerce"
+            href="/demo"
             className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
             onClick={() => setIsMobileMenuOpen(false)}
           >
