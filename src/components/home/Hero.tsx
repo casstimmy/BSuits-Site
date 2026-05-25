@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { motion, slideInLeft, slideInRight } from '@/components/ui/Motion';
-import { deliveryTracks } from '@/data/portfolio';
 
 const systemPreviews = [
   {
@@ -38,14 +37,6 @@ const systemPreviews = [
   },
 ];
 
-const heroTrackIds = ['retail-commerce', 'farm-operations', 'ops-delivery'] as const;
-
-const heroTrackLabels: Record<(typeof heroTrackIds)[number], string> = {
-  'retail-commerce': 'Retail & warehouse',
-  'farm-operations': 'Farm operations',
-  'ops-delivery': 'Projects, ops & desktop',
-};
-
 export default function Hero() {
   const [activeTab, setActiveTab] = useState(0);
   const active = systemPreviews[activeTab];
@@ -59,38 +50,18 @@ export default function Hero() {
       </div>
 
       <div className="container-custom relative z-10 flex min-h-screen items-center py-10 pt-24 pb-10 md:pt-28 md:pb-12 lg:py-12">
-        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1.03fr)_minmax(20rem,0.82fr)] lg:gap-12 xl:grid-cols-[minmax(0,1.06fr)_minmax(22rem,0.8fr)]">
-          <motion.div className="max-w-[36rem] space-y-5 md:space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
-            <h1 className="text-3xl font-bold leading-[1.04] tracking-[-0.03em] text-dark-900 sm:text-4xl lg:text-[2.9rem] xl:text-[3.2rem]">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(20rem,0.82fr)] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.82fr)]">
+          <motion.div className="max-w-[34rem] space-y-6 lg:space-y-7" variants={slideInLeft} initial="hidden" animate="visible">
+            <h1 className="max-w-[30rem] text-balance text-3xl font-bold leading-[1.02] tracking-[-0.035em] text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
               BizSuits delivers{' '}
               <span className="gradient-text">proven business systems</span>{' '}
               across commerce, operations, agriculture, and automation.
             </h1>
 
-            <p className="max-w-[32rem] text-base leading-[1.65] text-dark-500 md:text-lg">
+            <p className="max-w-[29rem] text-pretty text-base leading-[1.75] text-dark-500 md:text-[1.05rem]">
               Start from live BizSuits systems, then tailor the workflow to the client without
               guessing what the final product should be.
             </p>
-
-            <div className="grid max-w-[31rem] grid-cols-1 gap-2.5 sm:grid-cols-3">
-              {heroTrackIds.map((trackId) => {
-                const track = deliveryTracks.find((item) => item.id === trackId);
-
-                if (!track) {
-                  return null;
-                }
-
-                return (
-                  <div
-                    key={track.id}
-                    className="flex items-center gap-2 rounded-2xl border border-dark-100 bg-white/80 px-3 py-2 text-xs font-medium text-dark-600 backdrop-blur-sm md:text-sm"
-                  >
-                    <track.icon className="h-3.5 w-3.5 text-primary-500 md:h-4 md:w-4" />
-                    {heroTrackLabels[trackId]}
-                  </div>
-                );
-              })}
-            </div>
 
             <div className="flex flex-col gap-3 pt-1 sm:flex-row">
               <Button variant="primary" href="/demo" icon={<ArrowRight className="h-4 w-4" />}>
@@ -101,9 +72,9 @@ export default function Hero() {
               </Button>
             </div>
 
-            <div className="flex items-center gap-1.5 pt-1 text-xs text-dark-400 md:text-sm">
+            <div className="flex items-center gap-2 border-t border-dark-100/70 pt-4 text-xs text-dark-400 md:text-sm">
               <CheckCircle2 className="h-4 w-4 text-accent-500" />
-              Interactive demos across web and desktop delivery.
+              Interactive demos available across web and desktop delivery.
             </div>
           </motion.div>
 
