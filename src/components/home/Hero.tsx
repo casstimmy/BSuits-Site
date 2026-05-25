@@ -51,28 +51,28 @@ export default function Hero() {
   const active = systemPreviews[activeTab];
 
   return (
-    <section className="relative overflow-hidden gradient-bg-light">
+    <section className="relative min-h-screen overflow-hidden gradient-bg-light">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200/30 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-100/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-custom relative z-10 flex min-h-[calc(100svh-4rem)] items-center py-8 pt-20 pb-8 md:min-h-[calc(100svh-5rem)] md:pt-24 md:pb-10 lg:py-8">
-        <div className="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,1.03fr)_minmax(20rem,0.82fr)] lg:gap-10 xl:grid-cols-[minmax(0,1.06fr)_minmax(22rem,0.8fr)]">
-          <motion.div className="max-w-[36rem]" variants={slideInLeft} initial="hidden" animate="visible">
-            <h1 className="mb-3 text-3xl font-bold leading-[1.08] text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.15rem]">
+      <div className="container-custom relative z-10 flex min-h-screen items-center py-10 pt-24 pb-10 md:pt-28 md:pb-12 lg:py-12">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1.03fr)_minmax(20rem,0.82fr)] lg:gap-12 xl:grid-cols-[minmax(0,1.06fr)_minmax(22rem,0.8fr)]">
+          <motion.div className="max-w-[36rem] space-y-5 md:space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
+            <h1 className="text-3xl font-bold leading-[1.04] tracking-[-0.03em] text-dark-900 sm:text-4xl lg:text-[2.9rem] xl:text-[3.2rem]">
               BizSuits delivers{' '}
               <span className="gradient-text">proven business systems</span>{' '}
               across commerce, operations, agriculture, and automation.
             </h1>
 
-            <p className="mb-5 max-w-[33rem] text-base leading-relaxed text-dark-500 md:text-lg">
+            <p className="max-w-[32rem] text-base leading-[1.65] text-dark-500 md:text-lg">
               Start from live BizSuits systems, then tailor the workflow to the client without
               guessing what the final product should be.
             </p>
 
-            <div className="mb-4 grid max-w-[31rem] grid-cols-1 gap-2 sm:grid-cols-3">
+            <div className="grid max-w-[31rem] grid-cols-1 gap-2.5 sm:grid-cols-3">
               {heroTrackIds.map((trackId) => {
                 const track = deliveryTracks.find((item) => item.id === trackId);
 
@@ -92,7 +92,7 @@ export default function Hero() {
               })}
             </div>
 
-            <div className="mb-4 flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 pt-1 sm:flex-row">
               <Button variant="primary" href="/demo" icon={<ArrowRight className="h-4 w-4" />}>
                 See Live Demos
               </Button>
@@ -101,7 +101,7 @@ export default function Hero() {
               </Button>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs text-dark-400 md:text-sm">
+            <div className="flex items-center gap-1.5 pt-1 text-xs text-dark-400 md:text-sm">
               <CheckCircle2 className="h-4 w-4 text-accent-500" />
               Interactive demos across web and desktop delivery.
             </div>
