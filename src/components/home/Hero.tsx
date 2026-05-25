@@ -59,8 +59,8 @@ export default function Hero() {
             </h1>
 
             <p className="max-w-[29rem] text-pretty text-base leading-[1.75] text-dark-500 md:text-[1.05rem]">
-              Start from live BizSuits systems, then tailor the workflow to the client without
-              guessing what the final product should be.
+              Begin with proven BizSuits systems, then adapt each workflow to the client with a
+              clear view of the final product from day one.
             </p>
 
             <div className="flex flex-col gap-3 pt-1 sm:flex-row">
