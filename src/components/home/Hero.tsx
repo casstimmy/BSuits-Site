@@ -51,7 +51,7 @@ export default function Hero() {
       </div>
 
       <div className="container-custom relative z-10 pt-24 md:pt-32 pb-16 md:pb-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.82fr)] lg:gap-12 xl:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.8fr)]">
           <motion.div variants={slideInLeft} initial="hidden" animate="visible">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-5">
               Client-ready business systems
@@ -102,57 +102,63 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.div className="relative" variants={slideInRight} initial="hidden" animate="visible">
-            <div className="relative bg-white rounded-3xl shadow-2xl border border-dark-100 overflow-hidden">
-              {/* Panel header */}
-              <div className="px-5 py-4 border-b border-dark-100 bg-dark-900 text-white">
-                <p className="text-xs uppercase tracking-[0.24em] text-white/50 mb-1">System previews</p>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <h2 className="text-lg font-semibold">Live System Builds</h2>
-                    <p className="text-sm text-white/60">Real screens from running BizSuits applications.</p>
+          <motion.div
+            className="relative w-full lg:max-w-[34rem] lg:justify-self-end xl:max-w-[35rem]"
+            variants={slideInRight}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className="relative flex min-h-[24rem] max-h-[66vh] flex-col overflow-hidden rounded-3xl border border-dark-100 bg-white shadow-2xl lg:max-h-[min(64vh,38rem)]">
+              <div className="border-b border-dark-100 bg-dark-900 px-4 py-3 text-white md:px-4.5 md:py-3.5">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/45">Current build preview</p>
+                    <h2 className="text-sm font-semibold md:text-base">Live system reference</h2>
+                    <p className="mt-1 max-w-md text-[11px] leading-relaxed text-white/60 md:text-xs">
+                      A compact look at the real interfaces behind the BizSuits stack.
+                    </p>
                   </div>
-                  <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80 shrink-0">
-                    {systemPreviews.length} systems
+                  <div className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-white/80">
+                    {activeTab + 1}/{systemPreviews.length}
                   </div>
                 </div>
               </div>
 
-              {/* Tab bar */}
-              <div className="flex border-b border-dark-100 bg-dark-50/60 overflow-x-auto">
+              <div className="flex flex-wrap gap-1.5 border-b border-dark-100 bg-dark-50/60 p-2.5 md:px-3 md:py-3">
                 {systemPreviews.map((sys, idx) => (
                   <button
                     key={sys.slug}
                     onClick={() => setActiveTab(idx)}
-                    className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold whitespace-nowrap transition-all border-b-2 ${
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[10px] font-semibold whitespace-nowrap transition-all md:text-[11px] ${
                       activeTab === idx
-                        ? 'border-primary-500 text-primary-600 bg-white'
-                        : 'border-transparent text-dark-400 hover:text-dark-700 hover:bg-dark-100/50'
+                        ? 'border-primary-200 bg-white text-primary-600 shadow-sm'
+                        : 'border-transparent bg-transparent text-dark-400 hover:border-dark-200 hover:bg-white hover:text-dark-700'
                     }`}
                   >
-                    <span className={`w-2 h-2 rounded-full shrink-0 ${sys.accent}`} />
+                    <span className={`h-2 w-2 rounded-full shrink-0 ${sys.accent}`} />
                     {sys.label}
                   </button>
                 ))}
               </div>
 
-              {/* Preview image */}
-              <div className="p-5 md:p-6">
-                <div className="relative w-full rounded-2xl overflow-hidden bg-dark-50 border border-dark-100">
+              <div className="flex flex-1 flex-col p-3.5 md:p-4">
+                <div className="relative min-h-[15rem] flex-1 overflow-hidden rounded-2xl border border-dark-100 bg-dark-50 max-h-[42vh] lg:max-h-none">
                   <Image
                     key={active.slug}
                     src={active.image}
                     alt={`${active.name} preview`}
                     width={900}
                     height={560}
-                    className="w-full h-auto object-contain"
+                    className="h-full w-full object-contain object-top"
                     priority={activeTab === 0}
                   />
                 </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-bold text-dark-900">{active.name}</p>
-                    <p className="text-xs text-dark-400 mt-0.5">{active.label} system</p>
+                <div className="mt-3 flex items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-600">
+                      {active.label}
+                    </p>
+                    <p className="truncate text-sm font-semibold text-dark-900">{active.name}</p>
                   </div>
                   <div className="flex gap-1.5">
                     {systemPreviews.map((_, idx) => (
@@ -160,7 +166,7 @@ export default function Hero() {
                         key={idx}
                         onClick={() => setActiveTab(idx)}
                         className={`h-2 rounded-full transition-all ${
-                          activeTab === idx ? 'bg-primary-500 w-5' : 'bg-dark-200 hover:bg-dark-400 w-2'
+                          activeTab === idx ? 'w-5 bg-primary-500' : 'w-2 bg-dark-200 hover:bg-dark-400'
                         }`}
                         aria-label={`View ${systemPreviews[idx].name}`}
                       />
