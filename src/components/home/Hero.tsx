@@ -43,60 +43,60 @@ export default function Hero() {
   const active = systemPreviews[activeTab];
 
   return (
-    <section className="relative overflow-hidden gradient-bg-light min-h-screen flex items-center">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden gradient-bg-light">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200/30 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-100/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-custom relative z-10 pt-24 md:pt-32 pb-16 md:pb-24">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.82fr)] lg:gap-12 xl:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.8fr)]">
-          <motion.div variants={slideInLeft} initial="hidden" animate="visible">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-5">
+      <div className="container-custom relative z-10 flex min-h-[100svh] items-center py-10 pt-24 md:pt-28 md:pb-12 lg:py-0">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(20rem,0.82fr)] lg:gap-12 xl:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.8fr)]">
+          <motion.div className="max-w-[39rem]" variants={slideInLeft} initial="hidden" animate="visible">
+            <span className="mb-4 inline-flex items-center rounded-full bg-primary-100 px-4 py-1.5 text-xs font-semibold text-primary-700 md:text-sm">
               Client-ready business systems
             </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-dark-900 leading-[1.1] mb-6">
+            <h1 className="mb-4 text-3xl font-bold leading-[1.08] text-dark-900 sm:text-4xl lg:text-[3.2rem] xl:text-[3.55rem]">
               BizSuits delivers{' '}
               <span className="gradient-text">proven business systems</span>{' '}
               across commerce, operations, agriculture, and automation.
             </h1>
 
-            <p className="text-lg md:text-xl text-dark-500 leading-relaxed mb-8 max-w-2xl">
+            <p className="mb-6 max-w-xl text-base leading-relaxed text-dark-500 md:text-lg">
               Clients can start from live BizSuits systems, explore interactive demos, and then
               tailor the workflow to their own business without guessing what the final product
               will look like.
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="mb-6 flex flex-wrap gap-2.5">
               {deliveryTracks.map((track) => (
                 <div
                   key={track.id}
-                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium text-dark-600 border border-dark-100"
+                  className="flex items-center gap-2 rounded-full border border-dark-100 bg-white/80 px-3 py-1.5 text-xs font-medium text-dark-600 backdrop-blur-sm md:text-sm"
                 >
-                  <track.icon className="w-4 h-4 text-primary-500" />
+                  <track.icon className="h-3.5 w-3.5 text-primary-500 md:h-4 md:w-4" />
                   {track.title}
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row">
+              <Button variant="primary" href="/demo" icon={<ArrowRight className="h-4 w-4" />}>
                 See Live Demos
               </Button>
-              <Button variant="secondary" size="lg" href="/solutions">
+              <Button variant="secondary" href="/solutions">
                 Explore Solutions
               </Button>
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm text-dark-400">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-dark-400 md:text-sm">
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-accent-500" />
+                <CheckCircle2 className="h-4 w-4 text-accent-500" />
                 Interactive demos clients can try
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-accent-500" />
+                <CheckCircle2 className="h-4 w-4 text-accent-500" />
                 Web and desktop delivery coverage
               </div>
             </div>
