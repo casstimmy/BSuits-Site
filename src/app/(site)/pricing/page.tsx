@@ -32,16 +32,6 @@ export default function PricingPage() {
             These pricing tiers are tied to real solution tracks and demo-ready systems, so
             scope discussions can start from what clients can already see and evaluate.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {deliveryTracks.map((track) => (
-              <span
-                key={track.id}
-                className="rounded-full bg-white/80 border border-dark-100 px-4 py-2 text-sm font-medium text-dark-600"
-              >
-                {track.title}
-              </span>
-            ))}
-          </div>
         </div>
       </section>
 

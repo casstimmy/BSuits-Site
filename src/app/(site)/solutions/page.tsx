@@ -1,17 +1,21 @@
 import React from 'react';
+import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { deliveryTracks, getAppsForTrack, portfolioApps } from '@/data/portfolio';
-import SolutionDeviceShowcase, { type SolutionTrackId } from '@/components/solutions/SolutionDeviceShowcase';
+import { deliveryTracks, getAppsForTrack } from '@/data/portfolio';
 
 export const metadata: Metadata = {
   title: 'Solutions - BizSuits | Client Solutions',
   description:
-    'Explore BizSuits client solutions across retail, agriculture, operations, and automation, each backed by device mockups and live-style demos.',
+    'Explore BizSuits client solutions across retail, agriculture, operations, and automation, each built from working systems and tailored delivery tracks.',
 };
+
+function getSolutionTitle(trackId: string, title: string) {
+  return trackId === 'document-automation' ? 'System App & Desktop' : title;
+}
 
 export default function SolutionsPage() {
   return (
@@ -26,12 +30,11 @@ export default function SolutionsPage() {
             Client Solutions
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            See how BizSuits solutions come to life across{' '}
-            <span className="text-primary-600">the devices your team actually uses</span>
+            See how BizSuits solutions are structured for{' '}
+            <span className="text-primary-600">real business operations</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            Each track combines proven systems, live-style demos, and device-ready deployment
-            patterns for real business operations.
+            Each track combines proven systems, working modules, and delivery logic that can be adapted to the way each client already operates.
           </p>
         </div>
       </section>
@@ -44,7 +47,7 @@ export default function SolutionsPage() {
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.gradient} text-white flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                   <track.icon className="w-7 h-7" />
                 </div>
-                <p className="text-lg font-bold text-dark-900">{track.title}</p>
+                <p className="text-lg font-bold text-dark-900">{getSolutionTitle(track.id, track.title)}</p>
                 <p className="text-sm text-dark-400 mt-2">{getAppsForTrack(track.appSlugs).length} linked systems</p>
               </Card>
             ))}
@@ -55,113 +58,112 @@ export default function SolutionsPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Solution Mockups"
-            title="Each solution track now includes a live-style device mockup"
-            subtitle="Clients should be able to see the shape of the product before integration begins, not just read a feature list."
+            badge="Solution Reference"
+            title="One working retail reference is enough to anchor the conversation"
+            subtitle="The live layouts already exist inside the system library, so this page now focuses on how each solution bundle maps to real operations."
           />
+
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-stretch mb-20 md:mb-24">
+            <Card elevated padding="lg" className="overflow-hidden bg-gradient-to-br from-dark-50 to-white">
+              <div className="relative overflow-hidden rounded-2xl border border-dark-100 bg-white">
+                <Image
+                  src="/images/Inventory System preview.png"
+                  alt="Retail and warehouse commerce reference view"
+                  width={1400}
+                  height={900}
+                  className="h-auto w-full object-contain"
+                  priority
+                />
+              </div>
+            </Card>
+
+            <Card elevated padding="lg" className="bg-dark-50/60 border border-dark-100">
+              <p className="text-sm font-semibold text-primary-600 mb-2">Reference image</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-4">
+                Retail &amp; warehouse commerce gives clients the clearest starting point
+              </h2>
+              <p className="text-dark-500 leading-relaxed mb-6">
+                This view is a practical reference for layout, navigation, and operator flow. It helps clients understand the level of structure BizSuits delivers without repeating every screen presentation again on the solutions page.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                  <span className="text-sm text-dark-600">Use it to frame the conversation around roles, modules, and handoff points.</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                  <span className="text-sm text-dark-600">Keep the solutions page focused on deployment fit, not repeated interface previews.</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                  <span className="text-sm text-dark-600">Adapt the same level of system quality across farm, operations, and desktop workflows.</span>
+                </div>
+              </div>
+            </Card>
+          </div>
 
           {deliveryTracks.map((solution, index) => {
             const apps = getAppsForTrack(solution.appSlugs);
+            const solutionTitle = getSolutionTitle(solution.id, solution.title);
 
             return (
               <div
                 key={solution.id}
                 id={solution.id}
-                className={`flex flex-col ${
-                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } gap-12 lg:gap-16 items-stretch ${index < deliveryTracks.length - 1 ? 'mb-24 md:mb-32' : ''}`}
+                className={`${index < deliveryTracks.length - 1 ? 'mb-10 md:mb-12' : ''}`}
               >
-                <div className="flex-1">
-                  <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center mb-5 shadow-lg`}
-                  >
-                    <solution.icon className="w-7 h-7 text-white" />
-                  </div>
-                  <p className="text-sm font-semibold text-primary-600 mb-2">Proven system bundle</p>
-                  <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
-                    {solution.title}
-                  </h2>
-                  <p className="text-lg text-dark-500 leading-relaxed mb-6">
-                    {solution.summary}
-                  </p>
-                  <div className="space-y-3 mb-8">
-                    {solution.capabilities.map((benefit) => (
-                      <div key={benefit} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                        <span className="text-sm text-dark-600">{benefit}</span>
+                <Card elevated padding="lg" className="bg-white">
+                  <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-start">
+                    <div>
+                      <div
+                        className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center mb-5 shadow-lg`}
+                      >
+                        <solution.icon className="w-7 h-7 text-white" />
                       </div>
-                    ))}
-                  </div>
-                  <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                    Talk Through This Solution
-                  </Button>
-                </div>
-
-                <div className="flex-1 w-full">
-                  <Card elevated padding="lg" className="bg-gradient-to-br from-dark-50 to-white">
-                    <div className="text-center mb-6">
-                      <p className="text-sm font-semibold text-primary-600 mb-2">How it looks in use</p>
-                      <h3 className="text-2xl font-bold text-dark-900 mb-1">Device-ready solution preview</h3>
-                      <p className="text-sm text-dark-400">A live-style mockup showing how this solution can span real devices and roles.</p>
+                      <p className="text-sm font-semibold text-primary-600 mb-2">Proven system bundle</p>
+                      <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
+                        {solutionTitle}
+                      </h2>
+                      <p className="text-lg text-dark-500 leading-relaxed mb-6">
+                        {solution.summary}
+                      </p>
+                      <div className="space-y-3 mb-8">
+                        {solution.capabilities.map((benefit) => (
+                          <div key={benefit} className="flex items-start gap-3">
+                            <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
+                            <span className="text-sm text-dark-600">{benefit}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
+                        Talk Through This Solution
+                      </Button>
                     </div>
 
-                    <SolutionDeviceShowcase trackId={solution.id as SolutionTrackId} />
-
-                    <div className="mt-6">
+                    <div className="rounded-2xl border border-dark-100 bg-dark-50/70 p-5 md:p-6">
                       <div className="flex items-center justify-between gap-3 mb-4">
-                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-dark-400">Systems included in this solution</p>
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-dark-400">
+                          Systems included in this solution
+                        </p>
                         <span className="text-xs font-medium text-primary-600">{apps.length} linked systems</span>
                       </div>
                       <div className="space-y-4">
                         {apps.map((app) => (
-                          <div key={app.slug} className="p-4 bg-white rounded-xl border border-dark-100">
+                          <div key={app.slug} className="rounded-xl border border-dark-100 bg-white p-4">
                             <div className="flex items-center justify-between gap-3 mb-2">
                               <p className="text-sm font-semibold text-dark-900">{app.name}</p>
                               <span className="text-xs font-medium text-primary-600">{app.deliveryMode}</span>
                             </div>
-                            <p className="text-sm text-dark-500 leading-relaxed mb-3">{app.summary}</p>
-                            <div className="flex flex-wrap gap-2">
-                              {app.signals.slice(0, 2).map((signal) => (
-                                <span
-                                  key={signal}
-                                  className="rounded-full bg-dark-50 px-2.5 py-1 text-[11px] font-medium text-dark-500 border border-dark-100"
-                                >
-                                  {signal}
-                                </span>
-                              ))}
-                            </div>
+                            <p className="text-sm text-dark-500 leading-relaxed">{app.summary}</p>
                           </div>
                         ))}
                       </div>
                     </div>
-                  </Card>
-                </div>
+                  </div>
+                </Card>
               </div>
             );
           })}
-        </div>
-      </section>
-
-      <section className="section-padding bg-dark-50/50">
-        <div className="container-custom">
-          <SectionHeading
-            badge="Solution Coverage"
-            title="The solution map now spans the full active system set"
-            subtitle="Every active project you provided is represented in one of these tracks."
-          />
-
-          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
-            {portfolioApps.map((app) => (
-              <Card key={app.slug} className="h-full">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center mb-4 text-white shadow-lg`}>
-                  <app.icon className="w-6 h-6" />
-                </div>
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary-600 mb-2">{app.sourceProject}</p>
-                <h3 className="text-lg font-bold text-dark-900 mb-2">{app.name}</h3>
-                <p className="text-sm text-dark-500">{app.category}</p>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 
