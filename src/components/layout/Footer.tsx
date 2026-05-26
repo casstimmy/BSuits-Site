@@ -105,7 +105,7 @@ export default function Footer() {
             </Link>
             <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
               Proven business systems across retail, farm operations, project management,
-              and document automation — built from real foundations and tailored for your clients.
+              and document automation — tailored to the way your business works.
             </p>
             <div className="space-y-3">
               <a href="mailto:hello@bizsuits.com" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">

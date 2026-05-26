@@ -8,9 +8,9 @@ import Button from '@/components/ui/Button';
 import { deliveryTracks, getAppsForTrack } from '@/data/portfolio';
 
 export const metadata: Metadata = {
-  title: 'Solutions - BizSuits | Client Solutions',
+  title: 'Solutions - BizSuits | Business Solutions',
   description:
-    'Explore BizSuits client solutions across retail, agriculture, operations, and automation, each built from working systems and tailored delivery tracks.',
+    'Explore BizSuits business solutions across retail, agriculture, operations, and automation, each built from working systems and adaptable delivery tracks.',
 };
 
 function getSolutionTitle(trackId: string, title: string) {
@@ -27,14 +27,14 @@ export default function SolutionsPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Client Solutions
+            Business Solutions
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
             See how BizSuits solutions are structured for{' '}
             <span className="text-primary-600">real business operations</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            Each track combines proven systems, working modules, and delivery logic that can be adapted to the way each client already operates.
+            Each track combines proven systems, working modules, and delivery logic that can be adapted to the way your business operates.
           </p>
         </div>
       </section>
@@ -80,23 +80,23 @@ export default function SolutionsPage() {
             <Card elevated padding="lg" className="bg-dark-50/60 border border-dark-100">
               <p className="text-sm font-semibold text-primary-600 mb-2">Reference image</p>
               <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-4">
-                Retail &amp; warehouse commerce gives clients the clearest starting point
+                Retail &amp; warehouse commerce offers a practical starting point
               </h2>
               <p className="text-dark-500 leading-relaxed mb-6">
-                This view is a practical reference for layout, navigation, and operator flow. It helps clients understand the level of structure BizSuits delivers without repeating every screen presentation again on the solutions page.
+                This view shows the layout, navigation, and operator flow businesses can expect from a BizSuits rollout, without repeating every screen again on the solutions page.
               </p>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-dark-600">Use it to frame the conversation around roles, modules, and handoff points.</span>
+                  <span className="text-sm text-dark-600">Use it to compare roles, modules, and handoff points.</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-dark-600">Keep the solutions page focused on deployment fit, not repeated interface previews.</span>
+                  <span className="text-sm text-dark-600">Focus on deployment fit instead of repeated interface previews.</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-dark-600">Adapt the same level of system quality across farm, operations, and desktop workflows.</span>
+                  <span className="text-sm text-dark-600">Apply the same product quality across farm, operations, and desktop workflows.</span>
                 </div>
               </div>
             </Card>
@@ -136,7 +136,7 @@ export default function SolutionsPage() {
                         ))}
                       </div>
                       <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-                        Talk Through This Solution
+                        Discuss This Solution
                       </Button>
                     </div>
 
@@ -170,14 +170,14 @@ export default function SolutionsPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Need a blended solution across multiple tracks?
+            Need a solution that combines multiple tracks?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            BizSuits already shows how operations, commerce, and back-office tooling can combine into one delivery plan.
+            BizSuits can combine operations, commerce, and back-office tooling into one connected delivery plan.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Talk Through Your Workflow
+              Discuss Your Workflow
             </Button>
             <Button
               variant="ghost"

@@ -10,7 +10,7 @@ import { deliveryPrinciples, deliverySteps } from '@/data/siteContent';
 export const metadata: Metadata = {
   title: 'About - BizSuits | Delivery Model',
   description:
-    'Learn how BizSuits delivers software from active client systems across commerce, operations, agriculture, and automation.',
+    'Learn how BizSuits delivers software through live business systems across commerce, operations, agriculture, and automation.',
 };
 
 export default function AboutPage() {
@@ -27,13 +27,13 @@ export default function AboutPage() {
               Delivery Model
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-              BizSuits now explains itself through{' '}
-              <span className="gradient-text">real client systems</span>
+              BizSuits is built around{' '}
+              <span className="gradient-text">real business systems</span>
             </h1>
             <p className="text-lg md:text-xl text-dark-500 leading-relaxed">
-              The current system story is no longer about selling a vague all-in-one promise.
-              It is about adapting proven BizSuits systems across retail commerce, farm operations,
-              project delivery, and document automation.
+              Explore how BizSuits adapts proven systems across retail commerce, farm operations,
+              project delivery, and document automation, giving your team a clearer path from
+              discovery to launch.
             </p>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function AboutPage() {
           <SectionHeading
             badge="Operating Principles"
             title="How delivery decisions are made"
-            subtitle="These principles describe the real pattern behind the BizSuits solution model and future client work."
+            subtitle="These principles show how BizSuits plans, delivers, and improves each solution."
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -78,8 +78,8 @@ export default function AboutPage() {
         <div className="container-custom">
           <SectionHeading
             badge="Solution Families"
-            title="The current solution set already clusters into four tracks"
-            subtitle="Each track below groups the active BizSuits systems now used across the public site."
+            title="BizSuits solutions are organized into four delivery tracks"
+            subtitle="Each track groups proven systems that can be adapted to your operations."
           />
 
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
@@ -127,8 +127,8 @@ export default function AboutPage() {
         <div className="container-custom">
           <SectionHeading
             badge="Delivery Rhythm"
-            title="What a BizSuits engagement now looks like"
-            subtitle="The public site and the solution model both follow the same system-led sequence."
+            title="What a BizSuits engagement looks like"
+            subtitle="Every rollout follows the same system-led path from discovery to launch."
           />
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">

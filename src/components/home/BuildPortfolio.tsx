@@ -14,8 +14,8 @@ export default function BuildPortfolio() {
       <div className="container-custom">
         <SectionHeading
           badge="Solution Library"
-          title="Seven active systems show what BizSuits can deliver"
-          subtitle="Each card below points to a real client-ready system clients can review, demo, and scope with the BizSuits team."
+          title="Seven live systems show what BizSuits can launch"
+          subtitle="Each card highlights a live BizSuits system you can review, demo, and adapt to your workflow."
         />
 
         <motion.div

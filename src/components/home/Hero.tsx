@@ -87,10 +87,10 @@ export default function Hero() {
               <div className="border-b border-dark-100 bg-dark-900 px-4 py-3 text-white md:px-4.5 md:py-3.5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/45">Current build preview</p>
-                    <h2 className="text-sm font-semibold md:text-base">Live system reference</h2>
+                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/45">System preview</p>
+                    <h2 className="text-sm font-semibold md:text-base">See the platform in action</h2>
                     <p className="mt-1 max-w-md text-[11px] leading-relaxed text-white/60 md:text-xs">
-                      A compact look at the real interfaces behind the BizSuits stack.
+                      Real BizSuits interfaces built around live business workflows.
                     </p>
                   </div>
                   <div className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-white/80">

@@ -13,9 +13,9 @@ export default function FeaturesOverview() {
     <section className="section-padding bg-white">
       <div className="container-custom">
         <SectionHeading
-          badge="Build Families"
-          title="What the current BizSuits stack actually covers"
-          subtitle="These delivery tracks come directly from the current application builds you shared, replacing the old generic feature list."
+          badge="Solution Families"
+          title="Solutions built around real business workflows"
+          subtitle="Explore the BizSuits system families businesses can launch from today, each grounded in proven software instead of generic feature promises."
         />
 
         <motion.div
@@ -72,7 +72,7 @@ export default function FeaturesOverview() {
 
         <div className="text-center mt-12">
           <Button variant="primary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
-            Explore The Full Build Breakdown
+            Explore The Full Solution Lineup
           </Button>
         </div>
       </div>

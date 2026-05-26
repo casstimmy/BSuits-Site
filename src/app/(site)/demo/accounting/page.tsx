@@ -190,8 +190,8 @@ export default function AccountingDemoPage() {
           </div>
           <SectionHeading
             badge="Accounting Demo"
-            title="Accounting reports aligned to the current inventory admin build"
-            subtitle="This fragment mirrors the real accounting/reporting structure already present in the source app: Profit & Loss, Balance Sheet, and Trial Balance with range controls and print-ready review states."
+            title="Accounting reports built for day-to-day financial visibility"
+            subtitle="Explore Profit & Loss, Balance Sheet, and Trial Balance views with date controls and print-ready review states."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">
@@ -214,7 +214,7 @@ export default function AccountingDemoPage() {
                   <Calculator className="w-7 h-7 text-emerald-700" />
                 </div>
                 <div>
-                  <p className="text-sm text-dark-500">Source pattern</p>
+                  <p className="text-sm text-dark-500">Finance focus</p>
                   <h2 className="text-2xl font-bold text-dark-900 mb-2">{currentReport.title}</h2>
                   <p className="text-dark-500 max-w-2xl leading-relaxed">{currentReport.subtitle}</p>
                 </div>

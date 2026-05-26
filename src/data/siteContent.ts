@@ -92,7 +92,7 @@ export const engagementPackages: EngagementPackage[] = [
     ctaVariant: 'dark',
     recommendedTrackIds: ['ops-delivery', 'retail-commerce', 'document-automation'],
     features: [
-      { text: 'Multi-track planning from active BizSuits systems', included: true },
+      { text: 'Multi-track planning from proven BizSuits systems', included: true },
       { text: 'Custom dashboards, workflows, and reporting surfaces', included: true },
       { text: 'Role-based rollout and process alignment', included: true },
       { text: 'Cross-team training and staged launch support', included: true },
@@ -108,7 +108,7 @@ export const pricingFaqs = [
   {
     question: 'Are these fixed packages or starting points?',
     answer:
-      'They are starting points anchored to the current BizSuits solution set. Final scope depends on how closely your workflow matches an existing system and how many surfaces need to launch together.',
+      'They are starting points built around proven BizSuits systems. Final scope depends on how closely your workflow matches an existing solution and how many surfaces need to launch together.',
   },
   {
     question: 'What if I already want one of the current app patterns?',
@@ -154,13 +154,13 @@ export const deliveryPrinciples: DeliveryPrinciple[] = [
     icon: RefreshCw,
     title: 'Iterate From Real Usage',
     description:
-      'Rollouts are staged and refined from operational feedback. That is how the current BizSuits offering grew into multiple delivery tracks.',
+      'Rollouts are staged and refined from operational feedback so each release stays useful and easier to expand.',
   },
   {
     icon: Shield,
     title: 'Keep Ownership Explicit',
     description:
-      'Deployment, hosting assumptions, and handoff expectations are discussed upfront so the final system stays usable and maintainable for the client team.',
+      'Deployment, hosting assumptions, and handoff expectations are discussed upfront so the final system stays usable and maintainable for your team.',
   },
   {
     icon: Users,
@@ -181,7 +181,7 @@ export const deliverySteps: DeliveryStep[] = [
     id: '01',
     title: 'Review the closest live system',
     description:
-      'We map your workflow against the nearest active BizSuits application and identify what should be reused, removed, or extended.',
+      'We map your workflow against the nearest live BizSuits system and identify what should be reused, removed, or extended.',
   },
   {
     id: '02',
@@ -213,9 +213,9 @@ export const buildNoteCategories = [
 ];
 
 export const featuredBuildNote: BuildNote = {
-  title: 'How BizSuits was repositioned around seven active systems',
+  title: 'Seven proven BizSuits systems that can shape your rollout',
   excerpt:
-    'The public site now reflects the real BizSuits solution set instead of a generic all-in-one SaaS story. This note walks through the shift from placeholder positioning to concrete delivery tracks.',
+    'Explore the BizSuits solution set through the live systems already supporting retail, farm, operations, and automation workflows.',
   category: 'Solution Strategy',
   date: 'May 8, 2026',
   readTime: '8 min read',
@@ -225,9 +225,9 @@ export const featuredBuildNote: BuildNote = {
 
 export const buildNotes: BuildNote[] = [
   {
-    title: 'Inventory Admin as the anchor for retail back office delivery',
+    title: 'Why Inventory Admin is a strong starting point for retail back-office delivery',
     excerpt:
-      'Sales, stock, accounting, onboarding, and reporting already exist as one connected system. That makes retail admin delivery a matter of adaptation, not invention.',
+      'Sales, stock, accounting, onboarding, and reporting already work as one connected system, giving retail teams a faster path to launch.',
     category: 'Retail Commerce',
     date: 'May 8, 2026',
     readTime: '6 min read',
@@ -235,9 +235,9 @@ export const buildNotes: BuildNote[] = [
     href: '/features#inventory-admin',
   },
   {
-    title: 'Why the POS workflow matters: staff login, till flow, menu, customers, orders',
+    title: 'How the POS workflow supports fast selling, staff handoff, and checkout',
     excerpt:
-      'The sales-point app gives BizSuits a concrete frontline pattern for fast selling, staff handoff, and receipt-ready checkout instead of a conceptual POS module.',
+      'The sales-point app gives teams a proven frontline pattern for fast selling, staff handoff, and receipt-ready checkout.',
     category: 'Retail Commerce',
     date: 'May 8, 2026',
     readTime: '5 min read',
@@ -245,9 +245,9 @@ export const buildNotes: BuildNote[] = [
     href: '/features#sales-point',
   },
   {
-    title: 'Storefront delivery now has a real commerce system, not a brochure promise',
+    title: 'A commerce storefront built for catalog, cart, checkout, and payment',
     excerpt:
-      'The commerce web build contributes catalog, account, cart, checkout, and payment flows that the public site can now point to honestly.',
+      'The commerce web build brings catalog browsing, customer accounts, cart, checkout, and payment flows into one ready-to-launch commerce experience.',
     category: 'Retail Commerce',
     date: 'May 8, 2026',
     readTime: '5 min read',
@@ -255,9 +255,9 @@ export const buildNotes: BuildNote[] = [
     href: '/features#commerce-web',
   },
   {
-    title: 'Farm operations are already covered across animals, breeding, feeding, and finance',
+    title: 'Farm operations across animals, breeding, feeding, and finance',
     excerpt:
-      'The farm-health app gives BizSuits a working system for agricultural operations, role-aware dashboards, and record-heavy workflows.',
+      'The farm-health app supports agricultural operations with role-aware dashboards and record-heavy workflows.',
     category: 'Farm Operations',
     date: 'May 8, 2026',
     readTime: '6 min read',
@@ -265,9 +265,9 @@ export const buildNotes: BuildNote[] = [
     href: '/features#farm-health',
   },
   {
-    title: 'Farm Web Place proves the linked agri-commerce model',
+    title: 'A linked agri-commerce experience for livestock, products, and services',
     excerpt:
-      'Animals, products, services, and synchronized stock movement are already represented in a customer-facing sales surface connected to farm operations.',
+      'Animals, products, services, and synchronized stock movement come together in a commerce experience connected directly to farm operations.',
     category: 'Farm Operations',
     date: 'May 8, 2026',
     readTime: '5 min read',
@@ -275,9 +275,9 @@ export const buildNotes: BuildNote[] = [
     href: '/features#farm-web-place',
   },
   {
-    title: 'Project delivery is broader than tasks: facilities, incidents, budgets, and work orders',
+    title: 'Operations delivery beyond tasks: facilities, incidents, budgets, and work orders',
     excerpt:
-      'The project management suite shows BizSuits can support operations-heavy teams that need more than a lightweight task board.',
+      'The project management suite supports operations-heavy teams that need more than a lightweight task board.',
     category: 'Project Delivery',
     date: 'May 8, 2026',
     readTime: '7 min read',
@@ -285,9 +285,9 @@ export const buildNotes: BuildNote[] = [
     href: '/features#project-management',
   },
   {
-    title: 'The PDF extractor expands the delivery footprint beyond the browser',
+    title: 'When document extraction and desktop delivery are part of the workflow',
     excerpt:
-      'Batch PDF processing, review-first extraction, and installer packaging prove BizSuits can include desktop utilities when the workflow requires it.',
+      'Batch PDF processing, review-first extraction, and installer packaging make room for desktop utilities where the workflow requires them.',
     category: 'Automation',
     date: 'May 8, 2026',
     readTime: '5 min read',

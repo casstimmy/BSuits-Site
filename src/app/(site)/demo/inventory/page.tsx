@@ -215,8 +215,8 @@ export default function InventoryDemoPage() {
           </div>
           <SectionHeading
             badge="Inventory Demo"
-            title="Stock management surface rebuilt from the current inventory admin workflow"
-            subtitle="This demo now mirrors the source stock-management page: searchable inventory, location filters, stock-state badges, and a practical alert rail for replenishment work."
+            title="Stock management built for day-to-day inventory decisions"
+            subtitle="Explore searchable inventory, location filters, stock-state badges, and replenishment alerts in one clear stock-control view."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">
@@ -239,11 +239,11 @@ export default function InventoryDemoPage() {
                   <Boxes className="w-7 h-7 text-primary-700" />
                 </div>
                 <div>
-                  <p className="text-sm text-dark-500">Source pattern</p>
+                  <p className="text-sm text-dark-500">Inventory focus</p>
                   <h2 className="text-2xl font-bold text-dark-900 mb-2">Stock Overview</h2>
                   <p className="text-dark-500 max-w-2xl leading-relaxed">
-                    The inventory admin build already includes a strong stock-management backbone.
-                    This fragment translates that workflow into a cleaner client demo with filtering, table review, and replenishment cues.
+                    This stock view brings together filtering, table review, and replenishment
+                    cues in a format teams can use every day.
                   </p>
                 </div>
               </div>

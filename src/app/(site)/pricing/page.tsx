@@ -8,9 +8,9 @@ import { deliveryTracks } from '@/data/portfolio';
 import { deliverySteps, engagementPackages, pricingFaqs } from '@/data/siteContent';
 
 export const metadata: Metadata = {
-  title: 'Pricing - BizSuits | Client Engagements',
+  title: 'Pricing - BizSuits | Pricing Plans',
   description:
-    'Explore BizSuits engagement tiers built around proven systems, live demos, and delivery tracks that can be tailored to each client.',
+    'Explore BizSuits pricing plans built around proven systems, live demos, and delivery tracks tailored to your business.',
 };
 
 export default function PricingPage() {
@@ -22,15 +22,15 @@ export default function PricingPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Client Pricing
+            Pricing Plans
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
             Engagements shaped around{' '}
             <span className="gradient-text">proven BizSuits systems</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            These pricing tiers are tied to real solution tracks and demo-ready systems, so
-            scope discussions can start from what clients can already see and evaluate.
+            Choose from engagement plans built around real solution tracks and demo-ready systems,
+            so planning can start from what your team can already see and evaluate.
           </p>
         </div>
       </section>
@@ -163,7 +163,7 @@ export default function PricingPage() {
           <SectionHeading
             badge="FAQ"
             title="Common pricing questions"
-            subtitle="These answers are based on how the current BizSuits solution set is positioned and delivered."
+            subtitle="Answers to common questions about pricing, rollout, and delivery."
           />
 
           <div className="space-y-4">

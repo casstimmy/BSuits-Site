@@ -31,7 +31,7 @@ const testimonials = [
     role: 'Store Chain Owner, Port Harcourt',
     messages: [
       { text: 'Managing 3 store locations used to be chaos 😅', time: '2:45 PM' },
-      { text: 'Now I see all my inventory, sales, and staff from one dashboard. BizSuits team even trained my staff.', time: '2:46 PM' },
+      { text: 'Now I see all my inventory, sales, and staff from one dashboard. The rollout even included staff training.', time: '2:46 PM' },
     ],
     avatar: 'EO',
     bgColor: 'bg-purple-50',
@@ -64,7 +64,7 @@ export default function Testimonials() {
       <div className="container-custom">
         <SectionHeading
           badge="Customer Stories"
-          title="What our clients are saying"
+          title="What business owners are saying"
           subtitle="Real feedback from business owners who use BizSuits every day."
         />
 

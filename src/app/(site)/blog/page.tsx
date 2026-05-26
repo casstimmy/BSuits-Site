@@ -30,7 +30,7 @@ export default function BlogPage() {
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
             Use these notes to understand how BizSuits combines commerce, operations, agriculture,
-            and automation patterns into client-ready systems.
+            and automation into ready-to-launch business systems.
           </p>
         </div>
       </section>
