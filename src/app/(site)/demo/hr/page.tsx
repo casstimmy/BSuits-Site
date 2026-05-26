@@ -348,8 +348,8 @@ export default function HRDemoPage() {
           </div>
           <SectionHeading
             badge="HR Demo"
-            title="Staff management surface mirroring the inventory admin HR workflow"
-            subtitle="View staff across locations, run payroll review, track onboarding progress, and manage guarantor records — all from the same admin used by the live system."
+            title="Staff management for payroll, onboarding, and location oversight"
+            subtitle="View staff across locations, review payroll, track onboarding progress, and manage guarantor records from one working team dashboard."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">

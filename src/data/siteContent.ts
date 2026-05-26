@@ -42,64 +42,64 @@ export interface BuildNote {
 
 export const engagementPackages: EngagementPackage[] = [
   {
-    name: 'Track Adaptation',
+    name: 'Starter Implementation',
     description:
-      'A focused rollout that adapts one proven BizSuits system family to your workflow and gets your first surface live quickly.',
+      'A focused implementation that improves one priority area of the business and gets your team moving quickly.',
     price: 300000,
-    badge: 'Single-track rollout',
-    cta: 'Scope this engagement',
+    badge: 'Single business area',
+    cta: 'Plan This Start',
     ctaVariant: 'secondary',
     recommendedTrackIds: ['farm-operations', 'document-automation'],
     features: [
-      { text: 'Discovery review against the closest live BizSuits system', included: true },
-      { text: 'One primary delivery track adapted to your workflow', included: true },
-      { text: 'Core setup, branding, and user readiness', included: true },
+      { text: 'Review of the nearest proven BizSuits example', included: true },
+      { text: 'One priority business area shaped around your way of working', included: true },
+      { text: 'Core setup, branding, and team readiness', included: true },
       { text: 'Launch checklist and team handoff', included: true },
-      { text: 'Reporting refinement for the first release', included: true },
-      { text: 'Cross-track integrations', included: false },
-      { text: 'Desktop packaging or installer delivery', included: false },
-      { text: 'Dedicated rollout manager', included: false },
+      { text: 'Early reporting adjustments', included: true },
+      { text: 'Multi-area coordination', included: false },
+      { text: 'Desktop support', included: false },
+      { text: 'Dedicated implementation lead', included: false },
     ],
   },
   {
-    name: 'Connected Commerce Rollout',
+    name: 'Connected Commerce Package',
     description:
-      'For teams launching linked selling surfaces such as admin, POS, and storefront flows with shared reporting and rollout support.',
+      'For businesses that need back office, checkout, and customer ordering to work together with shared visibility.',
     price: 600000,
-    badge: 'Retail and farm commerce',
-    cta: 'Plan this rollout',
+    badge: 'Sales and operations',
+    cta: 'Plan This Package',
     ctaVariant: 'primary',
     highlighted: true,
     recommendedTrackIds: ['retail-commerce', 'farm-operations'],
     features: [
-      { text: 'Solution-led discovery and fit-gap review', included: true },
-      { text: 'Connected back office, selling, and customer surfaces', included: true },
-      { text: 'Location-aware stock and order flows', included: true },
-      { text: 'Payment, reporting, and operational dashboards', included: true },
-      { text: 'Go-live support and operator training', included: true },
-      { text: 'Custom workflow tailoring across two or more surfaces', included: true },
-      { text: 'Desktop automation module', included: false },
-      { text: 'Enterprise multi-track orchestration', included: false },
+      { text: 'Business review and fit-gap session', included: true },
+      { text: 'Connected back office, checkout, and customer experience', included: true },
+      { text: 'Stock and order visibility across locations', included: true },
+      { text: 'Payments, reporting, and daily management visibility', included: true },
+      { text: 'Launch support and team training', included: true },
+      { text: 'Tailoring across two or more business areas', included: true },
+      { text: 'Desktop document support', included: false },
+      { text: 'Enterprise-wide coordination', included: false },
     ],
   },
   {
-    name: 'Operations Platform Delivery',
+    name: 'Operations Growth Package',
     description:
-      'A multi-surface delivery for teams combining operations, reporting, project workflows, and deeper customization across departments.',
+      'For businesses coordinating operations, reporting, projects, and leadership visibility across departments.',
     price: 900000,
-    badge: 'Multi-surface platform',
-    cta: 'Design the platform',
+    badge: 'Cross-business operations',
+    cta: 'Plan This Package',
     ctaVariant: 'dark',
     recommendedTrackIds: ['ops-delivery', 'retail-commerce', 'document-automation'],
     features: [
-      { text: 'Multi-track planning from proven BizSuits systems', included: true },
-      { text: 'Custom dashboards, workflows, and reporting surfaces', included: true },
-      { text: 'Role-based rollout and process alignment', included: true },
+      { text: 'Planning across multiple business areas', included: true },
+      { text: 'Dashboards, reporting, and management visibility', included: true },
+      { text: 'Roles, approvals, and day-to-day coordination', included: true },
       { text: 'Cross-team training and staged launch support', included: true },
       { text: 'Data migration and operational readiness review', included: true },
-      { text: 'Automation or desktop utility scoping', included: true },
-      { text: 'Dedicated rollout coordination', included: true },
-      { text: 'Long-term enhancement roadmap', included: true },
+      { text: 'Document and desktop task support', included: true },
+      { text: 'Dedicated implementation coordination', included: true },
+      { text: 'Long-term improvement roadmap', included: true },
     ],
   },
 ];
@@ -108,92 +108,92 @@ export const pricingFaqs = [
   {
     question: 'Are these fixed packages or starting points?',
     answer:
-      'They are starting points built around proven BizSuits systems. Final scope depends on how closely your workflow matches an existing solution and how many surfaces need to launch together.',
+      'They are starting points based on proven BizSuits examples. Final scope depends on your priorities, team size, and how much of the business you want to improve at once.',
   },
   {
-    question: 'What if I already want one of the current app patterns?',
+    question: 'What if one of the examples already looks close to what we need?',
     answer:
-      'That is the ideal case. We review the closest existing system, identify what can be reused, and only scope the changes required for your business.',
+      'That is the ideal case. We review the closest example, confirm what fits your business, and only plan the changes that matter.',
   },
   {
-    question: 'Can rollout happen in phases?',
+    question: 'Can the work happen in phases?',
     answer:
-      'Yes. Many teams start with one track such as back office, farm operations, or storefront delivery, then add adjacent surfaces after the first release is stable.',
+      'Yes. Many businesses start with one priority area such as stock control, storefront operations, or reporting, then expand once the first release is running well.',
   },
   {
     question: 'Do you support hosting, deployment, and training?',
     answer:
-      'Yes. Setup, deployment guidance, and operator training are part of delivery. The exact hosting or device setup path depends on whether the solution is web-based, desktop-based, or both.',
+      'Yes. Setup, launch guidance, and team training are included. The exact setup depends on whether the work is browser-based, desktop-based, or both.',
   },
   {
     question: 'Can desktop automation be included?',
     answer:
-      'Yes. The PDF extraction utility shows that desktop packaging can sit alongside the web platform when the workflow calls for it. We scope that separately where needed.',
+      'Yes. Document-heavy work can be supported alongside the main business experience where needed. We scope that separately when it adds clear value.',
   },
   {
     question: 'What happens after go-live?',
     answer:
-      'Post-launch support covers stabilization, training follow-up, and the next set of improvements. We also help define the enhancement roadmap from the first live release.',
+      'After launch, we support stabilization, team follow-up, and the next set of improvements as the business grows.',
   },
 ];
 
 export const deliveryPrinciples: DeliveryPrinciple[] = [
   {
     icon: Target,
-    title: 'Start From Live Systems',
+    title: 'Start From What Already Works',
     description:
-      'We begin with the closest working BizSuits system instead of abstract requirements only. That shortens discovery and keeps solution discussions concrete.',
+      'We start from proven BizSuits examples rather than abstract requirements, so planning stays practical from the beginning.',
   },
   {
     icon: Layers,
-    title: 'Connect Surfaces Deliberately',
+    title: 'Keep Teams Connected',
     description:
-      'Selling, operations, reporting, and customer flows are designed as connected layers so the platform does not split into isolated tools.',
+      'Sales, operations, reporting, and customer experience are planned to work together, not as isolated tools.',
   },
   {
     icon: RefreshCw,
-    title: 'Iterate From Real Usage',
+    title: 'Improve With Real Usage',
     description:
-      'Rollouts are staged and refined from operational feedback so each release stays useful and easier to expand.',
+      'Changes are staged and refined from operational feedback so each release stays useful and easier to expand.',
   },
   {
     icon: Shield,
-    title: 'Keep Ownership Explicit',
+    title: 'Make Ownership Clear',
     description:
-      'Deployment, hosting assumptions, and handoff expectations are discussed upfront so the final system stays usable and maintainable for your team.',
+      'Hosting, handover, and responsibilities are agreed early so your team can run with confidence.',
   },
   {
     icon: Users,
-    title: 'Train The Operators',
+    title: 'Support The Team',
     description:
-      'Go-live is not finished at deployment. Teams need handover, role alignment, and operational guidance for the system to stick.',
+      'Launch is only the beginning. Teams need onboarding, role clarity, and operational support for change to stick.',
   },
   {
     icon: BarChart3,
-    title: 'Measure What Matters',
+    title: 'Measure Business Performance',
     description:
-      'Dashboards and reports are treated as part of the product, not a late add-on, because they shape daily operational decisions.',
+      'Dashboards and reports are built around the decisions leaders and operators need to make every day.',
   },
 ];
 
 export const deliverySteps: DeliveryStep[] = [
   {
     id: '01',
-    title: 'Review the closest live system',
+    title: 'Understand the business priority',
     description:
-      'We map your workflow against the nearest live BizSuits system and identify what should be reused, removed, or extended.',
+      'We review how the business works today and where the biggest gains are likely to come first.',
   },
   {
     id: '02',
-    title: 'Shape the operating flow',
+    title: 'Shape how the team will work',
     description:
-      'Modules, users, data movement, and reporting needs are defined around the actual day-to-day process rather than a generic template.',
+      'Roles, responsibilities, data flow, and reporting are aligned with day-to-day operations.',
   },
   {
     id: '03',
-    title: 'Connect the surfaces',
+    title: 'Connect the important business areas',
     description:
-      'Admin, selling, operational, customer, or automation surfaces are wired together so the rollout behaves like one system.',
+      'Sales, operations, reporting, customer, or document-heavy work are connected so the experience feels joined up.',
   },
   {
     id: '04',
@@ -205,93 +205,93 @@ export const deliverySteps: DeliveryStep[] = [
 
 export const buildNoteCategories = [
   'All',
-  'Solution Strategy',
+  'Business Strategy',
   'Retail Commerce',
   'Farm Operations',
-  'Project Delivery',
-  'Automation',
+  'Project Operations',
+  'Documents & Reporting',
 ];
 
 export const featuredBuildNote: BuildNote = {
-  title: 'Seven proven BizSuits systems that can shape your rollout',
+  title: 'Seven practical BizSuits examples that can improve operations',
   excerpt:
-    'Explore the BizSuits solution set through the live systems already supporting retail, farm, operations, and automation workflows.',
-  category: 'Solution Strategy',
+    'Explore the live BizSuits examples already supporting retail, farm, operations, and document-heavy work.',
+  category: 'Business Strategy',
   date: 'May 8, 2026',
   readTime: '8 min read',
-  author: 'BizSuits Solutions Team',
+  author: 'BizSuits Team',
   href: '/solutions',
 };
 
 export const buildNotes: BuildNote[] = [
   {
-    title: 'Why Inventory Admin is a strong starting point for retail back-office delivery',
+    title: 'Why Inventory Admin is a strong starting point for retail operations',
     excerpt:
-      'Sales, stock, accounting, onboarding, and reporting already work as one connected system, giving retail teams a faster path to launch.',
+      'Sales, stock, accounting, onboarding, and reporting already work together, giving retail teams a clearer place to start.',
     category: 'Retail Commerce',
     date: 'May 8, 2026',
     readTime: '6 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#inventory-admin',
   },
   {
-    title: 'How the POS workflow supports fast selling, staff handoff, and checkout',
+    title: 'How faster checkout and staff handoff improve day-to-day selling',
     excerpt:
-      'The sales-point app gives teams a proven frontline pattern for fast selling, staff handoff, and receipt-ready checkout.',
+      'The sales-point example shows how teams can sell faster, hand over shifts more smoothly, and keep checkout dependable.',
     category: 'Retail Commerce',
     date: 'May 8, 2026',
     readTime: '5 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#sales-point',
   },
   {
-    title: 'A commerce storefront built for catalog, cart, checkout, and payment',
+    title: 'A storefront that makes browsing, ordering, and payment easier',
     excerpt:
-      'The commerce web build brings catalog browsing, customer accounts, cart, checkout, and payment flows into one ready-to-launch commerce experience.',
+      'This example brings catalog browsing, customer accounts, cart, checkout, and payment into one clear buying experience.',
     category: 'Retail Commerce',
     date: 'May 8, 2026',
     readTime: '5 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#commerce-web',
   },
   {
-    title: 'Farm operations across animals, breeding, feeding, and finance',
+    title: 'Farm operations with clearer control across animals, feeding, and finance',
     excerpt:
-      'The farm-health app supports agricultural operations with role-aware dashboards and record-heavy workflows.',
+      'The farm-health example helps teams manage agricultural activity with better visibility across daily records and decisions.',
     category: 'Farm Operations',
     date: 'May 8, 2026',
     readTime: '6 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#farm-health',
   },
   {
-    title: 'A linked agri-commerce experience for livestock, products, and services',
+    title: 'Selling livestock, products, and services from one connected farm storefront',
     excerpt:
-      'Animals, products, services, and synchronized stock movement come together in a commerce experience connected directly to farm operations.',
+      'Animals, products, services, and shared stock movement come together in one customer-ready farm sales experience.',
     category: 'Farm Operations',
     date: 'May 8, 2026',
     readTime: '5 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#farm-web-place',
   },
   {
-    title: 'Operations delivery beyond tasks: facilities, incidents, budgets, and work orders',
+    title: 'Operations oversight beyond tasks: facilities, incidents, budgets, and work orders',
     excerpt:
-      'The project management suite supports operations-heavy teams that need more than a lightweight task board.',
-    category: 'Project Delivery',
+      'The project management suite supports operations-heavy teams that need coordination, visibility, and stronger control across the business.',
+    category: 'Project Operations',
     date: 'May 8, 2026',
     readTime: '7 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#project-management',
   },
   {
-    title: 'When document extraction and desktop delivery are part of the workflow',
+    title: 'When document extraction and desktop support become business priorities',
     excerpt:
-      'Batch PDF processing, review-first extraction, and installer packaging make room for desktop utilities where the workflow requires them.',
-    category: 'Automation',
+      'Batch PDF processing, review-first extraction, and desktop support help teams handle document-heavy work with less manual effort.',
+    category: 'Documents & Reporting',
     date: 'May 8, 2026',
     readTime: '5 min read',
-    author: 'BizSuits Solutions Team',
+    author: 'BizSuits Team',
     href: '/features#pdf-extractor',
   },
 ];

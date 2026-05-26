@@ -8,9 +8,9 @@ import Button from '@/components/ui/Button';
 import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
 
 export const metadata: Metadata = {
-  title: 'Features - BizSuits | Solution Capabilities',
+  title: 'Features - BizSuits | Business Capabilities',
   description:
-    'Explore the modules and workflows BizSuits can deliver across retail commerce, agriculture, operations, and document automation.',
+    'Explore the business areas BizSuits can support across retail, agriculture, operations, and document-heavy work.',
 };
 
 const trackDemoLinks: Record<string, string> = {
@@ -30,19 +30,18 @@ export default function FeaturesPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Solution Capabilities
+            Business Capabilities
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Features organized by{' '}
-            <span className="gradient-text">what each solution includes</span>
+            Capabilities organized around{' '}
+            <span className="gradient-text">what your business needs most</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            Each BizSuits solution is made up of connected systems. Explore what every system brings
-            to the table — the modules, workflows, and surfaces it delivers.
+            See how BizSuits supports selling, stock control, operations, reporting, and customer service across the business.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
-              Try the Demos
+              See Live Examples
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
               Explore Solutions
@@ -67,9 +66,9 @@ export default function FeaturesPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Solution Features"
-            title="Each solution is built from proven, connected systems"
-            subtitle="Browse by solution to see exactly which systems it includes and what each one covers."
+            badge="Business Areas"
+            title="Each area is supported by proven working examples"
+            subtitle="Browse by business area to see what BizSuits can help your team manage day to day."
           />
 
           {deliveryTracks.map((track, trackIndex) => {
@@ -91,7 +90,7 @@ export default function FeaturesPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-primary-600 mb-1 uppercase tracking-wider">
-                      Solution Track
+                      Business Area
                     </p>
                     <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-3">
                       {track.title}
@@ -103,10 +102,10 @@ export default function FeaturesPage() {
                         href={demoHref}
                         icon={<ExternalLink className="w-4 h-4" />}
                       >
-                        Try Demo
+                        See Example
                       </Button>
                       <Button variant="secondary" href="/contact">
-                        Discuss This Solution
+                        Talk About This Area
                       </Button>
                     </div>
                   </div>
@@ -152,7 +151,7 @@ export default function FeaturesPage() {
 
                       <p className="text-sm text-dark-500 leading-relaxed mb-5">{app.summary}</p>
 
-                      {/* Module list */}
+                      {/* Business responsibilities */}
                       <div className="space-y-2.5 flex-1">
                         {app.modules.map((mod) => (
                           <div key={mod} className="flex items-start gap-2.5">
@@ -185,14 +184,14 @@ export default function FeaturesPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want to see these systems in action?
+            Want to see how this could work in your business?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            Each BizSuits system has an interactive demo you can try right now. No setup needed.
+            Browse live examples to see how sales, operations, and reporting can work together day to day.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
-              Browse All Demos
+              Browse Live Examples
             </Button>
             <Button
               variant="ghost"

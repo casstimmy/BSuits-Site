@@ -23,12 +23,11 @@ export default function CTA() {
           viewport={{ once: true, amount: 0.3 }}
         >
         <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 text-balance">
-          Ready to get your custom{' '}
-          <span className="text-primary-300">business system</span>?
+          Ready to run the business with more{' '}
+          <span className="text-primary-300">clarity and control</span>?
         </h2>
         <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8">
-          Every BizSuits system is custom-built for your specific operations,
-          fully owned by you, with complete setup and training included.
+          BizSuits brings sales, operations, reporting, and team visibility together around the way your business already works.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
@@ -53,15 +52,15 @@ export default function CTA() {
         <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-accent-400" />
-            Custom Built for Your Business
+            Built Around Your Business
           </div>
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-accent-400" />
-            Full Setup & Training Included
+            Setup And Training Included
           </div>
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-accent-400" />
-            You Own It Forever
+            Ready For Daily Operations
           </div>
         </div>
         </motion.div>

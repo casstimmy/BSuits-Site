@@ -8,9 +8,9 @@ import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfoli
 import { deliveryPrinciples, deliverySteps } from '@/data/siteContent';
 
 export const metadata: Metadata = {
-  title: 'About - BizSuits | Delivery Model',
+  title: 'About - BizSuits | Business Approach',
   description:
-    'Learn how BizSuits delivers software through live business systems across commerce, operations, agriculture, and automation.',
+    'Learn how BizSuits helps businesses improve sales, operations, agriculture, and reporting through practical working examples.',
 };
 
 export default function AboutPage() {
@@ -24,16 +24,14 @@ export default function AboutPage() {
         <div className="container-custom relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-              Delivery Model
+              How We Work
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-              BizSuits is built around{' '}
-              <span className="gradient-text">real business systems</span>
+              How BizSuits supports{' '}
+              <span className="gradient-text">day-to-day business operations</span>
             </h1>
             <p className="text-lg md:text-xl text-dark-500 leading-relaxed">
-              Explore how BizSuits adapts proven systems across retail commerce, farm operations,
-              project delivery, and document automation, giving your team a clearer path from
-              discovery to launch.
+              BizSuits helps businesses improve sales, operations, agriculture, and document-heavy work with practical tools, clearer visibility, and stronger day-to-day coordination.
             </p>
           </div>
         </div>
@@ -57,7 +55,7 @@ export default function AboutPage() {
           <SectionHeading
             badge="Operating Principles"
             title="How delivery decisions are made"
-            subtitle="These principles show how BizSuits plans, delivers, and improves each solution."
+            subtitle="These principles show how BizSuits approaches planning, implementation, and ongoing improvement."
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -78,8 +76,8 @@ export default function AboutPage() {
         <div className="container-custom">
           <SectionHeading
             badge="Solution Families"
-            title="BizSuits solutions are organized into four delivery tracks"
-            subtitle="Each track groups proven systems that can be adapted to your operations."
+            title="Four business areas where BizSuits creates the most value"
+            subtitle="Each area groups practical examples that can be shaped around the way your business operates."
           />
 
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
@@ -127,8 +125,8 @@ export default function AboutPage() {
         <div className="container-custom">
           <SectionHeading
             badge="Delivery Rhythm"
-            title="What a BizSuits engagement looks like"
-            subtitle="Every rollout follows the same system-led path from discovery to launch."
+            title="How working with BizSuits typically unfolds"
+            subtitle="Each engagement moves from understanding the business to launch and improvement."
           />
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
@@ -148,10 +146,10 @@ export default function AboutPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want to map your workflow to the current solution set?
+            Want to map BizSuits to the way your business runs?
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            We can review your process against the closest active system and plan the smallest practical rollout path.
+            We can review your priorities and recommend the most practical place to start.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>

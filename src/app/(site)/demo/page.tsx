@@ -20,9 +20,9 @@ import Card from '@/components/ui/Card';
 import SectionHeading from '@/components/ui/SectionHeading';
 
 export const metadata: Metadata = {
-  title: 'Demos - BizSuits | Interactive System Demos',
+  title: 'Demos - BizSuits | Live Business Examples',
   description:
-    'Try interactive demos of every BizSuits solution — retail commerce, farm operations, project management, and document automation. Each demo runs inside a live browser layout.',
+    'Explore live examples of how BizSuits supports retail, farm operations, projects, and document-heavy work.',
 };
 
 // ─── Demo solution configs ────────────────────────────────────────────────────
@@ -32,7 +32,7 @@ const solutions = [
     id: 'retail-commerce',
     title: 'Retail & Commerce',
     summary:
-      'Connected back office, frontline POS, and customer storefront — the complete retail stack.',
+      'Bring back office, checkout, and customer ordering together in one retail experience.',
     gradient: 'from-sky-500 to-cyan-600',
     icon: Store,
     demos: [
@@ -183,7 +183,7 @@ const solutions = [
     id: 'farm-operations',
     title: 'Farm Operations',
     summary:
-      'Agricultural management system paired with a synchronized farm storefront for livestock, products, and services.',
+      'Keep farm activity and farm sales aligned across livestock, products, and services.',
     gradient: 'from-emerald-500 to-green-600',
     icon: Sprout,
     demos: [
@@ -357,16 +357,15 @@ export default function DemoHubPage() {
             Interactive Demos
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Try every BizSuits system{' '}
+            Explore how BizSuits supports daily work{' '}
             <span className="gradient-text">live, in the browser</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            Each demo runs inside a real browser layout and reflects the actual design of the live
-            system. Click any card below to open the full interactive demo.
+            Each example shows how selling, operations, reporting, and customer activity can work in practice. Click any card below to open the full walkthrough.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="primary" size="lg" href="/demo/pos" icon={<ArrowRight className="w-5 h-5" />}>
-              Start with POS Demo
+              Start with Retail Example
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
               Explore Solutions
@@ -379,9 +378,9 @@ export default function DemoHubPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Solution Demos"
-            title="Demos organized by solution"
-            subtitle="Each solution has interactive demos for every system it includes. Try them directly in the browser."
+            badge="Live Examples"
+            title="Examples organized by business area"
+            subtitle="Each area includes interactive examples you can open directly in the browser."
           />
 
           {solutions.map((solution, solutionIndex) => (
@@ -463,11 +462,10 @@ export default function DemoHubPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want a tailored walkthrough for your workflow?
+            Want a tailored walkthrough for your business?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            These demos show the current live systems. We can walk through the closest match to your
-            operation and scope a rollout from there.
+            These examples show working BizSuits experiences. We can walk through the closest fit for your operation and recommend the best starting point.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>

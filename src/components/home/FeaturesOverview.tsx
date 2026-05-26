@@ -13,9 +13,9 @@ export default function FeaturesOverview() {
     <section className="section-padding bg-white">
       <div className="container-custom">
         <SectionHeading
-          badge="Solution Families"
-          title="Solutions built around real business workflows"
-          subtitle="Explore the BizSuits system families businesses can launch from today, each grounded in proven software instead of generic feature promises."
+          badge="Business Areas"
+          title="Where BizSuits can improve day-to-day operations"
+          subtitle="Explore the main parts of the business BizSuits can help strengthen, from selling and stock control to farm and field operations."
         />
 
         <motion.div
@@ -72,7 +72,7 @@ export default function FeaturesOverview() {
 
         <div className="text-center mt-12">
           <Button variant="primary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
-            Explore The Full Solution Lineup
+            See Everything BizSuits Covers
           </Button>
         </div>
       </div>

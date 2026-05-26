@@ -13,9 +13,9 @@ export default function BuildPortfolio() {
     <section className="section-padding bg-dark-50/50">
       <div className="container-custom">
         <SectionHeading
-          badge="Solution Library"
-          title="Seven live systems show what BizSuits can launch"
-          subtitle="Each card highlights a live BizSuits system you can review, demo, and adapt to your workflow."
+          badge="Business Examples"
+          title="Seven live examples show how BizSuits supports daily work"
+          subtitle="Each card highlights a practical example you can review and adapt to the way your business operates."
         />
 
         <motion.div
@@ -38,7 +38,7 @@ export default function BuildPortfolio() {
                 </div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600 mb-2">
-                  {app.sourceProject}
+                  {app.category}
                 </p>
                 <h3 className="text-xl font-bold text-dark-900 mb-3">{app.name}</h3>
                 <p className="text-dark-500 leading-relaxed mb-5">{app.summary}</p>
@@ -57,7 +57,7 @@ export default function BuildPortfolio() {
                 </div>
 
                 <Button variant="secondary" href={app.href} className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>
-                  View Solution Details
+                  Explore This Example
                 </Button>
               </Card>
             </motion.div>

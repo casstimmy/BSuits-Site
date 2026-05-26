@@ -105,7 +105,7 @@ const stockItems: InventoryItem[] = [
     minStock: 10,
     reorderLevel: 16,
     unitCost: 'NGN 850',
-    lastMovement: 'Rollout to three outlets',
+    lastMovement: 'Distributed across three outlets',
   },
   {
     sku: 'INV-8849',
@@ -439,11 +439,11 @@ export default function InventoryDemoPage() {
 
                 <div className="rounded-2xl border border-dark-100 bg-dark-900 text-white p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50 mb-3">
-                    Source alignment
+                    Business view
                   </p>
                   <p className="text-sm leading-relaxed text-white/80">
-                    This demo keeps the stock-management emphasis of the source inventory admin app,
-                    but removes the review-only framing so buyers see a usable operations surface.
+                    This example keeps the focus on stock management and day-to-day oversight,
+                    while presenting the work in a way that is easier for buyers and operators to review.
                   </p>
                   <p className="text-lg font-bold text-white mt-4">{inventorySummary.totalUnits} units in current filtered view</p>
                 </div>

@@ -10,8 +10,8 @@ const testimonials = [
     name: 'Adebayo K.',
     role: 'Restaurant Owner, Lagos',
     messages: [
-      { text: 'Bros, BizSuits changed my restaurant game completely 🔥', time: '9:14 AM' },
-      { text: 'The POS is so fast my cashier no dey make mistakes again. Inventory tracks itself. I save like 15 hours every week!', time: '9:15 AM' },
+      { text: 'BizSuits changed how we run the restaurant.', time: '9:14 AM' },
+      { text: 'Checkout is faster, stock is more reliable, and we save hours every week.', time: '9:15 AM' },
     ],
     avatar: 'AK',
     bgColor: 'bg-emerald-50',
@@ -20,8 +20,8 @@ const testimonials = [
     name: 'Chioma N.',
     role: 'Supermarket Manager, Abuja',
     messages: [
-      { text: 'I tried 3 different software before BizSuits. None of them understood how Nigerian businesses actually work', time: '11:32 AM' },
-      { text: 'This one was built specifically for my store. Inventory, sales tracking, supplier management — everything in one place 👌', time: '11:33 AM' },
+      { text: 'We tried several options before BizSuits. This is the first one that really fits how our supermarket operates.', time: '11:32 AM' },
+      { text: 'Inventory, sales, and supplier management now sit in one place, which makes daily decisions much easier.', time: '11:33 AM' },
     ],
     avatar: 'CN',
     bgColor: 'bg-blue-50',
@@ -30,8 +30,8 @@ const testimonials = [
     name: 'Emeka O.',
     role: 'Store Chain Owner, Port Harcourt',
     messages: [
-      { text: 'Managing 3 store locations used to be chaos 😅', time: '2:45 PM' },
-      { text: 'Now I see all my inventory, sales, and staff from one dashboard. The rollout even included staff training.', time: '2:46 PM' },
+      { text: 'Managing three store locations used to be difficult.', time: '2:45 PM' },
+      { text: 'Now I see all my inventory, sales, and staff from one dashboard. The setup even included staff training.', time: '2:46 PM' },
     ],
     avatar: 'EO',
     bgColor: 'bg-purple-50',
@@ -40,8 +40,8 @@ const testimonials = [
     name: 'Fatima A.',
     role: 'Boutique Owner, Kano',
     messages: [
-      { text: 'The e-commerce integration is 🔥🔥🔥', time: '4:10 PM' },
-      { text: "My online store and physical shop share the same inventory now. No more selling items I don't have in stock", time: '4:11 PM' },
+      { text: 'The online and in-store experience finally work together.', time: '4:10 PM' },
+      { text: "My online store and physical shop now share the same stock, so we avoid selling items we don't have.", time: '4:11 PM' },
     ],
     avatar: 'FA',
     bgColor: 'bg-orange-50',
@@ -50,8 +50,8 @@ const testimonials = [
     name: 'Tunde M.',
     role: 'Hotel Manager, Lekki',
     messages: [
-      { text: 'What I love is that the support team actually picks up the phone 😂', time: '10:20 AM' },
-      { text: 'Any issue I have, they resolve it same day. Best investment we made for the hotel business.', time: '10:21 AM' },
+      { text: 'What stands out is how responsive the support team is.', time: '10:20 AM' },
+      { text: 'Issues get resolved quickly, and the business keeps moving. It has been a strong investment for the hotel.', time: '10:21 AM' },
     ],
     avatar: 'TM',
     bgColor: 'bg-rose-50',
@@ -64,8 +64,8 @@ export default function Testimonials() {
       <div className="container-custom">
         <SectionHeading
           badge="Customer Stories"
-          title="What business owners are saying"
-          subtitle="Real feedback from business owners who use BizSuits every day."
+          title="What business owners say after launch"
+          subtitle="Real feedback from teams using BizSuits in day-to-day operations."
         />
 
         <motion.div

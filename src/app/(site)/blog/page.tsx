@@ -22,15 +22,14 @@ export default function BlogPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Solution Notes
+            Business Insights
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Insights from the{' '}
-            <span className="gradient-text">BizSuits solution library</span>
+            Insights from{' '}
+            <span className="gradient-text">real business operations</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
-            Use these notes to understand how BizSuits combines commerce, operations, agriculture,
-            and automation into ready-to-launch business systems.
+            Explore ideas, examples, and lessons drawn from selling, operations, agriculture, and document-heavy work.
           </p>
         </div>
       </section>
@@ -145,7 +144,7 @@ export default function BlogPage() {
 
           <div className="text-center mt-12">
             <Button variant="secondary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
-              Explore The Full Solution Library
+              Explore Business Capabilities
             </Button>
           </div>
         </div>
@@ -154,14 +153,14 @@ export default function BlogPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want a walkthrough instead of a note?
+            Prefer a walkthrough to an article?
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            We can show you the closest live demo, explain the rollout path, and turn these notes into a concrete delivery conversation.
+            We can show relevant examples and talk through the best starting point for your business.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Schedule Working Session
+              Book A Consultation
             </Button>
             <Button
               variant="ghost"
@@ -169,7 +168,7 @@ export default function BlogPage() {
               href="/demo"
               className="!text-white hover:!bg-white/10"
             >
-              Explore Live Demos
+              See Live Examples
             </Button>
           </div>
         </div>

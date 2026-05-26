@@ -10,19 +10,19 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'BizSuits - All-in-One Business Management Platform',
+    default: 'BizSuits - Business Tools for Sales, Operations, and Reporting',
     template: '%s | BizSuits',
   },
   description:
-    'BizSuits brings POS, inventory, accounting, HR, and analytics together in one powerful suite. Manage your entire business from a single platform.',
+    'BizSuits helps businesses manage sales, stock, reporting, agriculture, and day-to-day operations with more clarity and control.',
   keywords: [
-    'business management',
-    'POS system',
-    'inventory management',
-    'accounting software',
-    'HR payroll',
-    'business analytics',
-    'all-in-one business',
+    'business operations',
+    'retail operations',
+    'inventory control',
+    'business reporting',
+    'farm operations',
+    'sales management',
+    'business tools',
     'BizSuits',
   ],
   authors: [{ name: 'BizSuits' }],
@@ -31,15 +31,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://bizsuits.com',
     siteName: 'BizSuits',
-    title: 'BizSuits - All-in-One Business Management Platform',
+    title: 'BizSuits - Business Tools for Sales, Operations, and Reporting',
     description:
-      'BizSuits brings POS, inventory, accounting, HR, and analytics together in one powerful suite.',
+      'BizSuits helps businesses manage sales, stock, reporting, agriculture, and day-to-day operations with more clarity and control.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BizSuits - All-in-One Business Management Platform',
+    title: 'BizSuits - Business Tools for Sales, Operations, and Reporting',
     description:
-      'BizSuits brings POS, inventory, accounting, HR, and analytics together in one powerful suite.',
+      'BizSuits helps businesses manage sales, stock, reporting, agriculture, and day-to-day operations with more clarity and control.',
   },
   robots: {
     index: true,

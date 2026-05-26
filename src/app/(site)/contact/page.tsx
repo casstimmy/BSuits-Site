@@ -66,10 +66,10 @@ const offices = [
 
 // Conversational messages — each points to a specific contact card
 const cardMessages = [
-  { text: 'Psst... tap WhatsApp, we reply in minutes!', cardIndex: 0 },
-  { text: 'Drop us a quick mail — we’re fast responders!', cardIndex: 1 },
-  { text: 'Prefer a real voice? Give us a ring!', cardIndex: 2 },
-  { text: 'Got questions? Our help center has answers!', cardIndex: 3 },
+  { text: 'Need a quick answer? Start on WhatsApp.', cardIndex: 0 },
+  { text: 'Send us the details and we’ll reply by email.', cardIndex: 1 },
+  { text: 'Prefer a conversation? Call our team.', cardIndex: 2 },
+  { text: 'Looking for guidance? Start with our help center.', cardIndex: 3 },
 ];
 
 // Tilt transforms per card position — the face leans toward each card
@@ -290,7 +290,7 @@ export default function ContactPage() {
             animate="visible"
             transition={{ delay: 0.1 }}
           >
-            We&apos;d love to <span className="text-primary-600">hear from you</span>
+            Talk to a <span className="text-primary-600">BizSuits specialist</span>
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-dark-500 max-w-2xl mx-auto"
@@ -299,8 +299,7 @@ export default function ContactPage() {
             animate="visible"
             transition={{ delay: 0.2 }}
           >
-            Whether you have a question about features, pricing, need a demo, or anything else —
-            our team is ready to help.
+            If you are exploring pricing, examples, or the right place to start, our team is ready to help.
           </motion.p>
         </div>
       </section>

@@ -70,7 +70,7 @@ export default function Footer() {
                 Ready to transform your business?
               </h2>
               <p className="text-lg text-white/60">
-                Let BizSuits build the perfect system for your business.
+                Let BizSuits help you run sales, operations, and reporting with more confidence.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -104,8 +104,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
-              Proven business systems across retail, farm operations, project management,
-              and document automation — tailored to the way your business works.
+              Practical business tools for retail, farm operations, project work,
+              and document-heavy processes — shaped around the way your team operates.
             </p>
             <div className="space-y-3">
               <a href="mailto:hello@bizsuits.com" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">

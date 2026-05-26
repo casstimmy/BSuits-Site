@@ -105,7 +105,7 @@ const accountingReports = {
   },
   'trial-balance': {
     title: 'Trial Balance',
-    subtitle: 'Debits and credits grouped into a review table similar to the source reports module.',
+    subtitle: 'Debits and credits grouped into a clear review table for finance checks and reporting.',
     totals: {
       debit: 'NGN 19,800,000',
       credit: 'NGN 19,800,000',

@@ -138,7 +138,7 @@ export default function Header() {
             className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Live Demos
+            Live Examples
           </Link>
           {navLinks.map((link) => {
             const isActive = pathname === link.href;

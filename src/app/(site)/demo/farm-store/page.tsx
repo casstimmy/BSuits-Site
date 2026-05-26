@@ -119,7 +119,7 @@ export default function FarmStoreDemoPage() {
           <SectionHeading
             badge="Farm Storefront Demo"
             title="Agri-commerce storefront — animals, products, and farm services"
-            subtitle="This demo reflects the Farm Web Place storefront: live listing of animals for sale, farm products, and professional services, synchronized with the Farm Health Manager system."
+            subtitle="This example shows a connected farm storefront for animals, products, and services, aligned with day-to-day farm operations."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">

@@ -53,18 +53,18 @@ export default function Hero() {
         <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(20rem,0.82fr)] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.82fr)]">
           <motion.div className="max-w-[34rem] space-y-6 lg:space-y-7" variants={slideInLeft} initial="hidden" animate="visible">
             <h1 className="max-w-[30rem] text-balance text-3xl font-bold leading-[1.02] tracking-[-0.035em] text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
-              BizSuits delivers{' '}
-              <span className="gradient-text">proven business systems</span>{' '}
-              across commerce, operations, agriculture, and automation.
+              BizSuits helps businesses run{' '}
+              <span className="gradient-text">sales, operations, agriculture, and reporting</span>{' '}
+              with more clarity and control.
             </h1>
 
             <p className="max-w-[29rem] text-pretty text-base leading-[1.75] text-dark-500 md:text-[1.05rem]">
-              Custom business software shaped around the way your team works.
+              Practical tools, clearer processes, and better visibility for the work your team handles every day.
             </p>
 
             <div className="flex flex-col gap-3 pt-1 sm:flex-row">
               <Button variant="primary" href="/demo" icon={<ArrowRight className="h-4 w-4" />}>
-                See Live Demos
+                See Live Examples
               </Button>
               <Button variant="secondary" href="/solutions">
                 Explore Solutions
@@ -73,7 +73,7 @@ export default function Hero() {
 
             <div className="flex items-center gap-2 border-t border-dark-100/70 pt-4 text-xs text-dark-400 md:text-sm">
               <CheckCircle2 className="h-4 w-4 text-accent-500" />
-              Interactive demos available across web and desktop delivery.
+              See how key parts of the business can work together before launch.
             </div>
           </motion.div>
 
@@ -87,10 +87,10 @@ export default function Hero() {
               <div className="border-b border-dark-100 bg-dark-900 px-4 py-3 text-white md:px-4.5 md:py-3.5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/45">System preview</p>
-                    <h2 className="text-sm font-semibold md:text-base">See the platform in action</h2>
+                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/45">Business preview</p>
+                    <h2 className="text-sm font-semibold md:text-base">See daily operations in action</h2>
                     <p className="mt-1 max-w-md text-[11px] leading-relaxed text-white/60 md:text-xs">
-                      Real BizSuits interfaces built around live business workflows.
+                      A closer look at how BizSuits supports sales, oversight, and day-to-day work.
                     </p>
                   </div>
                   <div className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-white/80">
