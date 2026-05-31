@@ -110,7 +110,7 @@ function truncateText(value: string, maxLength: number) {
     return normalized;
   }
 
-  return `${normalized.slice(0, Math.max(0, maxLength - 1)).trimEnd()}…`;
+  return `${normalized.slice(0, Math.max(0, maxLength - 1)).trimEnd()}�Ǫ`;
 }
 
 function formatDateForInput(date: Date) {
@@ -357,7 +357,7 @@ function getWrappedPdfNotesPlan(lines: string[]): PdfWrappedNotesPlan {
   const visibleLines = lines.slice(0, MAX_PDF_NOTE_LINES);
   const lastLineIndex = visibleLines.length - 1;
 
-  visibleLines[lastLineIndex] = `${visibleLines[lastLineIndex].replace(/[.\s…]+$/, '')}…`;
+  visibleLines[lastLineIndex] = `${visibleLines[lastLineIndex].replace(/[.\s�Ǫ]+$/, '')}�Ǫ`;
 
   return {
     lines: visibleLines,
@@ -613,43 +613,50 @@ export default function InvoiceDesk() {
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
-      const margin = 10;
+      const margin = 14;
+      const contentWidth = pageWidth - margin * 2;
       const metaBoxWidth = 70;
       const totalsBoxWidth = 62;
+      const billToWidth = contentWidth - metaBoxWidth - 12;
 
       doc.setDrawColor(226, 232, 240);
-      doc.roundedRect(margin, margin, pageWidth - margin * 2, pageHeight - margin * 2, 4, 4);
+      doc.roundedRect(margin, margin, contentWidth, pageHeight - margin * 2, 5, 5);
 
-      doc.addImage(logoDataUrl, 'PNG', margin + 2, margin + 2, 16, 16);
+      doc.addImage(logoDataUrl, 'PNG', margin + 3, margin + 3, 16, 16);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(15, 23, 42);
       doc.setFontSize(16);
-      doc.text(form.issuerName || 'Issuer name', margin + 22, margin + 9);
+      doc.text(form.issuerName || 'Issuer name', margin + 24, margin + 10);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(100, 116, 139);
       doc.setFontSize(8.5);
-      doc.text('Customer invoice', margin + 22, margin + 14);
+      doc.text('Customer invoice', margin + 24, margin + 15.5);
 
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(15, 23, 42);
       doc.setFontSize(20);
-      doc.text('INVOICE', pageWidth - margin, margin + 9, { align: 'right' });
+      doc.text('INVOICE', pageWidth - margin - 1, margin + 10, { align: 'right' });
       doc.setFontSize(9);
       doc.setTextColor(100, 116, 139);
-      doc.text(`# ${form.invoiceNumber || 'Pending'}`, pageWidth - margin, margin + 15, { align: 'right' });
+      doc.text(`# ${form.invoiceNumber || 'Pending'}`, pageWidth - margin - 1, margin + 16.5, {
+        align: 'right',
+      });
 
       const balanceBoxX = pageWidth - margin - metaBoxWidth;
+      const balanceBoxY = margin + 21;
       doc.setFillColor(248, 250, 252);
-      doc.roundedRect(balanceBoxX, margin + 20, metaBoxWidth, 21, 3, 3, 'F');
+      doc.roundedRect(balanceBoxX, balanceBoxY, metaBoxWidth, 24, 4, 4, 'F');
       doc.setFontSize(8);
       doc.setTextColor(100, 116, 139);
-      doc.text(balanceLabel, balanceBoxX + 4, margin + 27);
+      doc.text(balanceLabel, balanceBoxX + 5, balanceBoxY + 8);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(15, 23, 42);
-      doc.setFontSize(13.5);
-      doc.text(formatNaira(balanceValue), balanceBoxX + metaBoxWidth - 4, margin + 35, { align: 'right' });
+      doc.setFontSize(14);
+      doc.text(formatNaira(balanceValue), balanceBoxX + metaBoxWidth - 5, balanceBoxY + 18, {
+        align: 'right',
+      });
 
-      let issuerY = margin + 25;
+      let issuerY = margin + 29;
       const issuerLines = [
         ...issuerAddressLines,
         form.issuerPhone,
@@ -661,22 +668,26 @@ export default function InvoiceDesk() {
       doc.setTextColor(71, 85, 105);
       doc.setFontSize(8.5);
       issuerLines.forEach((line) => {
-        doc.text(line, margin, issuerY);
-        issuerY += 4;
+        const wrappedLine = doc.splitTextToSize(compactWhitespace(line), billToWidth) as string[];
+
+        wrappedLine.forEach((segment) => {
+          doc.text(segment, margin, issuerY);
+          issuerY += 4.2;
+        });
       });
 
-      const sectionTop = Math.max(issuerY + 4, margin + 50);
+      const sectionTop = Math.max(issuerY + 8, margin + 55);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(100, 116, 139);
       doc.text('BILL TO', margin, sectionTop);
 
-      let billToY = sectionTop + 6;
+      let billToY = sectionTop + 7;
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(10);
       doc.setTextColor(15, 23, 42);
       doc.text(form.clientName || 'Client name', margin, billToY);
-      billToY += 5;
+      billToY += 6;
 
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8.5);
@@ -684,17 +695,21 @@ export default function InvoiceDesk() {
       [form.clientContact, form.clientEmail, ...clientAddressLines]
         .filter(Boolean)
         .forEach((line) => {
-          doc.text(String(line), margin, billToY);
-          billToY += 4;
+          const wrappedLine = doc.splitTextToSize(compactWhitespace(String(line)), billToWidth) as string[];
+
+          wrappedLine.forEach((segment) => {
+            doc.text(segment, margin, billToY);
+            billToY += 4.2;
+          });
         });
 
-      const metaBoxX = pageWidth - margin - 72;
-      const metaBoxHeight = invoiceMeta.length * 7 + 6;
+      const metaBoxX = pageWidth - margin - metaBoxWidth;
+      const metaBoxHeight = invoiceMeta.length * 8 + 8;
 
       doc.setFillColor(248, 250, 252);
-      doc.roundedRect(metaBoxX, sectionTop - 4, 72, metaBoxHeight, 3, 3, 'F');
+      doc.roundedRect(metaBoxX, sectionTop - 5, metaBoxWidth, metaBoxHeight, 4, 4, 'F');
 
-      let metaY = sectionTop + 1;
+      let metaY = sectionTop + 2;
       invoiceMeta.forEach((item) => {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8);
@@ -702,11 +717,11 @@ export default function InvoiceDesk() {
         doc.text(item.label, metaBoxX + 4, metaY);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(15, 23, 42);
-        doc.text(item.value, metaBoxX + 68, metaY, { align: 'right' });
-        metaY += 7;
+        doc.text(truncateText(item.value, 30), metaBoxX + metaBoxWidth - 4, metaY, { align: 'right' });
+        metaY += 8;
       });
 
-      const tableStartY = Math.max(billToY, sectionTop - 4 + metaBoxHeight) + 6;
+      const tableStartY = Math.max(billToY, sectionTop - 5 + metaBoxHeight) + 10;
 
       autoTable(doc, {
         startY: tableStartY,
@@ -726,28 +741,28 @@ export default function InvoiceDesk() {
         styles: {
           fontSize: 7.6,
           textColor: [71, 85, 105],
-          cellPadding: 1.8,
+          cellPadding: 2.4,
           overflow: 'linebreak',
           lineColor: [226, 232, 240],
           lineWidth: 0.1,
           valign: 'top',
         },
         bodyStyles: {
-          minCellHeight: 7,
+          minCellHeight: 8.5,
         },
         columnStyles: {
           0: { cellWidth: 10, halign: 'center' },
-          1: { cellWidth: 80 },
+          1: { cellWidth: 78 },
           2: { cellWidth: 18, halign: 'right' },
           3: { cellWidth: 32, halign: 'right' },
-          4: { cellWidth: 36, halign: 'right' },
+          4: { cellWidth: 34, halign: 'right' },
         },
       });
 
       const lastAutoTable = (
         doc as typeof doc & { lastAutoTable?: { finalY?: number } }
       ).lastAutoTable;
-      const afterTableY = (lastAutoTable?.finalY ?? tableStartY) + 6;
+      const afterTableY = (lastAutoTable?.finalY ?? tableStartY) + 10;
       const totalsRows = [
         { label: 'Sub Total', value: formatNaira(subtotal) },
         ...(visibility.showVat ? [{ label: `VAT (${vatRate.toFixed(2)}%)`, value: formatNaira(vatAmount) }] : []),
@@ -755,46 +770,51 @@ export default function InvoiceDesk() {
         { label: 'Payment Made', value: `(-) ${formatNaira(paymentMade)}` },
         { label: balanceLabel, value: formatNaira(balanceValue), bold: true },
       ];
-      const totalsBoxHeight = totalsRows.length * 7 + 8;
+      const totalsBoxHeight = totalsRows.length * 8 + 10;
       const totalsBoxX = pageWidth - margin - totalsBoxWidth;
       const totalsBoxY = afterTableY;
       let wrappedPdfNotesPlan: PdfWrappedNotesPlan = { lines: [], wasTrimmed: false };
 
       if (visibility.showTermsAndConditions && pdfNotesPlan.text) {
-        const notesWidth = totalsBoxX - margin - 8;
-        const wrappedNotes = doc.splitTextToSize(pdfNotesPlan.text, notesWidth) as string[];
+        const notesWidth = totalsBoxX - margin - 10;
+        const wrappedNotes = doc.splitTextToSize(pdfNotesPlan.text, notesWidth - 10) as string[];
 
         wrappedPdfNotesPlan = getWrappedPdfNotesPlan(wrappedNotes);
       }
 
       doc.setFillColor(248, 250, 252);
-      doc.roundedRect(totalsBoxX, totalsBoxY, totalsBoxWidth, totalsBoxHeight, 3, 3, 'F');
+      doc.roundedRect(totalsBoxX, totalsBoxY, totalsBoxWidth, totalsBoxHeight, 4, 4, 'F');
 
-      let totalsY = totalsBoxY + 6;
+      let totalsY = totalsBoxY + 8;
       totalsRows.forEach((row, index) => {
         doc.setFont('helvetica', row.bold ? 'bold' : 'normal');
         doc.setFontSize(row.bold ? 9 : 8.5);
         doc.setTextColor(15, 23, 42);
-        doc.text(row.label, totalsBoxX + 4, totalsY);
-        doc.text(row.value, totalsBoxX + totalsBoxWidth - 4, totalsY, { align: 'right' });
+        doc.text(row.label, totalsBoxX + 4.5, totalsY);
+        doc.text(row.value, totalsBoxX + totalsBoxWidth - 4.5, totalsY, { align: 'right' });
 
         if (index === 1 || index === totalsRows.length - 2) {
           doc.setDrawColor(226, 232, 240);
-          doc.line(totalsBoxX + 4, totalsY + 2.5, totalsBoxX + totalsBoxWidth - 4, totalsY + 2.5);
+          doc.line(totalsBoxX + 4.5, totalsY + 3, totalsBoxX + totalsBoxWidth - 4.5, totalsY + 3);
         }
 
-        totalsY += 7;
+        totalsY += 8;
       });
 
       if (visibility.showTermsAndConditions && wrappedPdfNotesPlan.lines.length > 0) {
+        const notesWidth = totalsBoxX - margin - 10;
+        const notesBoxHeight = wrappedPdfNotesPlan.lines.length * 4.2 + 14;
+
+        doc.setFillColor(248, 250, 252);
+        doc.roundedRect(margin, totalsBoxY, notesWidth, notesBoxHeight, 4, 4, 'F');
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(8);
         doc.setTextColor(100, 116, 139);
-        doc.text('TERMS & CONDITIONS', margin, afterTableY + 1);
+        doc.text('TERMS & CONDITIONS', margin + 5, totalsBoxY + 8);
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8.5);
         doc.setTextColor(71, 85, 105);
-        doc.text(wrappedPdfNotesPlan.lines, margin, afterTableY + 7);
+        doc.text(wrappedPdfNotesPlan.lines, margin + 5, totalsBoxY + 14);
       }
 
       doc.save(`${form.invoiceNumber || 'invoice'}.pdf`);
@@ -1233,7 +1253,7 @@ export default function InvoiceDesk() {
                   </div>
                 </div>
 
-                <div className="px-6 py-8 md:px-10 md:py-10">
+                <div className="px-7 py-9 md:px-12 md:py-12">
                   <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                       <div className="flex items-center gap-4">
@@ -1244,7 +1264,7 @@ export default function InvoiceDesk() {
                         </div>
                       </div>
 
-                      <div className="mt-6 space-y-1 text-sm leading-relaxed text-slate-600">
+                      <div className="mt-7 max-w-[360px] space-y-1.5 text-sm leading-relaxed text-slate-600">
                         {issuerAddressLines.map((line) => (
                           <p key={line}>{line}</p>
                         ))}
@@ -1260,7 +1280,7 @@ export default function InvoiceDesk() {
                       </p>
                       <p className="mt-3 text-sm font-semibold text-slate-500"># {form.invoiceNumber || 'Pending'}</p>
 
-                      <div className="mt-8 inline-flex flex-col rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5 text-left lg:items-end lg:text-right">
+                      <div className="mt-8 inline-flex min-w-[250px] flex-col rounded-3xl border border-slate-200 bg-slate-50 px-7 py-6 text-left lg:items-end lg:text-right">
                         <p className="text-sm font-medium text-slate-500">{balanceLabel}</p>
                         <p className="mt-2 text-3xl font-bold text-slate-950">{formatNaira(balanceValue)}</p>
                         <span className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${paymentStatusClassName}`}>
@@ -1270,10 +1290,10 @@ export default function InvoiceDesk() {
                     </div>
                   </div>
 
-                  <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
-                    <div>
+                  <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+                    <div className="max-w-[420px]">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Bill To</p>
-                      <div className="mt-4 space-y-1 text-sm leading-relaxed text-slate-600">
+                      <div className="mt-5 space-y-1.5 text-sm leading-relaxed text-slate-600">
                         <p className="text-base font-semibold text-slate-950">{form.clientName || 'Client name'}</p>
                         {form.clientContact ? <p>{form.clientContact}</p> : null}
                         {form.clientEmail ? <p>{form.clientEmail}</p> : null}
@@ -1283,19 +1303,21 @@ export default function InvoiceDesk() {
                       </div>
                     </div>
 
-                    <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5">
+                    <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
                       <div className="space-y-3">
                         {invoiceMeta.map((item) => (
-                          <div key={item.label} className="flex items-center justify-between gap-4 border-b border-slate-200 pb-3 last:border-b-0 last:pb-0">
-                            <span className="text-sm font-medium text-slate-500">{item.label}</span>
-                            <span className="text-right text-sm font-semibold text-slate-900">{item.value}</span>
+                          <div key={item.label} className="flex items-start justify-between gap-5 border-b border-slate-200 pb-4 last:border-b-0 last:pb-0">
+                            <span className="pt-0.5 text-sm font-medium text-slate-500">{item.label}</span>
+                            <span className="max-w-[190px] break-words text-right text-sm font-semibold leading-relaxed text-slate-900">
+                              {item.value}
+                            </span>
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-slate-200">
+                  <div className="mt-12 overflow-hidden rounded-[1.75rem] border border-slate-200">
                     <div className="overflow-x-auto">
                       <div className="min-w-[720px]">
                         <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-900 px-6 py-4 text-sm font-semibold text-white">
@@ -1312,7 +1334,7 @@ export default function InvoiceDesk() {
                           filledItems.map((item, index) => (
                             <div
                               key={item.id}
-                              className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-6 py-5 text-sm text-slate-600"
+                              className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-6 py-6 text-sm text-slate-600"
                             >
                               <span className="font-medium text-slate-900">{index + 1}</span>
                               <div>
@@ -1331,13 +1353,13 @@ export default function InvoiceDesk() {
                     </div>
                   </div>
 
-                  <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_340px] lg:items-start">
+                  <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_340px] lg:items-start">
                     {visibility.showTermsAndConditions ? (
-                      <div>
+                      <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
                           Terms &amp; Conditions
                         </p>
-                        <div className="mt-4 max-w-2xl whitespace-pre-line text-sm leading-relaxed text-slate-600">
+                        <div className="mt-4 max-w-2xl whitespace-pre-line text-sm leading-7 text-slate-600">
                           {notesText || 'Add invoice notes and payment terms.'}
                         </div>
                       </div>
