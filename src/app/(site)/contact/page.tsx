@@ -15,12 +15,19 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { motion, fadeInUp, staggerContainer, staggerItem, AnimatePresence } from '@/components/ui/Motion';
 
+const contactNumbers = [
+  { display: '09166843265', href: 'tel:+2349166843265' },
+  { display: '08131009450', href: 'tel:+2348131009450' },
+];
+
+const contactPhoneDisplay = contactNumbers.map((phone) => phone.display).join(', ');
+
 const contactMethods = [
   {
     icon: MessageSquare,
     title: 'WhatsApp',
     description: 'Chat with our team in real-time for quick questions.',
-    action: '09166843265,  08131009450',
+    action: contactPhoneDisplay,
     color: 'bg-green-100 text-green-600',
     glowColor: 'ring-green-400 shadow-green-200',
     href: 'https://wa.me/2349166843265?text=Hello%20BizSuits%2C%20I%20have%20a%20question.',
@@ -38,7 +45,7 @@ const contactMethods = [
     icon: Phone,
     title: 'Call Us',
     description: 'Speak directly with our sales or support team.',
-    action: '09166843265,  08131009450',
+    action: contactPhoneDisplay,
     color: 'bg-emerald-100 text-emerald-600',
     glowColor: 'ring-emerald-400 shadow-emerald-200',
     href: 'tel:+2349166843265',
@@ -59,7 +66,7 @@ const offices = [
     city: 'Lekki',
     country: 'Nigeria',
     address: 'Lekki Schem 2\nLagos, Nigeria',
-    phone: '09166843265,  08131009450',
+    phones: contactNumbers,
     type: 'Main Office',
   },
 ];
@@ -214,16 +221,26 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData((current) => ({ ...current, [name]: value }));
+    setSubmitError(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
     setIsSubmitting(true);
+    setSubmitError(null);
 
     // Build the WhatsApp message from form data
     const subjectMap: Record<string, string> = {
@@ -250,8 +267,20 @@ export default function ContactPage() {
       .filter(Boolean)
       .join('\n');
 
+    if (text.length > 1500) {
+      setIsSubmitting(false);
+      setSubmitError('Please shorten the message before opening WhatsApp.');
+      return;
+    }
+
     const encoded = encodeURIComponent(text);
-    window.open(`https://wa.me/2349166843265?text=${encoded}`, '_blank');
+    const popup = window.open(`https://wa.me/2349166843265?text=${encoded}`, '_blank', 'noopener,noreferrer');
+
+    if (!popup) {
+      setIsSubmitting(false);
+      setSubmitError('WhatsApp could not be opened. Allow pop-ups or use the contact links below.');
+      return;
+    }
 
     setIsSubmitting(false);
     setIsSubmitted(true);
@@ -374,6 +403,12 @@ export default function ContactPage() {
                 </Card>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {submitError ? (
+                    <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                      {submitError}
+                    </div>
+                  ) : null}
+
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium text-dark-700 mb-1.5">
@@ -529,9 +564,16 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-primary-500 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-dark-900">Phone</p>
-                      <a href="tel:+2349166843265" className="text-sm text-primary-600 hover:underline">
-                        09166843265,  08131009450
-                      </a>
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                        {contactNumbers.map((phone, index) => (
+                          <React.Fragment key={phone.href}>
+                            <a href={phone.href} className="text-primary-600 hover:underline">
+                              {phone.display}
+                            </a>
+                            {index < contactNumbers.length - 1 ? <span className="text-dark-400">/</span> : null}
+                          </React.Fragment>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -561,9 +603,16 @@ export default function ContactPage() {
                             </span>
                           </div>
                           <p className="text-sm text-dark-500 whitespace-pre-line">{office.address}</p>
-                          <a href={`tel:+234${office.phone.substring(1)}`} className="text-sm text-primary-600 hover:underline mt-1 inline-block">
-                            {office.phone}
-                          </a>
+                          <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                            {office.phones.map((phone, index) => (
+                              <React.Fragment key={phone.href}>
+                                <a href={phone.href} className="text-primary-600 hover:underline inline-block">
+                                  {phone.display}
+                                </a>
+                                {index < office.phones.length - 1 ? <span className="text-dark-400">/</span> : null}
+                              </React.Fragment>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </Card>

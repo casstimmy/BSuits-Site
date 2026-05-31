@@ -78,7 +78,6 @@ export default function Testimonials() {
           {testimonials.map((testimonial) => (
             <motion.div key={testimonial.name} variants={staggerItem}>
             <div
-              key={testimonial.name}
               className={`${testimonial.bgColor} rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-dark-100/50 hover:-translate-y-1`}
             >
               {/* Chat Header */}
@@ -94,8 +93,8 @@ export default function Testimonials() {
 
               {/* Chat Bubbles */}
               <div className="space-y-2">
-                {testimonial.messages.map((msg, i) => (
-                  <div key={i} className="bg-white rounded-2xl rounded-tl-md px-4 py-2.5 shadow-sm max-w-[95%]">
+                {testimonial.messages.map((msg) => (
+                  <div key={`${testimonial.name}-${msg.time}`} className="bg-white rounded-2xl rounded-tl-md px-4 py-2.5 shadow-sm max-w-[95%]">
                     <p className="text-sm text-dark-700 leading-relaxed">{msg.text}</p>
                     <div className="flex items-center justify-end gap-1 mt-1">
                       <span className="text-[10px] text-dark-300">{msg.time}</span>

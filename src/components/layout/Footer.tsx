@@ -10,35 +10,40 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import BizFaceLogo from '@/components/ui/BizFaceLogo';
+import { deliveryTracks, portfolioApps } from '@/data/portfolio';
+
+const contactNumbers = [
+  { display: '09166843265', href: 'tel:+2349166843265' },
+  { display: '08131009450', href: 'tel:+2348131009450' },
+];
+
+const footerProductLinks = ['inventory-admin', 'sales-point', 'commerce-web', 'farm-health', 'pdf-extractor']
+  .map((slug) => portfolioApps.find((app) => app.slug === slug))
+  .filter((app): app is (typeof portfolioApps)[number] => Boolean(app))
+  .map((app) => ({ name: app.name, href: app.href }));
+
+const legalLinks = [
+  { name: 'Privacy Policy', href: '/privacy-policy' },
+  { name: 'Terms of Service', href: '/terms-of-service' },
+  { name: 'Cookie Policy', href: '/cookie-policy' },
+];
 
 const footerLinks = {
-  Products: [
-    { name: 'Point of Sale', href: '/features#pos' },
-    { name: 'Inventory Management', href: '/features#inventory' },
-    { name: 'Accounting & Finance', href: '/features#accounting' },
-    { name: 'HR & Payroll', href: '/features#hr' },
-    { name: 'Analytics', href: '/features#analytics' },
-  ],
-  Solutions: [
-    { name: 'Retail', href: '/solutions#retail' },
-    { name: 'Restaurants', href: '/solutions#restaurants' },
-    { name: 'Farm Management', href: '/solutions#farming' },
-    { name: 'Professional Services', href: '/solutions#services' },
-    { name: 'E-Commerce', href: '/solutions#ecommerce' },
-  ],
+  Products: footerProductLinks,
+  Solutions: deliveryTracks.map((track) => ({ name: track.title, href: track.href })),
   Company: [
     { name: 'About Us', href: '/about' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Careers', href: '/about#careers' },
-    { name: 'Press', href: '/about#press' },
+    { name: 'Pricing', href: '/pricing' },
+    { name: 'Features', href: '/features' },
     { name: 'Contact', href: '/contact' },
   ],
   Support: [
     { name: 'Help Center', href: '/contact' },
-    { name: 'Documentation', href: '/blog' },
-    { name: 'API Reference', href: '/blog' },
-    { name: 'Status', href: '/contact' },
-    { name: 'Community', href: '/blog' },
+    { name: 'Live Demos', href: '/demo' },
+    { name: 'Solution Notes', href: '/blog' },
+    { name: 'Feature Library', href: '/features' },
+    { name: 'Contact Sales', href: '/contact' },
   ],
 };
 
@@ -51,11 +56,11 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'X', icon: XIcon, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
-  { name: 'YouTube', icon: Youtube, href: '#' },
+const socialLinks: Array<{ name: string; icon: React.ComponentType<{ className?: string }>; href?: string }> = [
+  { name: 'Facebook', icon: Facebook },
+  { name: 'X', icon: XIcon },
+  { name: 'Instagram', icon: Instagram },
+  { name: 'YouTube', icon: Youtube },
 ];
 
 export default function Footer() {
@@ -112,10 +117,19 @@ export default function Footer() {
                 <Mail className="w-4 h-4" />
                 hello@bizsuits.com
               </a>
-              <a href="tel:09166843265,  08131009450" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">
+              <div className="flex items-start gap-3 text-sm text-white/50">
                 <Phone className="w-4 h-4" />
-                09166843265,  08131009450
-              </a>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  {contactNumbers.map((phone, index) => (
+                    <React.Fragment key={phone.href}>
+                      <a href={phone.href} className="hover:text-white transition-colors">
+                        {phone.display}
+                      </a>
+                      {index < contactNumbers.length - 1 ? <span className="text-white/30">/</span> : null}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
               <div className="flex items-center gap-3 text-sm text-white/50">
                 <MapPin className="w-4 h-4" />
                 Lekki Schem 2, Lagos
@@ -153,26 +167,35 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} BizSuits. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm text-white/40 hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="text-sm text-white/40 hover:text-white transition-colors">
-              Terms of Service
-            </Link>
-            <Link href="#" className="text-sm text-white/40 hover:text-white transition-colors">
-              Cookie Policy
-            </Link>
+            {legalLinks.map((link) => (
+              <Link key={link.name} href={link.href} className="text-sm text-white/40 hover:text-white transition-colors">
+                {link.name}
+              </Link>
+            ))}
           </div>
           <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
-                aria-label={social.name}
-              >
-                <social.icon className="w-4 h-4 text-white/60" />
-              </a>
+              social.href ? (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+                  aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <social.icon className="w-4 h-4 text-white/60" />
+                </a>
+              ) : (
+                <span
+                  key={social.name}
+                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/35"
+                  aria-label={`${social.name} coming soon`}
+                  title={`${social.name} coming soon`}
+                >
+                  <social.icon className="w-4 h-4" />
+                </span>
+              )
             ))}
           </div>
         </div>

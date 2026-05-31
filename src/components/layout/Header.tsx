@@ -56,13 +56,27 @@ export default function Header() {
               className="relative"
               onMouseEnter={() => setIsProductsOpen(true)}
               onMouseLeave={() => setIsProductsOpen(false)}
+              onFocus={() => setIsProductsOpen(true)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                  setIsProductsOpen(false);
+                }
+              }}
             >
-              <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-lg hover:bg-dark-50 transition-all">
+              <button
+                type="button"
+                className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-lg hover:bg-dark-50 transition-all"
+                onClick={() => setIsProductsOpen((current) => !current)}
+                aria-haspopup="true"
+                aria-expanded={isProductsOpen}
+                aria-controls="solutions-library-menu"
+              >
                 Solutions Library
                 <ChevronDown className={clsx('w-4 h-4 transition-transform', isProductsOpen && 'rotate-180')} />
               </button>
 
               <div
+                id="solutions-library-menu"
                 className={clsx(
                   'absolute top-full left-0 mt-2 w-[560px] bg-white rounded-2xl shadow-2xl border border-dark-100 p-4 grid grid-cols-2 gap-2 transition-all duration-200',
                   isProductsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
@@ -138,7 +152,7 @@ export default function Header() {
             className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Live Examples
+            Live Demos
           </Link>
           {navLinks.map((link) => {
             const isActive = pathname === link.href;

@@ -8,9 +8,9 @@ import Button from '@/components/ui/Button';
 import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
 
 export const metadata: Metadata = {
-  title: 'Features - BizSuits | Business Capabilities',
+  title: 'Features - BizSuits | Solution Capabilities',
   description:
-    'Explore the business areas BizSuits can support across retail, agriculture, operations, and document-heavy work.',
+    'Explore the modules and workflows BizSuits can deliver across retail commerce, agriculture, operations, and document automation.',
 };
 
 const trackDemoLinks: Record<string, string> = {
@@ -30,18 +30,19 @@ export default function FeaturesPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Business Capabilities
+            Solution Capabilities
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Capabilities organized around{' '}
-            <span className="gradient-text">what your business needs most</span>
+            Features organized by{' '}
+            <span className="gradient-text">what each solution includes</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            See how BizSuits supports selling, stock control, operations, reporting, and customer service across the business.
+            Each BizSuits solution is made up of connected systems. Explore what every system brings
+            to the table — the modules, workflows, and surfaces it delivers.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
-              See Live Examples
+              Try the Demos
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
               Explore Solutions
@@ -66,9 +67,9 @@ export default function FeaturesPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Business Areas"
-            title="Each area is supported by proven working examples"
-            subtitle="Browse by business area to see what BizSuits can help your team manage day to day."
+            badge="Solution Features"
+            title="Each solution is built from proven, connected systems"
+            subtitle="Browse by solution to see exactly which systems it includes and what each one covers."
           />
 
           {deliveryTracks.map((track, trackIndex) => {
@@ -90,7 +91,7 @@ export default function FeaturesPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-primary-600 mb-1 uppercase tracking-wider">
-                      Business Area
+                      Solution Track
                     </p>
                     <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-3">
                       {track.title}
@@ -102,10 +103,10 @@ export default function FeaturesPage() {
                         href={demoHref}
                         icon={<ExternalLink className="w-4 h-4" />}
                       >
-                        See Example
+                        Try Demo
                       </Button>
                       <Button variant="secondary" href="/contact">
-                        Talk About This Area
+                        Discuss This Solution
                       </Button>
                     </div>
                   </div>
@@ -122,7 +123,8 @@ export default function FeaturesPage() {
                   }`}
                 >
                   {apps.map((app) => (
-                    <Card key={app.slug} elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
+                    <div key={app.slug} id={app.slug} className="scroll-mt-32">
+                      <Card elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
                       {/* Preview image (POS screenshot) */}
                       {app.previewImage && (
                         <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden rounded-t-2xl">
@@ -151,7 +153,7 @@ export default function FeaturesPage() {
 
                       <p className="text-sm text-dark-500 leading-relaxed mb-5">{app.summary}</p>
 
-                      {/* Business responsibilities */}
+                      {/* Module list */}
                       <div className="space-y-2.5 flex-1">
                         {app.modules.map((mod) => (
                           <div key={mod} className="flex items-start gap-2.5">
@@ -162,17 +164,18 @@ export default function FeaturesPage() {
                       </div>
 
                       {/* Tags */}
-                      <div className="mt-5 pt-5 border-t border-dark-100 flex flex-wrap gap-2">
-                        {app.signals.map((signal) => (
-                          <span
-                            key={signal}
-                            className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
-                          >
-                            {signal}
-                          </span>
-                        ))}
-                      </div>
-                    </Card>
+                        <div className="mt-5 pt-5 border-t border-dark-100 flex flex-wrap gap-2">
+                          {app.signals.map((signal) => (
+                            <span
+                              key={signal}
+                              className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
+                            >
+                              {signal}
+                            </span>
+                          ))}
+                        </div>
+                      </Card>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -184,14 +187,14 @@ export default function FeaturesPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want to see how this could work in your business?
+            Want to see these systems in action?
           </h2>
           <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            Browse live examples to see how sales, operations, and reporting can work together day to day.
+            Each BizSuits system has an interactive demo you can try right now. No setup needed.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
-              Browse Live Examples
+              Browse All Demos
             </Button>
             <Button
               variant="ghost"
