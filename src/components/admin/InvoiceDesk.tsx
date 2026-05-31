@@ -637,15 +637,11 @@ export default function InvoiceDesk() {
       const logoDataUrl = await getBizFaceLogoDataUrl();
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
       const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 16;
       const contentWidth = pageWidth - margin * 2;
       const metaBoxWidth = 76;
       const totalsBoxWidth = 68;
       const billToWidth = contentWidth - metaBoxWidth - 14;
-
-      doc.setDrawColor(226, 232, 240);
-      doc.roundedRect(margin, margin, contentWidth, pageHeight - margin * 2, 5, 5);
 
       doc.addImage(logoDataUrl, 'PNG', margin + 3, margin + 3, 16, 16);
       doc.setFont('helvetica', 'bold');
