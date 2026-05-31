@@ -1265,7 +1265,7 @@ export default function InvoiceDesk() {
                 elevated
                 hover={false}
                 padding="none"
-                className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_60px_rgba(15,23,42,0.08)]"
+                className="overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_60px_rgba(15,23,42,0.08)]"
               >
                 <div className="border-b border-slate-200 bg-slate-50 px-7 py-4 sm:px-8 md:px-10 lg:px-12">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
