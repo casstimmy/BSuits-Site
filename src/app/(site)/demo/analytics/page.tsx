@@ -145,8 +145,8 @@ export default function AnalyticsDemoPage() {
           </div>
           <SectionHeading
             badge="Analytics Demo"
-            title="Reporting dashboard built for live inventory and sales visibility"
-            subtitle="Explore period switching, summary metrics, operational signals, and a trend panel built around real sales activity."
+            title="Reporting dashboard aligned to the current inventory admin analytics flow"
+            subtitle="This fragment mirrors the source reporting surface: period switching, summary metrics, operational signals, and a trend panel built from sales activity rather than placeholder charts."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">
@@ -169,11 +169,11 @@ export default function AnalyticsDemoPage() {
                   <BarChart3 className="w-7 h-7 text-rose-700" />
                 </div>
                 <div>
-                  <p className="text-sm text-dark-500">Reporting focus</p>
+                  <p className="text-sm text-dark-500">Source pattern</p>
                   <h2 className="text-2xl font-bold text-dark-900 mb-2">Business Reporting Overview</h2>
                   <p className="text-dark-500 max-w-2xl leading-relaxed">
-                    This reporting view is designed for quick period changes, high-signal metrics,
-                    and clearer day-to-day performance decisions.
+                    The original reporting page centered on quick period changes and high-signal metrics.
+                    This version keeps that same rhythm while presenting BizSuits as a credible client demo surface.
                   </p>
                 </div>
               </div>

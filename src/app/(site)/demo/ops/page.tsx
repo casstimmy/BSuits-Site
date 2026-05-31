@@ -383,7 +383,7 @@ export default function OpsDemoPage() {
           <SectionHeading
             badge="Operations Demo"
             title="Enterprise operations — projects, work orders, HSSE, budgets, and incidents"
-            subtitle="This example shows how teams can manage projects, facilities, safety, budgets, and incidents across locations from one operational view."
+            subtitle="This demo mirrors OPALshire: a full-stack operations platform for project delivery, facility management, safety compliance, and budget control across locations."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">
@@ -404,7 +404,7 @@ export default function OpsDemoPage() {
                   <Building2 className="w-5 h-5 text-indigo-400" />
                   <span className="text-white font-bold text-sm">OPALshire</span>
                 </div>
-                <div className="text-slate-400 text-xs mt-0.5">Operations Workspace</div>
+                <div className="text-slate-400 text-xs mt-0.5">Operations Platform</div>
               </div>
               {TABS.map(t => {
                 const Icon = TAB_ICONS[t];

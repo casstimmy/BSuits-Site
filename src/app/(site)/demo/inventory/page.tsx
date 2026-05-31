@@ -105,7 +105,7 @@ const stockItems: InventoryItem[] = [
     minStock: 10,
     reorderLevel: 16,
     unitCost: 'NGN 850',
-    lastMovement: 'Distributed across three outlets',
+    lastMovement: 'Rollout to three outlets',
   },
   {
     sku: 'INV-8849',
@@ -215,8 +215,8 @@ export default function InventoryDemoPage() {
           </div>
           <SectionHeading
             badge="Inventory Demo"
-            title="Stock management built for day-to-day inventory decisions"
-            subtitle="Explore searchable inventory, location filters, stock-state badges, and replenishment alerts in one clear stock-control view."
+            title="Stock management surface rebuilt from the current inventory admin workflow"
+            subtitle="This demo now mirrors the source stock-management page: searchable inventory, location filters, stock-state badges, and a practical alert rail for replenishment work."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">
@@ -239,11 +239,11 @@ export default function InventoryDemoPage() {
                   <Boxes className="w-7 h-7 text-primary-700" />
                 </div>
                 <div>
-                  <p className="text-sm text-dark-500">Inventory focus</p>
+                  <p className="text-sm text-dark-500">Source pattern</p>
                   <h2 className="text-2xl font-bold text-dark-900 mb-2">Stock Overview</h2>
                   <p className="text-dark-500 max-w-2xl leading-relaxed">
-                    This stock view brings together filtering, table review, and replenishment
-                    cues in a format teams can use every day.
+                    The inventory admin build already includes a strong stock-management backbone.
+                    This fragment translates that workflow into a cleaner client demo with filtering, table review, and replenishment cues.
                   </p>
                 </div>
               </div>
@@ -439,11 +439,11 @@ export default function InventoryDemoPage() {
 
                 <div className="rounded-2xl border border-dark-100 bg-dark-900 text-white p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50 mb-3">
-                    Business view
+                    Source alignment
                   </p>
                   <p className="text-sm leading-relaxed text-white/80">
-                    This example keeps the focus on stock management and day-to-day oversight,
-                    while presenting the work in a way that is easier for buyers and operators to review.
+                    This demo keeps the stock-management emphasis of the source inventory admin app,
+                    but removes the review-only framing so buyers see a usable operations surface.
                   </p>
                   <p className="text-lg font-bold text-white mt-4">{inventorySummary.totalUnits} units in current filtered view</p>
                 </div>

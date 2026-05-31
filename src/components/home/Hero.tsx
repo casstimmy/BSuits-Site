@@ -42,16 +42,18 @@ export default function Hero() {
   const active = systemPreviews[activeTab];
 
   return (
-    <section className="relative min-h-screen overflow-hidden gradient-bg-light">
+    <section className="relative min-h-[100svh] overflow-hidden gradient-bg-light">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200/30 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-100/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-custom relative z-10 flex min-h-screen items-center py-10 pt-24 pb-10 md:pt-28 md:pb-12 lg:py-12">
-        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(20rem,0.82fr)] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.82fr)]">
-          <motion.div className="max-w-[34rem] space-y-6 lg:space-y-7" variants={slideInLeft} initial="hidden" animate="visible">
+      <div aria-hidden className="h-16 md:h-20" />
+
+      <div className="container-custom relative z-10 flex box-border min-h-[calc(100svh-4rem)] items-center py-6 md:min-h-[calc(100svh-5rem)] md:py-8 lg:py-10">
+        <div className="grid w-full items-center gap-7 md:gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(20rem,0.82fr)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.82fr)] xl:gap-12">
+          <motion.div className="max-w-[34rem] space-y-5 lg:space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
             <h1 className="max-w-[30rem] text-balance text-3xl font-bold leading-[1.02] tracking-[-0.035em] text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
               BizSuits helps businesses run{' '}
               <span className="gradient-text">sales, operations, agriculture, and reporting</span>{' '}
@@ -62,7 +64,7 @@ export default function Hero() {
               Practical tools, clearer processes, and better visibility for the work your team handles every day.
             </p>
 
-            <div className="flex flex-col gap-3 pt-1 sm:flex-row">
+            <div className="flex flex-col gap-3 pt-0.5 sm:flex-row">
               <Button variant="primary" href="/demo" icon={<ArrowRight className="h-4 w-4" />}>
                 See Live Examples
               </Button>
@@ -83,7 +85,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-            <div className="relative flex min-h-[24rem] max-h-[66vh] flex-col overflow-hidden rounded-3xl border border-dark-100 bg-white shadow-2xl lg:max-h-[min(64vh,38rem)]">
+            <div className="relative flex min-h-[22.5rem] max-h-[60svh] flex-col overflow-hidden rounded-3xl border border-dark-100 bg-white shadow-2xl lg:max-h-[min(58svh,36rem)]">
               <div className="border-b border-dark-100 bg-dark-900 px-4 py-3 text-white md:px-4.5 md:py-3.5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">

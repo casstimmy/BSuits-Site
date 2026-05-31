@@ -416,7 +416,7 @@ export default function FarmDemoPage() {
           <SectionHeading
             badge="Farm Operations Demo"
             title="Farm management — animals, feeding, health, finance, and inventory"
-            subtitle="This example shows how farm teams can track species, feeding schedules, health records, finance, and supplies in one place."
+            subtitle="This demo mirrors the Farm Health Manager system: species tracking, pen feeding schedules, veterinary health records, farm finance, and farm supply inventory."
             centered={false}
           />
           <div className="flex flex-wrap gap-3">

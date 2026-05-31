@@ -8,9 +8,9 @@ import { deliveryTracks } from '@/data/portfolio';
 import { deliverySteps, engagementPackages, pricingFaqs } from '@/data/siteContent';
 
 export const metadata: Metadata = {
-  title: 'Pricing - BizSuits | Business Plans',
+  title: 'Pricing - BizSuits | Client Engagements',
   description:
-    'Explore BizSuits business plans designed around your priorities, implementation support, and growth goals.',
+    'Explore BizSuits engagement tiers built around proven systems, live demos, and delivery tracks that can be tailored to each client.',
 };
 
 export default function PricingPage() {
@@ -22,15 +22,26 @@ export default function PricingPage() {
         </div>
         <div className="container-custom relative z-10 text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Pricing Plans
+            Client Pricing
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
-            Plans shaped around{' '}
-            <span className="gradient-text">how your business operates</span>
+            Engagements shaped around{' '}
+            <span className="gradient-text">proven BizSuits systems</span>
           </h1>
           <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
-            Choose the level of support that fits your priorities, team size, and pace of change.
+            These pricing tiers are tied to real solution tracks and demo-ready systems, so
+            scope discussions can start from what clients can already see and evaluate.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {deliveryTracks.map((track) => (
+              <span
+                key={track.id}
+                className="rounded-full bg-white/80 border border-dark-100 px-4 py-2 text-sm font-medium text-dark-600"
+              >
+                {track.title}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -138,9 +149,9 @@ export default function PricingPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Implementation Journey"
-            title="Every plan follows a clear path to launch"
-            subtitle="The level of support changes, but the process stays practical, structured, and focused on business priorities."
+            badge="Delivery Sequence"
+            title="Every engagement follows the same operating rhythm"
+            subtitle="The price tier changes the breadth of delivery, but the rollout logic stays grounded in the same system-led process."
           />
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
@@ -162,7 +173,7 @@ export default function PricingPage() {
           <SectionHeading
             badge="FAQ"
             title="Common pricing questions"
-            subtitle="Answers to common questions about pricing, timelines, and implementation."
+            subtitle="These answers are based on how the current BizSuits solution set is positioned and delivered."
           />
 
           <div className="space-y-4">
@@ -179,14 +190,14 @@ export default function PricingPage() {
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Need help choosing the right plan?
+            Need help choosing the right delivery path?
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
-            We can help you choose the starting point that best fits your goals, team, and pace.
+            We can match your workflow to the nearest existing system and tell you where adaptation ends and new scope begins.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Book A Consultation
+              Schedule Working Session
             </Button>
             <Button
               variant="ghost"
@@ -194,7 +205,7 @@ export default function PricingPage() {
               href="/demo"
               className="!text-white hover:!bg-white/10"
             >
-              See Live Examples
+              Explore Live Demos
             </Button>
           </div>
         </div>
