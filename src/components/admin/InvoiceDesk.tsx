@@ -1348,38 +1348,40 @@ export default function InvoiceDesk() {
                       </div>
                     </div>
 
-                    <div className="mt-14 overflow-hidden rounded-[1.75rem] border border-slate-200">
-                      <div className="overflow-x-auto">
-                        <div className="min-w-[720px]">
-                          <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-900 px-7 py-4 text-sm font-semibold text-white">
-                            <span>#</span>
-                            <span>Item &amp; Description</span>
-                            <span className="text-right">Qty</span>
-                            <span className="text-right">Rate</span>
-                            <span className="text-right">Amount</span>
-                          </div>
+                    <div className="mt-14 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-3 sm:p-4">
+                      <div className="overflow-hidden rounded-[1.35rem] bg-white">
+                        <div className="overflow-x-auto">
+                          <div className="min-w-[720px]">
+                            <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-900 px-7 py-4 text-sm font-semibold text-white">
+                              <span>#</span>
+                              <span>Item &amp; Description</span>
+                              <span className="text-right">Qty</span>
+                              <span className="text-right">Rate</span>
+                              <span className="text-right">Amount</span>
+                            </div>
 
-                          {filledItems.length === 0 ? (
-                            <div className="px-7 py-10 text-sm text-slate-500">Add a line item to generate the invoice table.</div>
-                          ) : (
-                            filledItems.map((item, index) => (
-                              <div
-                                key={item.id}
-                                className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-7 py-6 text-sm text-slate-600"
-                              >
-                                <span className="font-medium text-slate-900">{index + 1}</span>
-                                <div>
-                                  <p className="font-medium uppercase tracking-[0.04em] text-slate-700">
-                                    {item.description || 'Line item'}
-                                  </p>
-                                  {item.detail ? <p className="mt-1 text-slate-500">{item.detail}</p> : null}
+                            {filledItems.length === 0 ? (
+                              <div className="px-7 py-10 text-sm text-slate-500">Add a line item to generate the invoice table.</div>
+                            ) : (
+                              filledItems.map((item, index) => (
+                                <div
+                                  key={item.id}
+                                  className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-7 py-6 text-sm text-slate-600"
+                                >
+                                  <span className="font-medium text-slate-900">{index + 1}</span>
+                                  <div>
+                                    <p className="font-medium uppercase tracking-[0.04em] text-slate-700">
+                                      {item.description || 'Line item'}
+                                    </p>
+                                    {item.detail ? <p className="mt-1 text-slate-500">{item.detail}</p> : null}
+                                  </div>
+                                  <span className="text-right font-medium text-slate-900">{item.quantity.toFixed(2)}</span>
+                                  <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.rate)}</span>
+                                  <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.amount)}</span>
                                 </div>
-                                <span className="text-right font-medium text-slate-900">{item.quantity.toFixed(2)}</span>
-                                <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.rate)}</span>
-                                <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.amount)}</span>
-                              </div>
-                            ))
-                          )}
+                              ))
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
