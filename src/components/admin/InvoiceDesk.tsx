@@ -63,6 +63,14 @@ type PdfWrappedNotesPlan = {
   wasTrimmed: boolean;
 };
 
+type PdfDocument = InstanceType<typeof import('jspdf').jsPDF>;
+
+type PdfMetaRow = {
+  label: string;
+  lines: string[];
+  height: number;
+};
+
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
@@ -110,7 +118,7 @@ function truncateText(value: string, maxLength: number) {
     return normalized;
   }
 
-  return `${normalized.slice(0, Math.max(0, maxLength - 1)).trimEnd()}�Ǫ`;
+  return `${normalized.slice(0, Math.max(0, maxLength - 3)).trimEnd()}...`;
 }
 
 function formatDateForInput(date: Date) {
@@ -357,12 +365,29 @@ function getWrappedPdfNotesPlan(lines: string[]): PdfWrappedNotesPlan {
   const visibleLines = lines.slice(0, MAX_PDF_NOTE_LINES);
   const lastLineIndex = visibleLines.length - 1;
 
-  visibleLines[lastLineIndex] = `${visibleLines[lastLineIndex].replace(/[.\s�Ǫ]+$/, '')}�Ǫ`;
+  visibleLines[lastLineIndex] = `${visibleLines[lastLineIndex].replace(/[.\s]+$/, '')}...`;
 
   return {
     lines: visibleLines,
     wasTrimmed: true,
   };
+}
+
+function getPdfMetaRows(doc: PdfDocument, meta: Array<{ label: string; value: string }>, maxWidth: number) {
+  return meta.map((item) => {
+    const rawLines = doc.splitTextToSize(compactWhitespace(item.value), maxWidth) as string[];
+    const lines = rawLines.length > 0 ? rawLines.slice(0, 2) : ['-'];
+
+    if (rawLines.length > 2 && lines.length === 2) {
+      lines[1] = `${lines[1].replace(/[.\s]+$/, '')}...`;
+    }
+
+    return {
+      label: item.label,
+      lines,
+      height: 6 + lines.length * 4.2,
+    } satisfies PdfMetaRow;
+  });
 }
 
 function LabeledInput({
@@ -613,11 +638,11 @@ export default function InvoiceDesk() {
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
-      const margin = 14;
+      const margin = 16;
       const contentWidth = pageWidth - margin * 2;
-      const metaBoxWidth = 70;
-      const totalsBoxWidth = 62;
-      const billToWidth = contentWidth - metaBoxWidth - 12;
+      const metaBoxWidth = 76;
+      const totalsBoxWidth = 68;
+      const billToWidth = contentWidth - metaBoxWidth - 14;
 
       doc.setDrawColor(226, 232, 240);
       doc.roundedRect(margin, margin, contentWidth, pageHeight - margin * 2, 5, 5);
@@ -643,20 +668,20 @@ export default function InvoiceDesk() {
       });
 
       const balanceBoxX = pageWidth - margin - metaBoxWidth;
-      const balanceBoxY = margin + 21;
+      const balanceBoxY = margin + 22;
       doc.setFillColor(248, 250, 252);
-      doc.roundedRect(balanceBoxX, balanceBoxY, metaBoxWidth, 24, 4, 4, 'F');
+      doc.roundedRect(balanceBoxX, balanceBoxY, metaBoxWidth, 26, 4, 4, 'F');
       doc.setFontSize(8);
       doc.setTextColor(100, 116, 139);
-      doc.text(balanceLabel, balanceBoxX + 5, balanceBoxY + 8);
+      doc.text(balanceLabel, balanceBoxX + 5, balanceBoxY + 8.5);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(15, 23, 42);
       doc.setFontSize(14);
-      doc.text(formatNaira(balanceValue), balanceBoxX + metaBoxWidth - 5, balanceBoxY + 18, {
+      doc.text(formatNaira(balanceValue), balanceBoxX + metaBoxWidth - 5, balanceBoxY + 19, {
         align: 'right',
       });
 
-      let issuerY = margin + 29;
+      let issuerY = margin + 31;
       const issuerLines = [
         ...issuerAddressLines,
         form.issuerPhone,
@@ -676,7 +701,7 @@ export default function InvoiceDesk() {
         });
       });
 
-      const sectionTop = Math.max(issuerY + 8, margin + 55);
+      const sectionTop = Math.max(issuerY + 10, margin + 58);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(100, 116, 139);
@@ -704,24 +729,29 @@ export default function InvoiceDesk() {
         });
 
       const metaBoxX = pageWidth - margin - metaBoxWidth;
-      const metaBoxHeight = invoiceMeta.length * 8 + 8;
+      const pdfMetaRows = getPdfMetaRows(doc, invoiceMeta, metaBoxWidth - 18);
+      const metaBoxHeight = pdfMetaRows.reduce((sum, item) => sum + item.height, 0) + 8;
 
       doc.setFillColor(248, 250, 252);
-      doc.roundedRect(metaBoxX, sectionTop - 5, metaBoxWidth, metaBoxHeight, 4, 4, 'F');
+      doc.roundedRect(metaBoxX, sectionTop - 6, metaBoxWidth, metaBoxHeight, 4, 4, 'F');
 
       let metaY = sectionTop + 2;
-      invoiceMeta.forEach((item) => {
+      pdfMetaRows.forEach((item) => {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8);
         doc.setTextColor(100, 116, 139);
         doc.text(item.label, metaBoxX + 4, metaY);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(15, 23, 42);
-        doc.text(truncateText(item.value, 30), metaBoxX + metaBoxWidth - 4, metaY, { align: 'right' });
-        metaY += 8;
+        item.lines.forEach((line, index) => {
+          doc.text(line, metaBoxX + metaBoxWidth - 4, metaY + 4.2 + index * 4.2, {
+            align: 'right',
+          });
+        });
+        metaY += item.height;
       });
 
-      const tableStartY = Math.max(billToY, sectionTop - 5 + metaBoxHeight) + 10;
+      const tableStartY = Math.max(billToY, sectionTop - 6 + metaBoxHeight) + 12;
 
       autoTable(doc, {
         startY: tableStartY,
@@ -741,28 +771,28 @@ export default function InvoiceDesk() {
         styles: {
           fontSize: 7.6,
           textColor: [71, 85, 105],
-          cellPadding: 2.4,
+          cellPadding: 2.8,
           overflow: 'linebreak',
           lineColor: [226, 232, 240],
           lineWidth: 0.1,
           valign: 'top',
         },
         bodyStyles: {
-          minCellHeight: 8.5,
+          minCellHeight: 9,
         },
         columnStyles: {
           0: { cellWidth: 10, halign: 'center' },
-          1: { cellWidth: 78 },
+          1: { cellWidth: 76 },
           2: { cellWidth: 18, halign: 'right' },
-          3: { cellWidth: 32, halign: 'right' },
-          4: { cellWidth: 34, halign: 'right' },
+          3: { cellWidth: 31, halign: 'right' },
+          4: { cellWidth: 35, halign: 'right' },
         },
       });
 
       const lastAutoTable = (
         doc as typeof doc & { lastAutoTable?: { finalY?: number } }
       ).lastAutoTable;
-      const afterTableY = (lastAutoTable?.finalY ?? tableStartY) + 10;
+      const afterTableY = (lastAutoTable?.finalY ?? tableStartY) + 12;
       const totalsRows = [
         { label: 'Sub Total', value: formatNaira(subtotal) },
         ...(visibility.showVat ? [{ label: `VAT (${vatRate.toFixed(2)}%)`, value: formatNaira(vatAmount) }] : []),
@@ -770,14 +800,14 @@ export default function InvoiceDesk() {
         { label: 'Payment Made', value: `(-) ${formatNaira(paymentMade)}` },
         { label: balanceLabel, value: formatNaira(balanceValue), bold: true },
       ];
-      const totalsBoxHeight = totalsRows.length * 8 + 10;
+      const totalsBoxHeight = totalsRows.length * 8 + 12;
       const totalsBoxX = pageWidth - margin - totalsBoxWidth;
       const totalsBoxY = afterTableY;
       let wrappedPdfNotesPlan: PdfWrappedNotesPlan = { lines: [], wasTrimmed: false };
 
       if (visibility.showTermsAndConditions && pdfNotesPlan.text) {
-        const notesWidth = totalsBoxX - margin - 10;
-        const wrappedNotes = doc.splitTextToSize(pdfNotesPlan.text, notesWidth - 10) as string[];
+        const notesWidth = totalsBoxX - margin - 14;
+        const wrappedNotes = doc.splitTextToSize(pdfNotesPlan.text, notesWidth - 12) as string[];
 
         wrappedPdfNotesPlan = getWrappedPdfNotesPlan(wrappedNotes);
       }
@@ -785,7 +815,7 @@ export default function InvoiceDesk() {
       doc.setFillColor(248, 250, 252);
       doc.roundedRect(totalsBoxX, totalsBoxY, totalsBoxWidth, totalsBoxHeight, 4, 4, 'F');
 
-      let totalsY = totalsBoxY + 8;
+      let totalsY = totalsBoxY + 9;
       totalsRows.forEach((row, index) => {
         doc.setFont('helvetica', row.bold ? 'bold' : 'normal');
         doc.setFontSize(row.bold ? 9 : 8.5);
@@ -795,26 +825,26 @@ export default function InvoiceDesk() {
 
         if (index === 1 || index === totalsRows.length - 2) {
           doc.setDrawColor(226, 232, 240);
-          doc.line(totalsBoxX + 4.5, totalsY + 3, totalsBoxX + totalsBoxWidth - 4.5, totalsY + 3);
+          doc.line(totalsBoxX + 4.5, totalsY + 3.2, totalsBoxX + totalsBoxWidth - 4.5, totalsY + 3.2);
         }
 
         totalsY += 8;
       });
 
       if (visibility.showTermsAndConditions && wrappedPdfNotesPlan.lines.length > 0) {
-        const notesWidth = totalsBoxX - margin - 10;
-        const notesBoxHeight = wrappedPdfNotesPlan.lines.length * 4.2 + 14;
+        const notesWidth = totalsBoxX - margin - 14;
+        const notesBoxHeight = wrappedPdfNotesPlan.lines.length * 4.4 + 16;
 
         doc.setFillColor(248, 250, 252);
         doc.roundedRect(margin, totalsBoxY, notesWidth, notesBoxHeight, 4, 4, 'F');
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(8);
         doc.setTextColor(100, 116, 139);
-        doc.text('TERMS & CONDITIONS', margin + 5, totalsBoxY + 8);
+        doc.text('TERMS & CONDITIONS', margin + 6, totalsBoxY + 9);
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8.5);
         doc.setTextColor(71, 85, 105);
-        doc.text(wrappedPdfNotesPlan.lines, margin + 5, totalsBoxY + 14);
+        doc.text(wrappedPdfNotesPlan.lines, margin + 6, totalsBoxY + 16);
       }
 
       doc.save(`${form.invoiceNumber || 'invoice'}.pdf`);
@@ -1254,144 +1284,146 @@ export default function InvoiceDesk() {
                 </div>
 
                 <div className="px-7 py-9 md:px-12 md:py-12">
-                  <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-                    <div>
-                      <div className="flex items-center gap-4">
-                        <BizFaceLogo size={64} className="rounded-2xl shadow-lg shadow-sky-500/15" />
-                        <div>
-                          <p className="text-2xl font-bold text-slate-950">{form.issuerName || 'Issuer name'}</p>
-                          <p className="text-sm text-slate-500">Customer invoice</p>
-                        </div>
-                      </div>
-
-                      <div className="mt-7 max-w-[360px] space-y-1.5 text-sm leading-relaxed text-slate-600">
-                        {issuerAddressLines.map((line) => (
-                          <p key={line}>{line}</p>
-                        ))}
-                        {form.issuerPhone ? <p>{form.issuerPhone}</p> : null}
-                        {form.issuerEmail ? <p>{form.issuerEmail}</p> : null}
-                        {form.issuerWebsite ? <p>{form.issuerWebsite}</p> : null}
-                      </div>
-                    </div>
-
-                    <div className="lg:text-right">
-                      <p className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
-                        INVOICE
-                      </p>
-                      <p className="mt-3 text-sm font-semibold text-slate-500"># {form.invoiceNumber || 'Pending'}</p>
-
-                      <div className="mt-8 inline-flex min-w-[250px] flex-col rounded-3xl border border-slate-200 bg-slate-50 px-7 py-6 text-left lg:items-end lg:text-right">
-                        <p className="text-sm font-medium text-slate-500">{balanceLabel}</p>
-                        <p className="mt-2 text-3xl font-bold text-slate-950">{formatNaira(balanceValue)}</p>
-                        <span className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${paymentStatusClassName}`}>
-                          {paymentStatus}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-                    <div className="max-w-[420px]">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Bill To</p>
-                      <div className="mt-5 space-y-1.5 text-sm leading-relaxed text-slate-600">
-                        <p className="text-base font-semibold text-slate-950">{form.clientName || 'Client name'}</p>
-                        {form.clientContact ? <p>{form.clientContact}</p> : null}
-                        {form.clientEmail ? <p>{form.clientEmail}</p> : null}
-                        {clientAddressLines.map((line) => (
-                          <p key={line}>{line}</p>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
-                      <div className="space-y-3">
-                        {invoiceMeta.map((item) => (
-                          <div key={item.label} className="flex items-start justify-between gap-5 border-b border-slate-200 pb-4 last:border-b-0 last:pb-0">
-                            <span className="pt-0.5 text-sm font-medium text-slate-500">{item.label}</span>
-                            <span className="max-w-[190px] break-words text-right text-sm font-semibold leading-relaxed text-slate-900">
-                              {item.value}
-                            </span>
+                  <div className="mx-auto max-w-[940px]">
+                    <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+                      <div className="lg:max-w-[380px]">
+                        <div className="flex items-center gap-4">
+                          <BizFaceLogo size={64} className="rounded-2xl shadow-lg shadow-sky-500/15" />
+                          <div>
+                            <p className="text-2xl font-bold text-slate-950">{form.issuerName || 'Issuer name'}</p>
+                            <p className="text-sm text-slate-500">Customer invoice</p>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-12 overflow-hidden rounded-[1.75rem] border border-slate-200">
-                    <div className="overflow-x-auto">
-                      <div className="min-w-[720px]">
-                        <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-900 px-6 py-4 text-sm font-semibold text-white">
-                          <span>#</span>
-                          <span>Item &amp; Description</span>
-                          <span className="text-right">Qty</span>
-                          <span className="text-right">Rate</span>
-                          <span className="text-right">Amount</span>
                         </div>
 
-                        {filledItems.length === 0 ? (
-                          <div className="px-6 py-10 text-sm text-slate-500">Add a line item to generate the invoice table.</div>
-                        ) : (
-                          filledItems.map((item, index) => (
-                            <div
-                              key={item.id}
-                              className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-6 py-6 text-sm text-slate-600"
-                            >
-                              <span className="font-medium text-slate-900">{index + 1}</span>
-                              <div>
-                                <p className="font-medium uppercase tracking-[0.04em] text-slate-700">
-                                  {item.description || 'Line item'}
-                                </p>
-                                {item.detail ? <p className="mt-1 text-slate-500">{item.detail}</p> : null}
-                              </div>
-                              <span className="text-right font-medium text-slate-900">{item.quantity.toFixed(2)}</span>
-                              <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.rate)}</span>
-                              <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.amount)}</span>
-                            </div>
-                          ))
-                        )}
+                        <div className="mt-7 max-w-[360px] rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+                          {issuerAddressLines.map((line) => (
+                            <p key={line}>{line}</p>
+                          ))}
+                          {form.issuerPhone ? <p>{form.issuerPhone}</p> : null}
+                          {form.issuerEmail ? <p>{form.issuerEmail}</p> : null}
+                          {form.issuerWebsite ? <p>{form.issuerWebsite}</p> : null}
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_340px] lg:items-start">
-                    {visibility.showTermsAndConditions ? (
-                      <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                          Terms &amp; Conditions
+                      <div className="lg:text-right">
+                        <p className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+                          INVOICE
                         </p>
-                        <div className="mt-4 max-w-2xl whitespace-pre-line text-sm leading-7 text-slate-600">
-                          {notesText || 'Add invoice notes and payment terms.'}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="rounded-[1.75rem] border border-dashed border-slate-200 bg-slate-50 px-5 py-6 text-sm text-slate-500">
-                        Terms and conditions are currently hidden from the invoice output.
-                      </div>
-                    )}
+                        <p className="mt-3 text-sm font-semibold text-slate-500"># {form.invoiceNumber || 'Pending'}</p>
 
-                    <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
-                      <div className="space-y-4 text-sm">
-                        <div className="flex items-center justify-between gap-4 text-slate-600">
-                          <span>Sub Total</span>
-                          <span className="font-semibold text-slate-900">{formatNaira(subtotal)}</span>
+                        <div className="mt-8 inline-flex min-w-[270px] flex-col rounded-3xl border border-slate-200 bg-slate-50 px-8 py-7 text-left lg:items-end lg:text-right">
+                          <p className="text-sm font-medium text-slate-500">{balanceLabel}</p>
+                          <p className="mt-2 text-3xl font-bold text-slate-950">{formatNaira(balanceValue)}</p>
+                          <span className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${paymentStatusClassName}`}>
+                            {paymentStatus}
+                          </span>
                         </div>
-                        {visibility.showVat ? (
-                          <div className="flex items-center justify-between gap-4 text-slate-600">
-                            <span>VAT ({vatRate.toFixed(2)}%)</span>
-                            <span className="font-semibold text-slate-900">{formatNaira(vatAmount)}</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+                      <div className="max-w-[420px] rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Bill To</p>
+                        <div className="mt-5 space-y-1.5 text-sm leading-6 text-slate-600">
+                          <p className="text-base font-semibold text-slate-950">{form.clientName || 'Client name'}</p>
+                          {form.clientContact ? <p>{form.clientContact}</p> : null}
+                          {form.clientEmail ? <p>{form.clientEmail}</p> : null}
+                          {clientAddressLines.map((line) => (
+                            <p key={line}>{line}</p>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
+                        <div className="space-y-3">
+                          {invoiceMeta.map((item) => (
+                            <div key={item.label} className="flex items-start justify-between gap-5 border-b border-slate-200 pb-4 last:border-b-0 last:pb-0">
+                              <span className="pt-0.5 text-sm font-medium text-slate-500">{item.label}</span>
+                              <span className="max-w-[190px] break-words text-right text-sm font-semibold leading-relaxed text-slate-900">
+                                {item.value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-14 overflow-hidden rounded-[1.75rem] border border-slate-200">
+                      <div className="overflow-x-auto">
+                        <div className="min-w-[720px]">
+                          <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-900 px-7 py-4 text-sm font-semibold text-white">
+                            <span>#</span>
+                            <span>Item &amp; Description</span>
+                            <span className="text-right">Qty</span>
+                            <span className="text-right">Rate</span>
+                            <span className="text-right">Amount</span>
                           </div>
-                        ) : null}
-                        <div className="flex items-center justify-between gap-4 border-t border-slate-200 pt-4 text-base font-semibold text-slate-950">
-                          <span>Total</span>
-                          <span>{formatNaira(total)}</span>
+
+                          {filledItems.length === 0 ? (
+                            <div className="px-7 py-10 text-sm text-slate-500">Add a line item to generate the invoice table.</div>
+                          ) : (
+                            filledItems.map((item, index) => (
+                              <div
+                                key={item.id}
+                                className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-7 py-6 text-sm text-slate-600"
+                              >
+                                <span className="font-medium text-slate-900">{index + 1}</span>
+                                <div>
+                                  <p className="font-medium uppercase tracking-[0.04em] text-slate-700">
+                                    {item.description || 'Line item'}
+                                  </p>
+                                  {item.detail ? <p className="mt-1 text-slate-500">{item.detail}</p> : null}
+                                </div>
+                                <span className="text-right font-medium text-slate-900">{item.quantity.toFixed(2)}</span>
+                                <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.rate)}</span>
+                                <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.amount)}</span>
+                              </div>
+                            ))
+                          )}
                         </div>
-                        <div className="flex items-center justify-between gap-4 text-slate-600">
-                          <span>Payment Made</span>
-                          <span className="font-semibold text-rose-500">(-) {formatNaira(paymentMade)}</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-14 grid gap-10 lg:grid-cols-[1fr_340px] lg:items-start">
+                      {visibility.showTermsAndConditions ? (
+                        <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                            Terms &amp; Conditions
+                          </p>
+                          <div className="mt-4 max-w-2xl whitespace-pre-line text-sm leading-7 text-slate-600">
+                            {notesText || 'Add invoice notes and payment terms.'}
+                          </div>
                         </div>
-                        <div className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-4 text-base font-semibold text-slate-950 shadow-sm">
-                          <span>{balanceLabel}</span>
-                          <span>{formatNaira(balanceValue)}</span>
+                      ) : (
+                        <div className="rounded-[1.75rem] border border-dashed border-slate-200 bg-slate-50 px-5 py-6 text-sm text-slate-500">
+                          Terms and conditions are currently hidden from the invoice output.
+                        </div>
+                      )}
+
+                      <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7">
+                        <div className="space-y-5 text-sm">
+                          <div className="flex items-center justify-between gap-4 text-slate-600">
+                            <span>Sub Total</span>
+                            <span className="font-semibold text-slate-900">{formatNaira(subtotal)}</span>
+                          </div>
+                          {visibility.showVat ? (
+                            <div className="flex items-center justify-between gap-4 text-slate-600">
+                              <span>VAT ({vatRate.toFixed(2)}%)</span>
+                              <span className="font-semibold text-slate-900">{formatNaira(vatAmount)}</span>
+                            </div>
+                          ) : null}
+                          <div className="flex items-center justify-between gap-4 border-t border-slate-200 pt-4 text-base font-semibold text-slate-950">
+                            <span>Total</span>
+                            <span>{formatNaira(total)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-4 text-slate-600">
+                            <span>Payment Made</span>
+                            <span className="font-semibold text-rose-500">(-) {formatNaira(paymentMade)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-4 text-base font-semibold text-slate-950 shadow-sm">
+                            <span>{balanceLabel}</span>
+                            <span>{formatNaira(balanceValue)}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
