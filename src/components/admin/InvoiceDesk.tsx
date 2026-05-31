@@ -86,8 +86,6 @@ const fieldLabelClassName = 'text-xs font-semibold uppercase tracking-[0.18em] t
 const fieldClassName =
   'mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100';
 const MAX_PDF_TABLE_ROWS = 7;
-const MAX_PDF_DESCRIPTION_LENGTH = 54;
-const MAX_PDF_DETAIL_LENGTH = 40;
 const MAX_PDF_NOTE_CHARACTERS = 240;
 const MAX_PDF_NOTE_LINES = 5;
 
@@ -197,7 +195,7 @@ function getSampleForm(): InvoiceForm {
       'Annual license payment is calculated from the active renewal quantity and the prevailing service rate. The generated invoice keeps tax, payment history, and balance status explicit for finance review.',
     vatRate: '7.5',
     paymentMade: '765400',
-    issuerName: 'BizSuits Solutions',
+    issuerName: 'BizSuits',
     issuerEmail: 'finance@bizsuits.com',
     issuerPhone: '+234 916 000 2839',
     issuerWebsite: 'www.bizsuits.com',
@@ -305,8 +303,8 @@ function getPdfTablePlan(items: CalculatedLineItem[]): PdfTablePlan {
   const visibleItems = items.slice(0, visibleItemCount);
   const omittedItems = items.slice(visibleItemCount);
   const body = visibleItems.map((item, index) => {
-    const description = truncateText(item.description || 'Line item', MAX_PDF_DESCRIPTION_LENGTH);
-    const detail = truncateText(item.detail, MAX_PDF_DETAIL_LENGTH);
+    const description = compactWhitespace(item.description) || 'Line item';
+    const detail = compactWhitespace(item.detail);
     const descriptionCell = [description, detail].filter(Boolean).join(' | ');
 
     return [
@@ -1045,7 +1043,7 @@ export default function InvoiceDesk() {
                     label="Business name"
                     value={form.issuerName}
                     onChange={(value) => updateForm('issuerName', value)}
-                    placeholder="BizSuits Solutions"
+                    placeholder="BizSuits"
                   />
                   <LabeledInput
                     label="Website"
