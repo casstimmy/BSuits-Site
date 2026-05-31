@@ -531,14 +531,6 @@ export default function InvoiceDesk() {
     ...(visibility.showDueDate ? [{ label: 'Due Date', value: formatDisplayDate(form.dueDate) }] : []),
     { label: 'Reference', value: form.reference || 'Add reference' },
   ];
-  const summaryItems = [
-    { label: 'Client', value: form.clientName || 'Add client name' },
-    ...(visibility.showDueDate
-      ? [{ label: 'Due date', value: formatDisplayDate(form.dueDate) }]
-      : []),
-    { label: 'Subtotal', value: formatNaira(subtotal) },
-    { label: balanceLabel, value: formatNaira(balanceValue) },
-  ];
   const notesText = form.notes.trim();
   const pdfTablePlan = getPdfTablePlan(filledItems);
   const pdfNotesPlan = visibility.showTermsAndConditions
@@ -552,13 +544,6 @@ export default function InvoiceDesk() {
       ? 'Long terms and conditions will be shortened in the PDF export.'
       : null,
   ].filter(Boolean);
-  const dashboardStats = [
-    { label: 'Invoice no.', value: form.invoiceNumber || 'Not set' },
-    { label: 'Live items', value: String(filledItems.length) },
-    { label: 'Grand total', value: formatNaira(total) },
-    { label: balanceLabel, value: formatNaira(balanceValue) },
-  ];
-
   function updateForm<Field extends keyof InvoiceForm>(field: Field, value: InvoiceForm[Field]) {
     setForm((currentForm) => ({
       ...currentForm,
@@ -857,89 +842,13 @@ export default function InvoiceDesk() {
     <div className="min-h-screen bg-slate-50">
       <section className="border-b border-slate-200 bg-white py-12">
         <div className="container-custom">
-          <div className="grid gap-8 xl:grid-cols-[1.15fr_0.85fr] xl:items-start">
-            <div className="max-w-3xl">
-              <span className="inline-flex items-center rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-700">
-                Invoice generator
-              </span>
-              <h1 className="mt-5 text-4xl font-bold text-slate-950 md:text-5xl lg:text-6xl text-balance">
-                Admin Invoice Desk
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg text-slate-600 md:text-xl">
-                Build invoices from editable business, client, and line-item inputs, then export a
-                clean one-page PDF directly from the same workspace.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Button
-                  variant="accent"
-                  size="lg"
-                  onClick={() => {
-                    void downloadInvoicePdf();
-                  }}
-                  icon={<Download className="h-5 w-5" />}
-                  disabled={isExportingPdf}
-                >
-                  {isExportingPdf ? 'Generating PDF...' : 'Download PDF'}
-                </Button>
-                <Button variant="secondary" size="lg" onClick={startFreshInvoice} icon={<FileText className="h-5 w-5" />}>
-                  Start Fresh Invoice
-                </Button>
-              </div>
-
-              {pdfProtectionMessages.length > 0 ? (
-                <div className="mt-4 rounded-[1.5rem] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-                  <p className="font-semibold">Single-page PDF protection is active.</p>
-                  <p className="mt-1 leading-relaxed">{pdfProtectionMessages.join(' ')}</p>
-                </div>
-              ) : (
-                <p className="mt-4 text-sm text-slate-500">
-                  PDF export stays on one A4 page by compacting long invoice content when needed.
-                </p>
-              )}
-              {pdfError ? <p className="mt-3 text-sm text-rose-600">{pdfError}</p> : null}
-            </div>
-
-            <Card elevated hover={false} className="border border-slate-200 bg-slate-50">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                Current document state
-              </p>
-              <div className="mt-5 space-y-4">
-                <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
-                  <div>
-                    <p className="text-sm text-slate-500">Invoice no.</p>
-                    <p className="text-lg font-semibold text-slate-950">{form.invoiceNumber || 'Pending'}</p>
-                  </div>
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${paymentStatusClassName}`}>
-                    {paymentStatus}
-                  </span>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {summaryItems.map((item) => (
-                    <div key={item.label}>
-                      <p className="text-sm text-slate-500">{item.label}</p>
-                      <p className="font-medium text-slate-900">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-10">
-        <div className="container-custom">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {dashboardStats.map((stat) => (
-              <Card key={stat.label} elevated hover={false} className="h-full">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  {stat.label}
-                </p>
-                <p className="mt-3 text-2xl font-bold text-slate-950 md:text-3xl">{stat.value}</p>
-              </Card>
-            ))}
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-700">
+              Invoice generator
+            </span>
+            <h1 className="mt-5 text-4xl font-bold text-slate-950 md:text-5xl lg:text-6xl text-balance">
+              Admin Invoice Desk
+            </h1>
           </div>
         </div>
       </section>
