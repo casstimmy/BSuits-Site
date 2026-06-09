@@ -51,18 +51,6 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      <section className="-mt-8 relative z-10">
-        <div className="container-custom">
-          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            {portfolioStats.map((stat) => (
-              <Card key={stat.label} elevated className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-dark-900">{stat.value}</p>
-                <p className="text-sm text-dark-400 mt-2">{stat.label}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="section-padding bg-white">
         <div className="container-custom">
@@ -141,7 +129,6 @@ export default function FeaturesPage() {
                         <div
                           className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-md shrink-0`}
                         >
-                          <app.icon className="w-6 h-6 text-white" />
                         </div>
                         <div>
                           <h3 className="text-lg font-bold text-dark-900">{app.name}</h3>

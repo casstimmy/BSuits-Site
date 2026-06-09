@@ -196,10 +196,10 @@ function getSampleForm(): InvoiceForm {
     vatRate: '7.5',
     paymentMade: '765400',
     issuerName: 'BizSuits',
-    issuerEmail: 'finance@bizsuits.com',
-    issuerPhone: '+234 916 000 2839',
+    issuerEmail: 'Hello.hetchdesigns@gmail.com',
+    issuerPhone: '+234 916 684 3265',
     issuerWebsite: 'www.bizsuits.com',
-    issuerAddress: '16B Business Systems Avenue\nMaryland, Lagos\nNigeria',
+    issuerAddress: '',
     clientName: 'Ajah Retail Hub',
     clientContact: 'Procurement Desk',
     clientEmail: 'billing@ajahretailhub.com',
@@ -858,7 +858,6 @@ export default function InvoiceDesk() {
           <SectionHeading
             badge="Invoice Generator"
             title="Create the invoice and export a clean one-page PDF"
-            subtitle="Every field on the preview is driven by the inputs below, and optional sections can be turned on or off before export."
           />
 
           <div className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr] xl:items-start">
@@ -1154,10 +1153,6 @@ export default function InvoiceDesk() {
                       rows={5}
                       placeholder="Summarize payment terms, coverage, and renewal conditions."
                     />
-                    <p className="text-sm text-slate-500">
-                      Long terms will be shortened automatically in the PDF so the invoice stays on a
-                      single page.
-                    </p>
                   </div>
                 ) : null}
               </Card>

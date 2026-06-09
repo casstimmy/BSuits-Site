@@ -12,7 +12,6 @@ import { portfolioApps } from '@/data/portfolio';
 const navLinks = [
   { name: 'Features', href: '/features' },
   { name: 'Solutions', href: '/solutions' },
-  { name: 'Demo', href: '/demo' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },

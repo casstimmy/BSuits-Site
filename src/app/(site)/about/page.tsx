@@ -75,55 +75,6 @@ export default function AboutPage() {
       <section className="section-padding bg-dark-50/50">
         <div className="container-custom">
           <SectionHeading
-            badge="Solution Families"
-            title="Four business areas where BizSuits creates the most value"
-            subtitle="Each area groups practical examples that can be shaped around the way your business operates."
-          />
-
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {deliveryTracks.map((track) => {
-              const apps = getAppsForTrack(track.appSlugs);
-
-              return (
-                <Card key={track.id} elevated className="h-full">
-                  <div className="flex items-start gap-4 mb-5">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.gradient} flex items-center justify-center text-white shadow-lg`}>
-                      <track.icon className="w-7 h-7" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-dark-900 mb-2">{track.title}</h3>
-                      <p className="text-dark-500 leading-relaxed">{track.summary}</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 mb-5">
-                    {track.capabilities.map((capability) => (
-                      <p key={capability} className="text-sm text-dark-500 leading-relaxed">
-                        {capability}
-                      </p>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {apps.map((app) => (
-                      <span
-                        key={app.slug}
-                        className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
-                      >
-                        {app.name}
-                      </span>
-                    ))}
-                  </div>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <SectionHeading
             badge="Delivery Rhythm"
             title="How working with BizSuits typically unfolds"
             subtitle="Each engagement moves from understanding the business to launch and improvement."
