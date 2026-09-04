@@ -65,7 +65,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col gap-3 pt-0.5 sm:flex-row">
-              <Button variant="primary" href="/demo" icon={<ArrowRight className="h-4 w-4" />}>
+              <Button variant="primary" href="/features" icon={<ArrowRight className="h-4 w-4" />}>
                 See Live Examples
               </Button>
               <Button variant="secondary" href="/solutions">
@@ -105,6 +105,7 @@ export default function Hero() {
                 {systemPreviews.map((sys, idx) => (
                   <button
                     key={sys.slug}
+                    type="button"
                     onClick={() => setActiveTab(idx)}
                     className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[10px] font-semibold whitespace-nowrap transition-all md:text-[11px] ${
                       activeTab === idx
@@ -141,6 +142,7 @@ export default function Hero() {
                     {systemPreviews.map((_, idx) => (
                       <button
                         key={idx}
+                        type="button"
                         onClick={() => setActiveTab(idx)}
                         className={`h-2 rounded-full transition-all ${
                           activeTab === idx ? 'w-5 bg-primary-500' : 'w-2 bg-dark-200 hover:bg-dark-400'

@@ -40,7 +40,7 @@ const footerLinks = {
   ],
   Support: [
     { name: 'Help Center', href: '/contact' },
-    { name: 'Live Demos', href: '/demo' },
+    { name: 'Live Demos', href: '/features' },
     { name: 'Solution Notes', href: '/blog' },
     { name: 'Feature Library', href: '/features' },
     { name: 'Contact Sales', href: '/contact' },

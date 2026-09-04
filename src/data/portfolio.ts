@@ -96,6 +96,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'webpage-app',
     category: 'Customer storefront',
     deliveryMode: 'Web storefront',
+    previewImage: '/images/product-placeholder.svg',
     icon: Store,
     gradient: 'from-sky-500 to-indigo-600',
     summary:
@@ -117,6 +118,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'farm-health-app',
     category: 'Farm operations',
     deliveryMode: 'Web operations suite',
+    previewImage: '/images/Farm Managment System preview.png',
     icon: Sprout,
     gradient: 'from-emerald-500 to-green-600',
     summary:
@@ -135,9 +137,10 @@ export const portfolioApps: PortfolioApp[] = [
   {
     slug: 'farm-web-place',
     name: 'Farm Web Place',
-    sourceProject: 'Web_Place',
+    sourceProject: 'farm_web_place',
     category: 'Agri-commerce storefront',
     deliveryMode: 'Web storefront',
+     previewImage: '/images/Farm ecom System preview.png',
     icon: Leaf,
     gradient: 'from-lime-500 to-green-700',
     summary:
@@ -180,6 +183,7 @@ export const portfolioApps: PortfolioApp[] = [
     sourceProject: 'project_management',
     category: 'Operations and facility management',
     deliveryMode: 'Web operations suite',
+    previewImage: '/images/product-placeholder.svg',
     icon: FolderKanban,
     gradient: 'from-violet-600 to-fuchsia-600',
     summary:

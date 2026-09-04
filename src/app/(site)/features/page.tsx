@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
+import { deliveryTracks, getAppsForTrack } from '@/data/portfolio';
 
 export const metadata: Metadata = {
   title: 'Features - BizSuits | Solution Capabilities',
@@ -41,7 +41,7 @@ export default function FeaturesPage() {
             to the table — the modules, workflows, and surfaces it delivers.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="primary" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+            <Button variant="primary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
               Try the Demos
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
@@ -62,7 +62,7 @@ export default function FeaturesPage() {
 
           {deliveryTracks.map((track, trackIndex) => {
             const apps = getAppsForTrack(track.appSlugs);
-            const demoHref = trackDemoLinks[track.id] ?? '/demo';
+            const demoHref = trackDemoLinks[track.id] ?? '/features';
 
             return (
               <div
@@ -180,7 +180,7 @@ export default function FeaturesPage() {
             Each BizSuits system has an interactive demo you can try right now. No setup needed.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="accent" size="lg" href="/demo" icon={<ArrowRight className="w-5 h-5" />}>
+            <Button variant="accent" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
               Browse All Demos
             </Button>
             <Button

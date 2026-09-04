@@ -202,7 +202,7 @@ export default function PricingPage() {
             <Button
               variant="ghost"
               size="lg"
-              href="/demo"
+              href="/features"
               className="!text-white hover:!bg-white/10"
             >
               Explore Live Demos

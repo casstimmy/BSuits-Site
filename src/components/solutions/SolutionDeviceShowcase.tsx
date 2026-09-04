@@ -338,10 +338,10 @@ function DocumentAutomationMockup() {
             </div>
           </div>
           <div className="flex gap-2">
-            <button className="flex-1 bg-blue-600 text-white text-[10px] font-semibold rounded-lg py-2 flex items-center justify-center gap-1">
+            <button type="button" className="flex-1 bg-blue-600 text-white text-[10px] font-semibold rounded-lg py-2 flex items-center justify-center gap-1">
               <Monitor className="w-3 h-3" /> Extract Tables
             </button>
-            <button className="flex-1 bg-emerald-600 text-white text-[10px] font-semibold rounded-lg py-2 flex items-center justify-center gap-1">
+            <button type="button" className="flex-1 bg-emerald-600 text-white text-[10px] font-semibold rounded-lg py-2 flex items-center justify-center gap-1">
               <FileSpreadsheet className="w-3 h-3" /> Export Excel
             </button>
           </div>

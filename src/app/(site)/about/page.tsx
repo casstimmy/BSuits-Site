@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { deliveryTracks, getAppsForTrack, portfolioStats } from '@/data/portfolio';
+import { portfolioStats } from '@/data/portfolio';
 import { deliveryPrinciples, deliverySteps } from '@/data/siteContent';
 
 export const metadata: Metadata = {

@@ -126,6 +126,7 @@ export default function Header() {
           </div>
 
           <button
+            type="button"
             className="lg:hidden p-2 rounded-lg hover:bg-dark-50 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
@@ -147,7 +148,7 @@ export default function Header() {
       >
         <div className="bg-white border-t border-dark-100 px-4 py-6 space-y-2">
           <Link
-            href="/demo"
+            href="/features"
             className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
             onClick={() => setIsMobileMenuOpen(false)}
           >
