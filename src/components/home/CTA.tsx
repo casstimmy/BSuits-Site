@@ -19,16 +19,16 @@ export default function CTA() {
           viewport={{ once: true, amount: 0.3 }}
         >
         <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-white/80 mb-6">
-          <span className="h-1.5 w-1.5 bg-primary-400" />
-          Enterprise Deployment
+          <span className="h-1.5 w-1.5 bg-accent-400" />
+          Custom Systems // Built for Success
         </div>
 
-        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 text-balance tracking-tight">
-          Ready to run the business with more{' '}
-          <span className="text-primary-300">clarity and control</span>?
+        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-white mb-6 text-balance tracking-tight">
+          Ready to scale with a custom system{' '}
+          <span className="text-primary-400">built for your business</span>?
         </h2>
         <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed">
-          BizSuits brings sales, operations, reporting, and team visibility together around the way your business already works.
+          We build powerful, scalable and secure systems tailored to your business needs — from retail and inventory to agriculture and document automation.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
@@ -38,7 +38,7 @@ export default function CTA() {
             href="/contact"
             icon={<ArrowRight className="w-5 h-5" />}
           >
-            Schedule a Demo
+            Get Started Today
           </Button>
           <Button
             variant="ghost"
@@ -52,16 +52,16 @@ export default function CTA() {
 
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-mono uppercase tracking-wider text-white/60">
           <div className="flex items-center gap-2 border border-white/10 px-3 py-1.5 bg-white/5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary-400" />
-            Built Around Your Business
+            <CheckCircle2 className="w-3.5 h-3.5 text-accent-400" />
+            Tailored To Your Business Needs
           </div>
           <div className="flex items-center gap-2 border border-white/10 px-3 py-1.5 bg-white/5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary-400" />
-            Setup And Training Included
+            <CheckCircle2 className="w-3.5 h-3.5 text-accent-400" />
+            Cloud &amp; Offline Resilient
           </div>
           <div className="flex items-center gap-2 border border-white/10 px-3 py-1.5 bg-white/5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary-400" />
-            Ready For Daily Operations
+            <CheckCircle2 className="w-3.5 h-3.5 text-accent-400" />
+            Support &amp; Maintenance Included
           </div>
         </div>
         </motion.div>

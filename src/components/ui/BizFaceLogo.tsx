@@ -28,15 +28,16 @@ export default function BizFaceLogo({ size = 40, className = '' }: BizFaceLogoPr
       viewBox="0 0 318.34 318.34"
       width={size}
       height={size}
-      className={`transition-transform duration-300 hover:scale-110 ${className}`}
+      data-logo="true"
+      className={`logo-rounded transition-transform duration-200 hover:scale-105 shrink-0 ${className}`}
     >
       <defs>
         <linearGradient id="bfl-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#5398d2" />
-          <stop offset="1" stopColor="#4c63ae" />
+          <stop offset="0" stopColor="#2563EB" />
+          <stop offset="1" stopColor="#1D4ED8" />
         </linearGradient>
       </defs>
-      <rect fill="url(#bfl-grad)" width="318.34" height="318.34" rx="0" ry="0" />
+      <rect fill="url(#bfl-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
 
       {/* Left eye */}
       <g style={{

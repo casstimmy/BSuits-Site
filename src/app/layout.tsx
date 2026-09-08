@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
@@ -8,21 +8,28 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+});
+
 export const metadata: Metadata = {
   title: {
-    default: 'BizSuits - Business Tools for Sales, Operations, and Reporting',
+    default: 'BizSuits - Custom Systems. Built for Success.',
     template: '%s | BizSuits',
   },
   description:
-    'BizSuits helps businesses manage sales, stock, reporting, agriculture, and day-to-day operations with more clarity and control.',
+    'We build powerful, scalable and secure custom systems tailored to your business needs — from sales and POS to farm operations and automated reporting.',
   keywords: [
+    'custom systems',
     'business operations',
-    'retail operations',
+    'system development',
+    'business automation',
+    'POS systems',
     'inventory control',
-    'business reporting',
-    'farm operations',
-    'sales management',
-    'business tools',
+    'cloud solutions',
     'BizSuits',
   ],
   authors: [{ name: 'BizSuits' }],
@@ -31,15 +38,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://bizsuits.com',
     siteName: 'BizSuits',
-    title: 'BizSuits - Business Tools for Sales, Operations, and Reporting',
+    title: 'BizSuits - Custom Systems. Built for Success.',
     description:
-      'BizSuits helps businesses manage sales, stock, reporting, agriculture, and day-to-day operations with more clarity and control.',
+      'We build powerful, scalable and secure custom systems tailored to your business needs.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BizSuits - Business Tools for Sales, Operations, and Reporting',
+    title: 'BizSuits - Custom Systems. Built for Success.',
     description:
-      'BizSuits helps businesses manage sales, stock, reporting, agriculture, and day-to-day operations with more clarity and control.',
+      'We build powerful, scalable and secure custom systems tailored to your business needs.',
   },
   robots: {
     index: true,
@@ -53,11 +60,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <link rel="icon" href="/images/icon.ico" type="image/x-icon" />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col font-sans">
         {children}
       </body>
     </html>

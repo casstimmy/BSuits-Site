@@ -5,7 +5,14 @@
 @layer base {
   *, ::before, ::after {
     @apply box-border;
+  }
+
+  *:not([data-logo]):not([data-logo] *):not(.logo-rounded):not(.logo-rounded *):not([class*="logo"]):not([class*="logo"] *) {
     border-radius: 0 !important;
+  }
+
+  .logo-rounded, [data-logo] {
+    border-radius: 1.25rem;
   }
 
   html {
@@ -17,7 +24,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
+    @apply font-display font-bold tracking-tight text-dark-900;
   }
 }
 
@@ -28,17 +35,17 @@
 
   .btn-primary {
     @apply inline-flex items-center justify-center px-6 py-3 
-           bg-dark-950 text-white font-medium text-xs tracking-[0.16em] uppercase
-           border border-dark-950
-           hover:bg-primary-600 hover:border-primary-600
-           active:bg-dark-900
+           bg-primary-600 text-white font-semibold text-xs tracking-[0.14em] uppercase
+           border border-primary-600
+           hover:bg-primary-700 hover:border-primary-700
+           active:bg-primary-800
            transition-all duration-150 ease-in-out
            shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)];
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3 
-           bg-white text-dark-900 font-medium text-xs tracking-[0.16em] uppercase
+           bg-white text-dark-900 font-semibold text-xs tracking-[0.14em] uppercase
            border border-dark-900
            hover:bg-dark-900 hover:text-white
            active:bg-dark-800
@@ -48,17 +55,17 @@
 
   .btn-accent {
     @apply inline-flex items-center justify-center px-6 py-3 
-           bg-primary-600 text-white font-medium text-xs tracking-[0.16em] uppercase
-           border border-primary-600
-           hover:bg-dark-950 hover:border-dark-950
-           active:bg-primary-800
+           bg-dark-950 text-white font-semibold text-xs tracking-[0.14em] uppercase
+           border border-dark-950
+           hover:bg-primary-600 hover:border-primary-600
+           active:bg-dark-900
            transition-all duration-150 ease-in-out
-           shadow-[2px_2px_0px_0px_rgba(76,99,174,0.35)];
+           shadow-[2px_2px_0px_0px_rgba(37,99,235,0.35)];
   }
 
   .btn-dark {
     @apply inline-flex items-center justify-center px-6 py-3 
-           bg-dark-900 text-white font-medium text-xs tracking-[0.16em] uppercase
+           bg-dark-900 text-white font-semibold text-xs tracking-[0.14em] uppercase
            border border-dark-900
            hover:bg-white hover:text-dark-900 hover:border-dark-900
            transition-all duration-150 ease-in-out;
@@ -87,7 +94,7 @@
   }
 
   .gradient-text {
-    @apply text-dark-900 border-b-2 border-primary-600 pb-0.5;
+    @apply text-primary-600;
   }
 
   .gradient-bg {

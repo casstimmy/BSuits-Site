@@ -246,11 +246,11 @@ function getBizFaceLogoSvgMarkup() {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318.34 318.34">
       <defs>
         <linearGradient id="biz-face-pdf-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#5398d2" />
-          <stop offset="1" stop-color="#4c63ae" />
+          <stop offset="0" stop-color="#2563EB" />
+          <stop offset="1" stop-color="#1D4ED8" />
         </linearGradient>
       </defs>
-      <rect fill="url(#biz-face-pdf-grad)" width="318.34" height="318.34" rx="0" ry="0" />
+      <rect fill="url(#biz-face-pdf-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
       <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
       <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
       <path fill="#fff" d="M165.87,183.43l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1Z" />
@@ -1186,7 +1186,7 @@ export default function InvoiceDesk() {
                     <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
                       <div className="lg:max-w-[380px]">
                         <div className="flex items-center gap-4">
-                          <BizFaceLogo size={64} className="border border-slate-300" />
+                          <BizFaceLogo size={64} className="logo-rounded shadow-sm" />
                           <div>
                             <p className="text-2xl font-bold text-slate-950">{form.issuerName || 'Issuer name'}</p>
                             <p className="text-xs font-mono uppercase tracking-wider text-slate-500">Customer invoice</p>

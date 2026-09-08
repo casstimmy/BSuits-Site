@@ -140,20 +140,18 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Face container with perspective */}
+        {/* Logo container with perspective */}
         <motion.div
-          className="relative w-28 h-28 md:w-32 md:h-32"
+          className="relative w-28 h-28 md:w-32 md:h-32 mx-auto"
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
           style={{ perspective: '600px' }}
         >
-          {/* Subtle frame */}
-          <div className="absolute inset-0 border border-dark-200/50 -m-1" />
-
-          {/* The SVG face — tilts toward the active card */}
+          {/* The SVG logo — tilts toward the active card */}
           <svg
             viewBox="0 0 318.34 318.34"
-            className="relative w-full h-full drop-shadow-md"
+            data-logo="true"
+            className="logo-rounded relative w-full h-full drop-shadow-lg"
             style={{
               transform: cardTilts[activeCard],
               transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -162,15 +160,15 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
           >
             <defs>
               <linearGradient id="contact-face-grad" x1="109.22" y1="58.65" x2="235.04" y2="311.86" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#5398d2" />
-                <stop offset="1" stopColor="#4c63ae" />
+                <stop offset="0" stopColor="#2563EB" />
+                <stop offset="1" stopColor="#1D4ED8" />
               </linearGradient>
             </defs>
 
-            {/* Body */}
-            <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="0" ry="0" />
+            {/* Body with official brand rounded corners */}
+            <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
 
-            {/* Left eye */}
+            {/* Left wing */}
             <g style={{
               transformOrigin: '125px 140px',
               transform: blinking ? 'scaleY(0.05)' : 'scaleY(1)',

@@ -102,15 +102,22 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <BizFaceLogo size={40} />
-              <span className="text-xl font-bold">
-                Biz<span className="text-primary-400">Suits</span>
-              </span>
+            <Link href="/" className="flex items-center gap-2.5 mb-5">
+              <BizFaceLogo size={36} />
+              <div className="flex flex-col">
+                <span className="text-xl font-bold font-display tracking-tight text-white leading-none">
+                  Biz<span className="text-primary-400">Suits</span>
+                </span>
+                <span className="text-[9px] font-mono tracking-widest text-primary-400 uppercase font-semibold mt-0.5">
+                  Custom Systems
+                </span>
+              </div>
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
-              Practical business tools for retail, farm operations, project work,
-              and document-heavy processes — shaped around the way your team operates.
+            <p className="text-primary-400 font-display font-semibold text-xs tracking-wider uppercase mb-2">
+              Custom Systems. Built for Success.
+            </p>
+            <p className="text-white/60 text-xs leading-relaxed mb-6 max-w-xs font-sans">
+              We build powerful, scalable and secure systems tailored to your business needs — spanning web &amp; mobile, system integration, cloud infrastructure, and business automation.
             </p>
             <div className="space-y-3">
               <a href="mailto:hello@bizsuits.com" className="flex items-center gap-3 text-sm text-white/50 hover:text-white transition-colors">

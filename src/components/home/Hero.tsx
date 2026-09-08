@@ -49,34 +49,38 @@ export default function Hero() {
 
       <div className="container-custom relative z-10 flex box-border min-h-[calc(100svh-4rem)] items-center py-6 md:min-h-[calc(100svh-5rem)] md:py-8 lg:py-10">
         <div className="grid w-full items-center gap-7 md:gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(20rem,0.82fr)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.82fr)] xl:gap-12">
-          <motion.div className="max-w-[34rem] space-y-5 lg:space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
-            <div className="inline-flex items-center gap-2 border border-dark-300 bg-white px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-dark-700 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
-              <span className="h-1.5 w-1.5 bg-primary-600" />
-              Integrated Business Infrastructure
+          <motion.div className="max-w-[34rem] space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
+            <div className="inline-flex items-center gap-2 border border-primary-200 bg-white px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-primary-700 shadow-[2px_2px_0px_0px_rgba(37,99,235,0.15)]">
+              <span className="h-2 w-2 bg-primary-600" />
+              Custom Systems // Built for Success
             </div>
 
-            <h1 className="max-w-[30rem] text-balance text-3xl font-bold leading-[1.02] tracking-[-0.035em] text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
-              BizSuits helps businesses run{' '}
-              <span className="gradient-text">sales, operations, agriculture, and reporting</span>{' '}
-              with more clarity and control.
-            </h1>
+            <div className="space-y-3">
+              <h1 className="max-w-[32rem] text-balance font-display text-3xl font-bold leading-[1.12] tracking-tight text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
+                Custom Systems.{' '}
+                <span className="text-primary-600">Built for Success.</span>
+              </h1>
+              <p className="text-sm font-semibold uppercase tracking-wider text-dark-500 font-mono">
+                Powering Sales, Operations, Agriculture &amp; Business Automation
+              </p>
+            </div>
 
-            <p className="max-w-[29rem] text-pretty text-base leading-[1.75] text-dark-500 md:text-[1.05rem]">
-              Practical tools, clearer processes, and better visibility for the work your team handles every day.
+            <p className="max-w-[29rem] text-pretty text-base leading-relaxed text-dark-600 md:text-[1.05rem]">
+              We build powerful, scalable and secure systems tailored to your business needs — giving your team total clarity, control, and real-time operational visibility.
             </p>
 
-            <div className="flex flex-col gap-3 pt-0.5 sm:flex-row">
-              <Button variant="primary" href="/features" icon={<ArrowRight className="h-4 w-4" />}>
-                See Live Examples
+            <div className="flex flex-col gap-3 pt-1 sm:flex-row">
+              <Button variant="primary" href="/contact" icon={<ArrowRight className="h-4 w-4" />}>
+                Get Started
               </Button>
-              <Button variant="secondary" href="/solutions">
-                Explore Solutions
+              <Button variant="secondary" href="/features">
+                Explore Systems
               </Button>
             </div>
 
             <div className="flex items-center gap-2 border-t border-dark-200 pt-4 text-xs font-medium text-dark-600 md:text-sm">
-              <CheckCircle2 className="h-4 w-4 text-dark-900" />
-              See how key parts of the business can work together before launch.
+              <CheckCircle2 className="h-4 w-4 text-primary-600" />
+              Tailored software, multi-location integration, and ongoing support.
             </div>
           </motion.div>
 

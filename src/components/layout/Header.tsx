@@ -43,11 +43,16 @@ export default function Header() {
     >
       <div className="container-custom">
         <nav className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-2 group">
-            <BizFaceLogo size={40} />
-            <span className="text-xl font-bold text-dark-900">
-              Biz<span className="text-primary-600">Suits</span>
-            </span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <BizFaceLogo size={36} />
+            <div className="flex flex-col">
+              <span className="text-xl font-bold font-display tracking-tight text-dark-900 leading-none">
+                Biz<span className="text-primary-600">Suits</span>
+              </span>
+              <span className="text-[9px] font-mono tracking-widest text-primary-600 uppercase font-semibold hidden sm:inline-block mt-0.5">
+                Custom Systems
+              </span>
+            </div>
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
