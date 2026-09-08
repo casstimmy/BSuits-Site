@@ -17,13 +17,13 @@ export default function Integrations() {
           subtitle="BizSuits connects seamlessly with 100+ apps and services you already use. No data silos, no headaches."
         />
 
-        <div className="grid grid-cols-3 md:grid-cols-5 gap-4 lg:gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-3 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
           {integrations.map((integration) => (
             <div
               key={integration}
-              className="bg-dark-50 rounded-xl p-4 md:p-6 flex items-center justify-center hover:bg-primary-50 hover:border-primary-200 border border-transparent transition-all duration-300 group cursor-pointer"
+              className="border border-dark-200 bg-white p-4 flex items-center justify-center hover:border-dark-900 hover:bg-dark-50 transition-all duration-150 group cursor-default shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]"
             >
-              <span className="text-sm md:text-base font-semibold text-dark-400 group-hover:text-primary-600 transition-colors text-center">
+              <span className="text-xs font-mono uppercase tracking-wider text-dark-600 group-hover:text-dark-950 font-semibold transition-colors text-center">
                 {integration}
               </span>
             </div>

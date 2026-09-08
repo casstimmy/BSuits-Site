@@ -64,7 +64,7 @@ export default function Header() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-lg hover:bg-dark-50 transition-all"
+                className="flex items-center gap-1 px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] text-dark-700 hover:text-dark-950 hover:bg-dark-100 transition-all"
                 onClick={() => setIsProductsOpen((current) => !current)}
                 aria-haspopup="true"
                 aria-expanded={isProductsOpen}
@@ -77,7 +77,7 @@ export default function Header() {
               <div
                 id="solutions-library-menu"
                 className={clsx(
-                  'absolute top-full left-0 mt-2 w-[560px] bg-white rounded-2xl shadow-2xl border border-dark-100 p-4 grid grid-cols-2 gap-2 transition-all duration-200',
+                  'absolute top-full left-0 mt-2 w-[560px] bg-white shadow-[6px_6px_0px_0px_rgba(15,23,42,0.12)] border border-dark-900 p-4 grid grid-cols-2 gap-2 transition-all duration-200',
                   isProductsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
                 )}
               >
@@ -85,14 +85,14 @@ export default function Header() {
                   <Link
                     key={product.slug}
                     href={product.href}
-                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-primary-50 transition-colors group"
+                    className="flex items-start gap-3 p-3 border border-transparent hover:border-dark-200 hover:bg-dark-50 transition-colors group"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center shrink-0 group-hover:bg-primary-200 transition-colors">
-                      <product.icon className="w-5 h-5 text-primary-600" />
+                    <div className="w-10 h-10 border border-dark-200 bg-dark-50 flex items-center justify-center shrink-0 group-hover:bg-dark-900 group-hover:text-white transition-colors">
+                      <product.icon className="w-5 h-5 text-dark-700 group-hover:text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-dark-900">{product.name}</p>
-                      <p className="text-xs text-dark-500">{product.category}</p>
+                      <p className="text-sm font-bold text-dark-900">{product.name}</p>
+                      <p className="text-xs text-dark-500 font-mono uppercase tracking-wider">{product.category}</p>
                     </div>
                   </Link>
                 ))}
@@ -107,10 +107,10 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   className={clsx(
-                    'px-4 py-2 text-sm font-medium rounded-lg transition-all',
+                    'px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] transition-all',
                     isActive
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-dark-600 hover:text-dark-900 hover:bg-dark-50'
+                      ? 'text-dark-950 font-bold border-b-2 border-dark-950 bg-dark-50'
+                      : 'text-dark-600 hover:text-dark-950 hover:bg-dark-50'
                   )}
                 >
                   {link.name}
@@ -127,7 +127,7 @@ export default function Header() {
 
           <button
             type="button"
-            className="lg:hidden p-2 rounded-lg hover:bg-dark-50 transition-colors"
+            className="lg:hidden p-2 border border-dark-200 hover:bg-dark-50 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -146,10 +146,10 @@ export default function Header() {
           isMobileMenuOpen ? 'max-h-[640px] opacity-100' : 'max-h-0 opacity-0'
         )}
       >
-        <div className="bg-white border-t border-dark-100 px-4 py-6 space-y-2">
+        <div className="bg-white border-t border-dark-200 px-4 py-6 space-y-2">
           <Link
             href="/features"
-            className="block px-4 py-3 text-sm font-medium text-dark-600 hover:text-dark-900 rounded-xl hover:bg-dark-50 transition-all"
+            className="block px-4 py-3 text-xs font-semibold uppercase tracking-wider text-dark-700 hover:text-dark-950 hover:bg-dark-50 transition-all border border-transparent hover:border-dark-200"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Live Demos
@@ -162,10 +162,10 @@ export default function Header() {
                 key={link.name}
                 href={link.href}
                 className={clsx(
-                  'block px-4 py-3 text-sm font-medium rounded-xl transition-all',
+                  'block px-4 py-3 text-xs font-semibold uppercase tracking-wider transition-all border border-transparent',
                   isActive
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-dark-600 hover:text-dark-900 hover:bg-dark-50'
+                    ? 'text-dark-950 bg-dark-50 border-dark-200 font-bold'
+                    : 'text-dark-600 hover:text-dark-950 hover:bg-dark-50'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >

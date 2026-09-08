@@ -9,11 +9,7 @@ export default function CTA() {
   return (
     <section className="py-20 md:py-28 gradient-bg relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/[0.02] rounded-full" />
-      </div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-15" />
 
       <div className="container-custom relative z-10 text-center">
         <motion.div
@@ -22,11 +18,16 @@ export default function CTA() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 text-balance">
+        <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-white/80 mb-6">
+          <span className="h-1.5 w-1.5 bg-primary-400" />
+          Enterprise Deployment
+        </div>
+
+        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 text-balance tracking-tight">
           Ready to run the business with more{' '}
           <span className="text-primary-300">clarity and control</span>?
         </h2>
-        <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8">
+        <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed">
           BizSuits brings sales, operations, reporting, and team visibility together around the way your business already works.
         </p>
 
@@ -43,23 +44,23 @@ export default function CTA() {
             variant="ghost"
             size="lg"
             href="/pricing"
-            className="!text-white hover:!bg-white/10"
+            className="!text-white border-white/20 hover:!bg-white/10 hover:border-white/40"
           >
             View Pricing
           </Button>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-accent-400" />
+        <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-mono uppercase tracking-wider text-white/60">
+          <div className="flex items-center gap-2 border border-white/10 px-3 py-1.5 bg-white/5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-primary-400" />
             Built Around Your Business
           </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-accent-400" />
+          <div className="flex items-center gap-2 border border-white/10 px-3 py-1.5 bg-white/5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-primary-400" />
             Setup And Training Included
           </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-accent-400" />
+          <div className="flex items-center gap-2 border border-white/10 px-3 py-1.5 bg-white/5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-primary-400" />
             Ready For Daily Operations
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
@@ -21,19 +21,16 @@ export default function SolutionsPage() {
   return (
     <>
       <section className="pt-28 md:pt-36 pb-16 md:pb-24 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200/20 rounded-full blur-3xl" />
-        </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
         <div className="container-custom relative z-10 text-center">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Business Areas
+          <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
+            SOLUTION DOMAINS
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance tracking-tight">
             Explore where BizSuits can strengthen{' '}
-            <span className="text-primary-600">day-to-day operations</span>
+            <span className="gradient-text">day-to-day operations</span>
           </h1>
-          <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto leading-relaxed">
             Each area brings together the visibility, coordination, and support teams need to work better every day.
           </p>
         </div>
@@ -44,11 +41,11 @@ export default function SolutionsPage() {
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {deliveryTracks.map((track) => (
               <Card key={track.id} elevated className="text-center">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.gradient} text-white flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-                  <track.icon className="w-7 h-7" />
+                <div className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0px_0px_rgba(15,23,42,0.9)]">
+                  <track.icon className="w-6 h-6 text-white" />
                 </div>
-                <p className="text-lg font-bold text-dark-900">{getSolutionTitle(track.id, track.title)}</p>
-                <p className="text-sm text-dark-400 mt-2">{getAppsForTrack(track.appSlugs).length} examples</p>
+                <p className="text-base font-bold text-dark-900">{getSolutionTitle(track.id, track.title)}</p>
+                <p className="text-xs font-mono uppercase tracking-wider text-dark-500 mt-2">{getAppsForTrack(track.appSlugs).length} verified modules</p>
               </Card>
             ))}
           </div>
@@ -64,8 +61,8 @@ export default function SolutionsPage() {
           />
 
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-stretch mb-20 md:mb-24">
-            <Card elevated padding="lg" className="overflow-hidden bg-gradient-to-br from-dark-50 to-white">
-              <div className="relative overflow-hidden rounded-2xl border border-dark-100 bg-white">
+            <Card elevated padding="lg" className="overflow-hidden bg-dark-50/50">
+              <div className="relative overflow-hidden border border-dark-300 bg-white">
                 <Image
                   src="/images/Inventory System preview.png"
                   alt="Retail and warehouse commerce reference view"
@@ -77,26 +74,28 @@ export default function SolutionsPage() {
               </div>
             </Card>
 
-            <Card elevated padding="lg" className="bg-dark-50/60 border border-dark-100">
-              <p className="text-sm font-semibold text-primary-600 mb-2">Reference image</p>
-              <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-4">
-                Retail and warehouse activity offers a clear starting point
-              </h2>
-              <p className="text-dark-500 leading-relaxed mb-6">
-                This view shows how teams can manage stock, oversight, and day-to-day work without losing operational visibility.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-dark-600">Compare roles, responsibilities, and handoff points.</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-dark-600">Focus on business fit instead of screen-by-screen detail.</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-dark-600">Apply the same clarity across farm, operations, and document-heavy work.</span>
+            <Card elevated padding="lg" className="bg-dark-50/70 border border-dark-200 flex flex-col justify-between">
+              <div>
+                <p className="text-xs font-mono uppercase tracking-wider text-primary-700 font-semibold mb-2">REFERENCE BENCHMARK</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-4 tracking-tight">
+                  Retail and warehouse activity offers a clear starting point
+                </h2>
+                <p className="text-sm text-dark-600 leading-relaxed mb-6">
+                  This view shows how teams can manage stock, oversight, and day-to-day work without losing operational visibility.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <span className="text-dark-900 font-bold text-xs">—</span>
+                    <span className="text-xs text-dark-700">Compare roles, responsibilities, and handoff points across desks.</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-dark-900 font-bold text-xs">—</span>
+                    <span className="text-xs text-dark-700">Focus on business fit instead of disconnected screen-by-screen detail.</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-dark-900 font-bold text-xs">—</span>
+                    <span className="text-xs text-dark-700">Apply the same structural clarity across farm, operations, and document-heavy work.</span>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -115,46 +114,44 @@ export default function SolutionsPage() {
                 <Card elevated padding="lg" className="bg-white">
                   <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-start">
                     <div>
-                      <div
-                        className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center mb-5 shadow-lg`}
-                      >
-                        <solution.icon className="w-7 h-7 text-white" />
+                      <div className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mb-5 shadow-[3px_3px_0px_0px_rgba(15,23,42,0.9)]">
+                        <solution.icon className="w-6 h-6 text-white" />
                       </div>
-                      <p className="text-sm font-semibold text-primary-600 mb-2">Business focus</p>
-                      <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-4">
+                      <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary-700 mb-2">DOMAIN // {solution.id}</p>
+                      <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-3 tracking-tight">
                         {solutionTitle}
                       </h2>
-                      <p className="text-lg text-dark-500 leading-relaxed mb-6">
+                      <p className="text-sm text-dark-600 leading-relaxed mb-6">
                         {solution.summary}
                       </p>
-                      <div className="space-y-3 mb-8">
+                      <div className="space-y-2 mb-8">
                         {solution.capabilities.map((benefit) => (
-                          <div key={benefit} className="flex items-start gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-accent-500 mt-0.5 shrink-0" />
-                            <span className="text-sm text-dark-600">{benefit}</span>
+                          <div key={benefit} className="flex items-start gap-2.5">
+                            <span className="text-dark-900 font-bold text-xs">—</span>
+                            <span className="text-xs text-dark-700 leading-relaxed">{benefit}</span>
                           </div>
                         ))}
                       </div>
-                      <Button variant="primary" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
+                      <Button variant="primary" href="/contact" icon={<ArrowRight className="w-4 h-4" />}>
                         Talk About This Area
                       </Button>
                     </div>
 
-                    <div className="rounded-2xl border border-dark-100 bg-dark-50/70 p-5 md:p-6">
-                      <div className="flex items-center justify-between gap-3 mb-4">
-                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-dark-400">
-                          What this area covers
+                    <div className="border border-dark-200 bg-dark-50/70 p-5 md:p-6">
+                      <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-dark-200">
+                        <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-dark-600">
+                          Active Component Systems
                         </p>
-                        <span className="text-xs font-medium text-primary-600">{apps.length} examples</span>
+                        <span className="text-[10px] font-mono font-semibold uppercase bg-white border border-dark-200 px-2 py-0.5 text-dark-800">{apps.length} modules</span>
                       </div>
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         {apps.map((app) => (
-                          <div key={app.slug} className="rounded-xl border border-dark-100 bg-white p-4">
-                            <div className="flex items-center justify-between gap-3 mb-2">
-                              <p className="text-sm font-semibold text-dark-900">{app.name}</p>
-                              <span className="text-xs font-medium text-primary-600">{app.deliveryMode}</span>
+                          <div key={app.slug} className="border border-dark-200 bg-white p-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]">
+                            <div className="flex items-center justify-between gap-3 mb-1.5">
+                              <p className="text-sm font-bold text-dark-900">{app.name}</p>
+                              <span className="text-[10px] font-mono uppercase tracking-wider text-dark-500 border border-dark-100 px-2 py-0.5 bg-dark-50">{app.deliveryMode}</span>
                             </div>
-                            <p className="text-sm text-dark-500 leading-relaxed">{app.summary}</p>
+                            <p className="text-xs text-dark-600 leading-relaxed">{app.summary}</p>
                           </div>
                         ))}
                       </div>
@@ -169,10 +166,10 @@ export default function SolutionsPage() {
 
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
             Need support across multiple business areas?
           </h2>
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
+          <p className="text-base text-white/70 max-w-xl mx-auto mb-8">
             BizSuits can bring sales, operations, reporting, and oversight into one clearer way of working.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -183,7 +180,7 @@ export default function SolutionsPage() {
               variant="ghost"
               size="lg"
               href="/features"
-              className="!text-white hover:!bg-white/10"
+              className="!text-white border-white/20 hover:!bg-white/10"
             >
               Explore Business Areas
             </Button>

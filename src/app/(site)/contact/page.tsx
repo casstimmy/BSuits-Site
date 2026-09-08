@@ -131,12 +131,12 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.9 }}
             transition={{ duration: 0.35 }}
-            className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white rounded-full px-4 py-1.5 shadow-lg border border-primary-100 z-10"
+            className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white border border-dark-950 px-3 py-1 text-xs font-mono font-bold text-dark-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] z-10"
           >
-            <span className="text-xs font-semibold text-primary-700">
+            <span className="text-xs font-mono font-semibold text-dark-900">
               {cardMessages[activeCard].text}
             </span>
-            <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-primary-100 rotate-45" />
+            <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-dark-950 rotate-45" />
           </motion.div>
         </AnimatePresence>
 
@@ -147,17 +147,13 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
           style={{ perspective: '600px' }}
         >
-          {/* Glow */}
-          <motion.div
-            className="absolute inset-0 rounded-3xl bg-primary-500/20 blur-xl"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
+          {/* Subtle frame */}
+          <div className="absolute inset-0 border border-dark-200/50 -m-1" />
 
           {/* The SVG face — tilts toward the active card */}
           <svg
             viewBox="0 0 318.34 318.34"
-            className="relative w-full h-full drop-shadow-lg"
+            className="relative w-full h-full drop-shadow-md"
             style={{
               transform: cardTilts[activeCard],
               transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -172,7 +168,7 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             </defs>
 
             {/* Body */}
-            <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
+            <rect fill="url(#contact-face-grad)" width="318.34" height="318.34" rx="0" ry="0" />
 
             {/* Left eye */}
             <g style={{
@@ -299,30 +295,30 @@ export default function ContactPage() {
     <>
       {/* Hero */}
       <section className="pt-28 md:pt-36 pb-16 md:pb-20 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
-        </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
         <div className="container-custom relative z-10 text-center">
           <AnimatedLogo activeCard={activeCard} />
-          <motion.span
-            className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4"
+          <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
+            className="mt-4 mb-4"
           >
-            Get In Touch
-          </motion.span>
+            <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
+              ENGAGEMENT INQUIRY
+            </span>
+          </motion.div>
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 tracking-tight"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.1 }}
           >
-            Talk to a <span className="text-primary-600">BizSuits specialist</span>
+            Talk to a <span className="gradient-text">BizSuits specialist</span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-dark-500 max-w-2xl mx-auto"
+            className="text-base md:text-lg text-dark-600 max-w-2xl mx-auto leading-relaxed"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
@@ -353,20 +349,20 @@ export default function ContactPage() {
               >
                 <Card
                   elevated
-                  className={`text-center group cursor-pointer h-full transition-all duration-500 ${
+                  className={`text-center group cursor-pointer h-full transition-all duration-300 border-2 ${
                     activeCard === index
-                      ? `ring-2 ${method.glowColor} shadow-lg scale-[1.03]`
-                      : ''
+                      ? 'border-dark-950 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)] bg-white'
+                      : 'border-dark-200 hover:border-dark-900'
                   }`}
                 >
                   <div
-                    className={`w-14 h-14 rounded-2xl ${method.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}
+                    className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mx-auto mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] group-hover:bg-primary-600 transition-colors"
                   >
-                    <method.icon className="w-7 h-7" />
+                    <method.icon className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold text-dark-900 mb-2">{method.title}</h3>
-                  <p className="text-sm text-dark-500 mb-3">{method.description}</p>
-                  <p className="text-sm font-semibold text-primary-600">{method.action}</p>
+                  <h3 className="text-base font-bold text-dark-900 mb-1.5">{method.title}</h3>
+                  <p className="text-xs text-dark-500 mb-3 leading-relaxed">{method.description}</p>
+                  <p className="text-xs font-mono uppercase tracking-wider font-semibold text-primary-700">{method.action}</p>
                 </Card>
               </motion.a>
             ))}
@@ -375,7 +371,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form + Info */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white border-t border-dark-200">
         <div className="container-custom">
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Form */}
@@ -386,32 +382,32 @@ export default function ContactPage() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-2">
+              <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-2 tracking-tight">
                 Send us a message
               </h2>
-              <p className="text-dark-500 mb-8">
+              <p className="text-xs md:text-sm text-dark-500 mb-8">
                 Fill out the form below and we&apos;ll get back to you within 24 hours.
               </p>
 
               {isSubmitted ? (
-                <Card elevated padding="lg" className="text-center">
-                  <CheckCircle2 className="w-16 h-16 text-accent-500 mx-auto mb-4" />
+                <Card elevated padding="lg" className="text-center border-2 border-dark-950 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)]">
+                  <CheckCircle2 className="w-12 h-12 text-dark-950 mx-auto mb-4" />
                   <h3 className="text-xl font-bold text-dark-900 mb-2">Message Sent!</h3>
-                  <p className="text-dark-500">
+                  <p className="text-sm text-dark-600">
                     Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                   </p>
                 </Card>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {submitError ? (
-                    <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                    <div className="border border-rose-300 bg-rose-50 px-4 py-3 text-xs font-mono text-rose-700">
                       {submitError}
                     </div>
                   ) : null}
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-dark-700 mb-1.5">
+                      <label htmlFor="firstName" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                         First Name *
                       </label>
                       <input
@@ -421,12 +417,12 @@ export default function ContactPage() {
                         required
                         value={formData.firstName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm"
+                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
                         placeholder="John"
                       />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-dark-700 mb-1.5">
+                      <label htmlFor="lastName" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                         Last Name *
                       </label>
                       <input
@@ -436,7 +432,7 @@ export default function ContactPage() {
                         required
                         value={formData.lastName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm"
+                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
                         placeholder="Doe"
                       />
                     </div>
@@ -444,7 +440,7 @@ export default function ContactPage() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-dark-700 mb-1.5">
+                      <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                         Email Address *
                       </label>
                       <input
@@ -454,12 +450,12 @@ export default function ContactPage() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm"
+                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
                         placeholder="john@company.com"
                       />
                     </div>
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-dark-700 mb-1.5">
+                      <label htmlFor="company" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                         Company
                       </label>
                       <input
@@ -468,14 +464,14 @@ export default function ContactPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm"
+                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
                         placeholder="Acme Inc."
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-dark-700 mb-1.5">
+                    <label htmlFor="phone" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                       Phone
                     </label>
                     <input
@@ -484,13 +480,13 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm"
+                      className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
                       placeholder="+234..."
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-dark-700 mb-1.5">
+                    <label htmlFor="subject" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                       Subject
                     </label>
                     <select
@@ -498,7 +494,7 @@ export default function ContactPage() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm bg-white"
+                      className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans bg-white"
                     >
                       <option value="general">General Inquiry</option>
                       <option value="sales">Sales & Pricing</option>
@@ -510,7 +506,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-dark-700 mb-1.5">
+                    <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
                       Message *
                     </label>
                     <textarea
@@ -520,7 +516,7 @@ export default function ContactPage() {
                       rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm resize-none"
+                      className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans resize-none"
                       placeholder="Tell us how we can help..."
                     />
                   </div>
@@ -530,7 +526,7 @@ export default function ContactPage() {
                     size="lg"
                     type="submit"
                     disabled={isSubmitting}
-                    icon={<Send className="w-5 h-5" />}
+                    icon={<Send className="w-4 h-4" />}
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
@@ -598,7 +594,7 @@ export default function ContactPage() {
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <p className="text-sm font-semibold text-dark-900">{office.city}</p>
-                            <span className="text-xs bg-dark-100 text-dark-500 px-2 py-0.5 rounded-full">
+                            <span className="text-[10px] font-mono uppercase tracking-wider bg-dark-50 text-dark-700 px-2 py-0.5 border border-dark-200">
                               {office.type}
                             </span>
                           </div>

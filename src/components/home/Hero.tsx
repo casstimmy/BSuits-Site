@@ -43,17 +43,18 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden gradient-bg-light">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200/30 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-100/20 rounded-full blur-3xl" />
-      </div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-60" />
 
       <div aria-hidden className="h-16 md:h-20" />
 
       <div className="container-custom relative z-10 flex box-border min-h-[calc(100svh-4rem)] items-center py-6 md:min-h-[calc(100svh-5rem)] md:py-8 lg:py-10">
         <div className="grid w-full items-center gap-7 md:gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(20rem,0.82fr)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.82fr)] xl:gap-12">
           <motion.div className="max-w-[34rem] space-y-5 lg:space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
+            <div className="inline-flex items-center gap-2 border border-dark-300 bg-white px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-dark-700 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
+              <span className="h-1.5 w-1.5 bg-primary-600" />
+              Integrated Business Infrastructure
+            </div>
+
             <h1 className="max-w-[30rem] text-balance text-3xl font-bold leading-[1.02] tracking-[-0.035em] text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
               BizSuits helps businesses run{' '}
               <span className="gradient-text">sales, operations, agriculture, and reporting</span>{' '}
@@ -73,8 +74,8 @@ export default function Hero() {
               </Button>
             </div>
 
-            <div className="flex items-center gap-2 border-t border-dark-100/70 pt-4 text-xs text-dark-400 md:text-sm">
-              <CheckCircle2 className="h-4 w-4 text-accent-500" />
+            <div className="flex items-center gap-2 border-t border-dark-200 pt-4 text-xs font-medium text-dark-600 md:text-sm">
+              <CheckCircle2 className="h-4 w-4 text-dark-900" />
               See how key parts of the business can work together before launch.
             </div>
           </motion.div>
@@ -85,42 +86,42 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-            <div className="relative flex min-h-[22.5rem] max-h-[60svh] flex-col overflow-hidden rounded-3xl border border-dark-100 bg-white shadow-2xl lg:max-h-[min(58svh,36rem)]">
-              <div className="border-b border-dark-100 bg-dark-900 px-4 py-3 text-white md:px-4.5 md:py-3.5">
+            <div className="relative flex min-h-[22.5rem] max-h-[60svh] flex-col overflow-hidden border-2 border-dark-950 bg-white shadow-[8px_8px_0px_0px_rgba(15,23,42,0.9)] lg:max-h-[min(58svh,36rem)]">
+              <div className="border-b-2 border-dark-950 bg-dark-950 px-4 py-3 text-white md:px-4.5 md:py-3.5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/45">Business preview</p>
-                    <h2 className="text-sm font-semibold md:text-base">See daily operations in action</h2>
-                    <p className="mt-1 max-w-md text-[11px] leading-relaxed text-white/60 md:text-xs">
-                      A closer look at how BizSuits supports sales, oversight, and day-to-day work.
+                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/60 font-mono">SYSTEM WORKSPACE // 0{activeTab + 1}</p>
+                    <h2 className="text-sm font-bold md:text-base tracking-tight">Live Operations Console</h2>
+                    <p className="mt-0.5 max-w-md text-[11px] leading-relaxed text-white/70">
+                      Real operational workflows running across frontline desks and management.
                     </p>
                   </div>
-                  <div className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium text-white/80">
-                    {activeTab + 1}/{systemPreviews.length}
+                  <div className="shrink-0 border border-white/20 bg-white/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest text-white/90">
+                    0{activeTab + 1} / 0{systemPreviews.length}
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 border-b border-dark-100 bg-dark-50/60 p-2.5 md:px-3 md:py-3">
+              <div className="flex flex-wrap gap-1.5 border-b border-dark-200 bg-dark-50 p-2.5 md:px-3 md:py-3">
                 {systemPreviews.map((sys, idx) => (
                   <button
                     key={sys.slug}
                     type="button"
                     onClick={() => setActiveTab(idx)}
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[10px] font-semibold whitespace-nowrap transition-all md:text-[11px] ${
+                    className={`inline-flex items-center gap-2 border px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider whitespace-nowrap transition-all md:text-[11px] ${
                       activeTab === idx
-                        ? 'border-primary-200 bg-white text-primary-600 shadow-sm'
-                        : 'border-transparent bg-transparent text-dark-400 hover:border-dark-200 hover:bg-white hover:text-dark-700'
+                        ? 'border-dark-950 bg-white text-dark-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] font-bold'
+                        : 'border-dark-200 bg-transparent text-dark-500 hover:border-dark-400 hover:bg-white hover:text-dark-900'
                     }`}
                   >
-                    <span className={`h-2 w-2 rounded-full shrink-0 ${sys.accent}`} />
+                    <span className={`h-1.5 w-1.5 shrink-0 ${sys.accent}`} />
                     {sys.label}
                   </button>
                 ))}
               </div>
 
-              <div className="flex flex-1 flex-col p-3.5 md:p-4">
-                <div className="relative min-h-[15rem] flex-1 overflow-hidden rounded-2xl border border-dark-100 bg-dark-50 max-h-[42vh] lg:max-h-none">
+              <div className="flex flex-1 flex-col p-3.5 md:p-4 bg-white">
+                <div className="relative min-h-[15rem] flex-1 overflow-hidden border border-dark-200 bg-dark-50 max-h-[42vh] lg:max-h-none">
                   <Image
                     key={active.slug}
                     src={active.image}
@@ -131,12 +132,12 @@ export default function Hero() {
                     priority={activeTab === 0}
                   />
                 </div>
-                <div className="mt-3 flex items-center justify-between gap-4">
+                <div className="mt-3 flex items-center justify-between gap-4 border-t border-dark-100 pt-2.5">
                   <div className="min-w-0">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-600">
-                      {active.label}
+                    <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-primary-700">
+                      SYS // {active.label}
                     </p>
-                    <p className="truncate text-sm font-semibold text-dark-900">{active.name}</p>
+                    <p className="truncate text-sm font-bold text-dark-900">{active.name}</p>
                   </div>
                   <div className="flex gap-1.5">
                     {systemPreviews.map((_, idx) => (
@@ -144,8 +145,8 @@ export default function Hero() {
                         key={idx}
                         type="button"
                         onClick={() => setActiveTab(idx)}
-                        className={`h-2 rounded-full transition-all ${
-                          activeTab === idx ? 'w-5 bg-primary-500' : 'w-2 bg-dark-200 hover:bg-dark-400'
+                        className={`h-1.5 transition-all ${
+                          activeTab === idx ? 'w-6 bg-dark-950' : 'w-2 bg-dark-200 hover:bg-dark-500'
                         }`}
                         aria-label={`View ${systemPreviews[idx].name}`}
                       />

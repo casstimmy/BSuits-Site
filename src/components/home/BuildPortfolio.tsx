@@ -29,31 +29,32 @@ export default function BuildPortfolio() {
             <motion.div key={app.slug} variants={staggerItem}>
               <Card elevated className="h-full group">
                 <div className="flex items-start justify-between gap-4 mb-5">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-lg`}>
-                    <app.icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(15,23,42,0.9)] group-hover:bg-primary-600 transition-colors">
+                    <app.icon className="w-6 h-6 text-white" />
                   </div>
-                  <span className="rounded-full bg-dark-50 px-3 py-1 text-xs font-semibold text-dark-500 border border-dark-100">
+                  <span className="font-mono text-[10px] uppercase tracking-wider bg-dark-50 px-2.5 py-1 text-dark-700 border border-dark-200">
                     {app.deliveryMode}
                   </span>
                 </div>
 
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600 mb-2">
+                <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-primary-700 mb-2">
                   {app.category}
                 </p>
                 <h3 className="text-xl font-bold text-dark-900 mb-3">{app.name}</h3>
-                <p className="text-dark-500 leading-relaxed mb-5">{app.summary}</p>
+                <p className="text-dark-600 leading-relaxed mb-5 text-sm">{app.summary}</p>
 
                 <div className="space-y-2 mb-5">
                   {app.modules.slice(0, 3).map((module) => (
-                    <p key={module} className="text-sm text-dark-500 leading-relaxed">
-                      {module}
+                    <p key={module} className="text-xs text-dark-500 leading-relaxed flex items-start gap-2">
+                      <span className="text-dark-900 font-bold">—</span>
+                      <span>{module}</span>
                     </p>
                   ))}
                 </div>
 
-                <div className="rounded-2xl bg-dark-50 border border-dark-100 p-4 mb-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-dark-400 mb-2">Why it matters</p>
-                  <p className="text-sm font-medium text-dark-700">{app.status}</p>
+                <div className="border border-dark-200 bg-dark-50/70 p-4 mb-5">
+                  <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-dark-500 mb-1.5">Operational Role</p>
+                  <p className="text-xs font-medium text-dark-800 leading-relaxed">{app.status}</p>
                 </div>
 
                 <Button variant="secondary" href={app.href} className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>

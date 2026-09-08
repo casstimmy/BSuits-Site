@@ -21,20 +21,22 @@ export default function SectionHeading({
   return (
     <div className={clsx(centered && 'text-center', 'mb-12 md:mb-16', className)}>
       {badge && (
-        <span
-          className={clsx(
-            'inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold mb-4',
-            dark
-              ? 'bg-white/10 text-white/90'
-              : 'bg-primary-100 text-primary-700'
-          )}
-        >
-          {badge}
-        </span>
+        <div className="mb-4">
+          <span
+            className={clsx(
+              'inline-flex items-center px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] border',
+              dark
+                ? 'border-white/20 bg-white/5 text-white/90'
+                : 'border-dark-300 bg-dark-50 text-dark-800'
+            )}
+          >
+            {badge}
+          </span>
+        </div>
       )}
       <h2
         className={clsx(
-          'text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-balance',
+          'text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-balance tracking-tight',
           dark ? 'text-white' : 'text-dark-900'
         )}
       >
@@ -43,9 +45,9 @@ export default function SectionHeading({
       {subtitle && (
         <p
           className={clsx(
-            'text-lg md:text-xl max-w-3xl',
+            'text-base md:text-lg max-w-3xl leading-relaxed',
             centered && 'mx-auto',
-            dark ? 'text-white/70' : 'text-dark-500'
+            dark ? 'text-white/70' : 'text-dark-600'
           )}
         >
           {subtitle}

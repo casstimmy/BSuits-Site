@@ -88,7 +88,7 @@ export default function Footer() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg text-white font-semibold rounded-xl border-2 border-white/20 hover:bg-white/10 transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center px-8 py-4 text-xs uppercase tracking-[0.16em] text-white font-medium border border-white/30 hover:border-white hover:bg-white/10 transition-all whitespace-nowrap"
               >
                 Contact Sales
               </Link>
@@ -179,7 +179,7 @@ export default function Footer() {
                 <a
                   key={social.name}
                   href={social.href}
-                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+                  className="w-9 h-9 border border-white/10 bg-white/5 flex items-center justify-center hover:bg-white/10 hover:border-white/30 transition-colors"
                   aria-label={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -189,7 +189,7 @@ export default function Footer() {
               ) : (
                 <span
                   key={social.name}
-                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-white/35"
+                  className="w-9 h-9 border border-white/5 bg-white/5 flex items-center justify-center text-white/35"
                   aria-label={`${social.name} coming soon`}
                   title={`${social.name} coming soon`}
                 >

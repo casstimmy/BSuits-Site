@@ -23,7 +23,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   secondary: 'btn-secondary',
   accent: 'btn-accent',
   dark: 'btn-dark',
-  ghost: 'inline-flex items-center justify-center px-6 py-3 text-dark-600 font-semibold rounded-xl hover:bg-dark-50 transition-all duration-200',
+  ghost: 'inline-flex items-center justify-center px-6 py-3 text-dark-700 font-medium text-xs tracking-[0.16em] uppercase border border-transparent hover:border-dark-300 hover:bg-dark-50 transition-all duration-150',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

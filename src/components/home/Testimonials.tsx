@@ -78,30 +78,32 @@ export default function Testimonials() {
           {testimonials.map((testimonial) => (
             <motion.div key={testimonial.name} variants={staggerItem}>
             <div
-              className={`${testimonial.bgColor} rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-dark-100/50 hover:-translate-y-1`}
+              className="bg-white border border-dark-200 p-6 shadow-[4px_4px_0px_0px_rgba(15,23,42,0.06)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,0.12)] hover:border-dark-900 transition-all h-full flex flex-col justify-between"
             >
-              {/* Chat Header */}
-              <div className="flex items-center gap-3 mb-4 pb-3 border-b border-dark-200/30">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">{testimonial.avatar}</span>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-dark-900">{testimonial.name}</p>
-                  <p className="text-xs text-dark-400">{testimonial.role}</p>
-                </div>
-              </div>
-
-              {/* Chat Bubbles */}
-              <div className="space-y-2">
-                {testimonial.messages.map((msg) => (
-                  <div key={`${testimonial.name}-${msg.time}`} className="bg-white rounded-2xl rounded-tl-md px-4 py-2.5 shadow-sm max-w-[95%]">
-                    <p className="text-sm text-dark-700 leading-relaxed">{msg.text}</p>
-                    <div className="flex items-center justify-end gap-1 mt-1">
-                      <span className="text-[10px] text-dark-300">{msg.time}</span>
-                      <CheckCheck className="w-3.5 h-3.5 text-blue-500" />
-                    </div>
+              <div>
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-5 pb-4 border-b border-dark-100">
+                  <div className="w-10 h-10 border border-dark-900 bg-dark-950 text-white flex items-center justify-center font-mono text-xs font-bold shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)]">
+                    {testimonial.avatar}
                   </div>
-                ))}
+                  <div>
+                    <p className="text-sm font-bold text-dark-900">{testimonial.name}</p>
+                    <p className="text-xs font-mono uppercase tracking-wider text-dark-500">{testimonial.role}</p>
+                  </div>
+                </div>
+
+                {/* Dispatch notes */}
+                <div className="space-y-2.5">
+                  {testimonial.messages.map((msg) => (
+                    <div key={`${testimonial.name}-${msg.time}`} className="bg-dark-50/70 border border-dark-200 p-3.5 text-left">
+                      <p className="text-xs text-dark-700 leading-relaxed font-sans">{msg.text}</p>
+                      <div className="flex items-center justify-end gap-1 mt-2 border-t border-dark-100/60 pt-1">
+                        <span className="text-[10px] font-mono text-dark-400">{msg.time}</span>
+                        <CheckCheck className="w-3.5 h-3.5 text-primary-600" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             </motion.div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
@@ -24,25 +24,22 @@ export default function FeaturesPage() {
   return (
     <>
       <section className="pt-28 md:pt-36 pb-16 md:pb-24 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200/20 rounded-full blur-3xl" />
-        </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
         <div className="container-custom relative z-10 text-center">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Solution Capabilities
+          <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
+            SYSTEM SPECIFICATION
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance tracking-tight">
             Features organized by{' '}
             <span className="gradient-text">what each solution includes</span>
           </h1>
-          <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
+          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto mb-8 leading-relaxed">
             Each BizSuits solution is made up of connected systems. Explore what every system brings
             to the table — the modules, workflows, and surfaces it delivers.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="primary" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
-              Try the Demos
+            <Button variant="primary" size="lg" href="/features" icon={<ArrowRight className="w-4 h-4" />}>
+              Explore Systems
             </Button>
             <Button variant="secondary" size="lg" href="/solutions">
               Explore Solutions
@@ -50,7 +47,6 @@ export default function FeaturesPage() {
           </div>
         </div>
       </section>
-
 
       <section className="section-padding bg-white">
         <div className="container-custom">
@@ -68,30 +64,28 @@ export default function FeaturesPage() {
               <div
                 key={track.id}
                 id={track.id}
-                className={trackIndex < deliveryTracks.length - 1 ? 'mb-24 md:mb-32' : ''}
+                className={trackIndex < deliveryTracks.length - 1 ? 'mb-20 md:mb-28' : ''}
               >
                 {/* Track header */}
-                <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start mb-10">
-                  <div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.gradient} flex items-center justify-center shadow-lg shrink-0`}
-                  >
-                    <track.icon className="w-8 h-8 text-white" />
+                <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start mb-10 pb-8 border-b border-dark-200">
+                  <div className="w-14 h-14 border border-dark-900 bg-dark-950 text-white flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(15,23,42,0.9)] shrink-0">
+                    <track.icon className="w-7 h-7 text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-primary-600 mb-1 uppercase tracking-wider">
-                      Solution Track
+                    <p className="text-xs font-mono font-semibold text-primary-700 mb-1 uppercase tracking-wider">
+                      TRACK // {track.id}
                     </p>
-                    <h2 className="text-3xl md:text-4xl font-bold text-dark-900 mb-3">
+                    <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-3 tracking-tight">
                       {track.title}
                     </h2>
-                    <p className="text-lg text-dark-500 leading-relaxed mb-5">{track.summary}</p>
+                    <p className="text-sm md:text-base text-dark-600 leading-relaxed mb-5">{track.summary}</p>
                     <div className="flex flex-wrap gap-3">
                       <Button
                         variant="primary"
                         href={demoHref}
-                        icon={<ExternalLink className="w-4 h-4" />}
+                        icon={<ExternalLink className="w-3.5 h-3.5" />}
                       >
-                        Try Demo
+                        Inspect Track
                       </Button>
                       <Button variant="secondary" href="/contact">
                         Discuss This Solution
@@ -100,7 +94,7 @@ export default function FeaturesPage() {
                   </div>
                 </div>
 
-                {/* Component systems (the "features" of this solution) */}
+                {/* Component systems */}
                 <div
                   className={`grid gap-6 ${
                     apps.length === 1
@@ -113,9 +107,8 @@ export default function FeaturesPage() {
                   {apps.map((app) => (
                     <div key={app.slug} id={app.slug} className="scroll-mt-32">
                       <Card elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
-                      {/* Preview image (POS screenshot) */}
                       {app.previewImage && (
-                        <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden rounded-t-2xl">
+                        <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden border-b border-dark-200 bg-dark-50">
                           <Image
                             src={app.previewImage}
                             alt={`${app.name} preview`}
@@ -126,26 +119,25 @@ export default function FeaturesPage() {
                       )}
                       {/* App header */}
                       <div className="flex items-center gap-4 mb-5">
-                        <div
-                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-md shrink-0`}
-                        >
+                        <div className="w-10 h-10 border border-dark-900 bg-dark-950 text-white flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] shrink-0">
+                          <app.icon className="w-5 h-5 text-white" />
                         </div>
                         <div>
                           <h3 className="text-lg font-bold text-dark-900">{app.name}</h3>
-                          <p className="text-xs text-dark-400 mt-0.5">
+                          <p className="text-xs font-mono uppercase tracking-wider text-dark-500 mt-0.5">
                             {app.category} &middot; {app.deliveryMode}
                           </p>
                         </div>
                       </div>
 
-                      <p className="text-sm text-dark-500 leading-relaxed mb-5">{app.summary}</p>
+                      <p className="text-xs md:text-sm text-dark-600 leading-relaxed mb-5">{app.summary}</p>
 
                       {/* Module list */}
-                      <div className="space-y-2.5 flex-1">
+                      <div className="space-y-2 flex-1">
                         {app.modules.map((mod) => (
-                          <div key={mod} className="flex items-start gap-2.5">
-                            <CheckCircle2 className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
-                            <span className="text-sm text-dark-600">{mod}</span>
+                          <div key={mod} className="flex items-start gap-2">
+                            <span className="text-dark-900 font-bold text-xs">—</span>
+                            <span className="text-xs text-dark-700 leading-relaxed">{mod}</span>
                           </div>
                         ))}
                       </div>
@@ -155,7 +147,7 @@ export default function FeaturesPage() {
                           {app.signals.map((signal) => (
                             <span
                               key={signal}
-                              className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
+                              className="font-mono text-[10px] uppercase tracking-wider bg-dark-50 px-2.5 py-1 text-dark-700 border border-dark-200"
                             >
                               {signal}
                             </span>
@@ -173,21 +165,21 @@ export default function FeaturesPage() {
 
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
             Want to see these systems in action?
           </h2>
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            Each BizSuits system has an interactive demo you can try right now. No setup needed.
+          <p className="text-base text-white/70 max-w-xl mx-auto mb-8">
+            Review detailed live examples and architectural specifications for each system.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="accent" size="lg" href="/features" icon={<ArrowRight className="w-5 h-5" />}>
-              Browse All Demos
+              Browse All Systems
             </Button>
             <Button
               variant="ghost"
               size="lg"
               href="/solutions"
-              className="!text-white hover:!bg-white/10"
+              className="!text-white border-white/20 hover:!bg-white/10"
             >
               Explore Solutions
             </Button>

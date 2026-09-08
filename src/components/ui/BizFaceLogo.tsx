@@ -36,7 +36,7 @@ export default function BizFaceLogo({ size = 40, className = '' }: BizFaceLogoPr
           <stop offset="1" stopColor="#4c63ae" />
         </linearGradient>
       </defs>
-      <rect fill="url(#bfl-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
+      <rect fill="url(#bfl-grad)" width="318.34" height="318.34" rx="0" ry="0" />
 
       {/* Left eye */}
       <g style={{

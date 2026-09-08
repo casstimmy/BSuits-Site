@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, X } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
@@ -17,26 +17,24 @@ export default function PricingPage() {
   return (
     <>
       <section className="pt-28 md:pt-36 pb-16 md:pb-20 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200/30 rounded-full blur-3xl" />
-        </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
         <div className="container-custom relative z-10 text-center">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary-100 text-primary-700 mb-4">
-            Client Pricing
+          <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
+            ENGAGEMENT TIERS
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance tracking-tight">
             Engagements shaped around{' '}
             <span className="gradient-text">proven BizSuits systems</span>
           </h1>
-          <p className="text-lg md:text-xl text-dark-500 max-w-3xl mx-auto mb-8">
+          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto mb-8 leading-relaxed">
             These pricing tiers are tied to real solution tracks and demo-ready systems, so
             scope discussions can start from what clients can already see and evaluate.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             {deliveryTracks.map((track) => (
               <span
                 key={track.id}
-                className="rounded-full bg-white/80 border border-dark-100 px-4 py-2 text-sm font-medium text-dark-600"
+                className="border border-dark-300 bg-white px-3 py-1 text-xs font-mono uppercase text-dark-700 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]"
               >
                 {track.title}
               </span>
@@ -54,16 +52,16 @@ export default function PricingPage() {
               return (
                 <div
                   key={plan.name}
-                  className={`relative rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 ${
+                  className={`relative p-8 transition-all duration-200 border-2 ${
                     plan.highlighted
-                      ? 'bg-dark-900 text-white shadow-2xl shadow-dark-900/20 ring-2 ring-primary-500 scale-[1.02]'
-                      : 'bg-white border border-dark-100 shadow-lg hover:shadow-xl'
+                      ? 'border-dark-950 bg-dark-950 text-white shadow-[8px_8px_0px_0px_rgba(15,23,42,0.9)]'
+                      : 'border-dark-200 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,0.06)] hover:border-dark-900'
                   }`}
                 >
                   {plan.badge && (
                     <div
-                      className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold ${
-                        plan.highlighted ? 'bg-primary-500 text-white' : 'bg-dark-100 text-dark-600'
+                      className={`absolute -top-3.5 left-6 px-3 py-0.5 border text-[10px] font-mono uppercase tracking-widest font-bold ${
+                        plan.highlighted ? 'border-primary-400 bg-primary-600 text-white' : 'border-dark-900 bg-dark-900 text-white'
                       }`}
                     >
                       {plan.badge}
@@ -71,33 +69,33 @@ export default function PricingPage() {
                   )}
 
                   <div className="mb-6">
-                    <h3 className={`text-xl font-bold mb-2 ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
+                    <h3 className={`text-xl font-bold mb-2 tracking-tight ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
                       {plan.name}
                     </h3>
-                    <p className={`text-sm ${plan.highlighted ? 'text-white/60' : 'text-dark-400'}`}>
+                    <p className={`text-xs leading-relaxed ${plan.highlighted ? 'text-white/70' : 'text-dark-500'}`}>
                       {plan.description}
                     </p>
                   </div>
 
-                  <div className="mb-6">
-                    <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${plan.highlighted ? 'text-white/40' : 'text-dark-400'}`}>
-                      Starting at
+                  <div className="mb-6 border-y border-dark-200/40 py-4">
+                    <p className={`text-[10px] font-mono font-semibold uppercase tracking-[0.18em] ${plan.highlighted ? 'text-white/50' : 'text-dark-400'}`}>
+                      STARTING INVESTMENT
                     </p>
                     <div className="flex items-end gap-2 mt-2">
-                      <span className={`text-4xl md:text-5xl font-bold ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
+                      <span className={`text-3xl md:text-4xl font-mono font-bold ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
                         NGN {plan.price.toLocaleString()}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-1.5 mb-6">
                     {recommendedTracks.map((track) => (
                       <span
                         key={track.id}
-                        className={`rounded-full px-3 py-1 text-xs font-medium border ${
+                        className={`px-2 py-0.5 text-[10px] font-mono uppercase border ${
                           plan.highlighted
-                            ? 'bg-white/5 text-white/80 border-white/10'
-                            : 'bg-dark-50 text-dark-500 border-dark-100'
+                            ? 'bg-white/10 text-white/90 border-white/20'
+                            : 'bg-dark-50 text-dark-600 border-dark-200'
                         }`}
                       >
                         {track.title}
@@ -113,25 +111,23 @@ export default function PricingPage() {
                     {plan.cta}
                   </Button>
 
-                  <div className="space-y-3">
+                  <div className="space-y-3 border-t border-dark-200/30 pt-6">
                     {plan.features.map((feature) => (
-                      <div key={feature.text} className="flex items-center gap-3">
+                      <div key={feature.text} className="flex items-start gap-2.5">
                         {feature.included ? (
-                          <CheckCircle2
-                            className={`w-5 h-5 shrink-0 ${plan.highlighted ? 'text-accent-400' : 'text-accent-500'}`}
-                          />
+                          <span className={`text-xs font-bold ${plan.highlighted ? 'text-primary-300' : 'text-dark-950'}`}>✓</span>
                         ) : (
-                          <X className={`w-5 h-5 shrink-0 ${plan.highlighted ? 'text-white/20' : 'text-dark-200'}`} />
+                          <span className={`text-xs ${plan.highlighted ? 'text-white/20' : 'text-dark-300'}`}>✕</span>
                         )}
                         <span
-                          className={`text-sm ${
+                          className={`text-xs leading-relaxed ${
                             feature.included
                               ? plan.highlighted
-                                ? 'text-white/80'
-                                : 'text-dark-600'
+                                ? 'text-white/90'
+                                : 'text-dark-700'
                               : plan.highlighted
                               ? 'text-white/30'
-                              : 'text-dark-300'
+                              : 'text-dark-400'
                           }`}
                         >
                           {feature.text}
@@ -146,7 +142,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white border-t border-dark-200">
         <div className="container-custom">
           <SectionHeading
             badge="Delivery Sequence"
@@ -157,18 +153,18 @@ export default function PricingPage() {
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
             {deliverySteps.map((step) => (
               <Card key={step.id} elevated className="h-full">
-                <div className="w-12 h-12 rounded-xl bg-primary-100 text-primary-700 flex items-center justify-center font-bold mb-4">
+                <div className="w-11 h-11 border border-dark-900 bg-dark-950 text-white flex items-center justify-center font-mono font-bold text-xs mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)]">
                   {step.id}
                 </div>
                 <h3 className="text-lg font-bold text-dark-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-dark-500 leading-relaxed">{step.description}</p>
+                <p className="text-xs text-dark-600 leading-relaxed">{step.description}</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-dark-50/50">
+      <section className="section-padding bg-dark-50/50 border-t border-dark-200">
         <div className="container-custom max-w-4xl">
           <SectionHeading
             badge="FAQ"
@@ -178,9 +174,9 @@ export default function PricingPage() {
 
           <div className="space-y-4">
             {pricingFaqs.map((faq) => (
-              <div key={faq.question} className="bg-white rounded-2xl border border-dark-100 p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-dark-900 mb-2">{faq.question}</h3>
-                <p className="text-dark-500 leading-relaxed">{faq.answer}</p>
+              <div key={faq.question} className="bg-white border border-dark-200 p-6 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]">
+                <h3 className="text-base font-bold text-dark-900 mb-2">{faq.question}</h3>
+                <p className="text-sm text-dark-600 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
@@ -189,10 +185,10 @@ export default function PricingPage() {
 
       <section className="py-20 gradient-bg">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
             Need help choosing the right delivery path?
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
+          <p className="text-base text-white/70 max-w-2xl mx-auto mb-8">
             We can match your workflow to the nearest existing system and tell you where adaptation ends and new scope begins.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -203,7 +199,7 @@ export default function PricingPage() {
               variant="ghost"
               size="lg"
               href="/features"
-              className="!text-white hover:!bg-white/10"
+              className="!text-white border-white/20 hover:!bg-white/10"
             >
               Explore Live Demos
             </Button>

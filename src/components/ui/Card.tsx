@@ -26,11 +26,11 @@ export default function Card({
   return (
     <div
       className={clsx(
-        'rounded-2xl transition-all duration-300 ease-in-out',
+        'transition-all duration-200 ease-in-out',
         elevated
-          ? 'bg-white shadow-lg'
-          : 'bg-white border border-dark-100 shadow-sm',
-        hover && (elevated ? 'hover:shadow-xl hover:-translate-y-1' : 'hover:shadow-lg hover:-translate-y-1'),
+          ? 'card-elevated'
+          : 'card',
+        hover && 'hover:border-dark-900',
         paddingClasses[padding],
         className
       )}

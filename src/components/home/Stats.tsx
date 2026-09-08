@@ -9,21 +9,17 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="py-16 md:py-20 gradient-bg relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-      </div>
+    <section className="py-16 md:py-20 bg-dark-950 text-white border-y border-dark-800 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-10" />
 
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-dark-800 border border-dark-800 bg-dark-900/50">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">
+            <div key={stat.label} className="p-8 text-center">
+              <p className="text-3xl md:text-4xl lg:text-5xl font-mono font-bold text-white mb-2 tracking-tight">
                 {stat.value}
               </p>
-              <p className="text-sm md:text-base text-white/60 font-medium">
+              <p className="text-xs uppercase tracking-[0.16em] text-white/60 font-mono">
                 {stat.label}
               </p>
             </div>

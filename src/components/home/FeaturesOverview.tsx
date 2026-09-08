@@ -31,38 +31,37 @@ export default function FeaturesOverview() {
             return (
               <motion.div key={track.id} variants={staggerItem}>
                 <Card elevated className="group h-full">
-                  <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.gradient} text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
-                  >
-                    <track.icon className="w-7 h-7" />
+                  <div className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mb-5 shadow-[3px_3px_0px_0px_rgba(15,23,42,0.9)] group-hover:bg-primary-600 transition-colors">
+                    <track.icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold text-dark-900 mb-3">{track.title}</h3>
-                  <p className="text-dark-500 leading-relaxed mb-5">{track.summary}</p>
+                  <p className="text-dark-600 leading-relaxed mb-5 text-sm">{track.summary}</p>
 
                   <div className="flex flex-wrap gap-2 mb-5">
                     {apps.map((app) => (
                       <span
                         key={app.slug}
-                        className="rounded-full bg-dark-50 px-3 py-1 text-xs font-medium text-dark-500 border border-dark-100"
+                        className="font-mono text-[10px] uppercase tracking-wider bg-dark-50 px-2.5 py-1 text-dark-700 border border-dark-200"
                       >
                         {app.name}
                       </span>
                     ))}
                   </div>
 
-                  <div className="space-y-2.5 mb-5">
+                  <div className="space-y-2 mb-6">
                     {track.capabilities.map((capability) => (
-                      <p key={capability} className="text-sm text-dark-500 leading-relaxed">
-                        {capability}
+                      <p key={capability} className="text-xs text-dark-500 leading-relaxed flex items-start gap-2">
+                        <span className="text-dark-900 font-bold">—</span>
+                        <span>{capability}</span>
                       </p>
                     ))}
                   </div>
 
                   <a
                     href={track.href}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700 group-hover:gap-2.5 transition-all"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider font-bold text-dark-950 hover:text-primary-700 group-hover:gap-2.5 transition-all"
                   >
-                    Learn more <ArrowRight className="w-4 h-4" />
+                    Track Specifications <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 </Card>
               </motion.div>

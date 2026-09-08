@@ -82,9 +82,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
 });
 
-const fieldLabelClassName = 'text-xs font-semibold uppercase tracking-[0.18em] text-slate-500';
+const fieldLabelClassName = 'text-xs font-mono font-semibold uppercase tracking-[0.18em] text-slate-600';
 const fieldClassName =
-  'mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100';
+  'mt-2 w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-950 focus:ring-1 focus:ring-slate-950';
 const MAX_PDF_TABLE_ROWS = 7;
 const MAX_PDF_NOTE_CHARACTERS = 240;
 const MAX_PDF_NOTE_LINES = 5;
@@ -250,7 +250,7 @@ function getBizFaceLogoSvgMarkup() {
           <stop offset="1" stop-color="#4c63ae" />
         </linearGradient>
       </defs>
-      <rect fill="url(#biz-face-pdf-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
+      <rect fill="url(#biz-face-pdf-grad)" width="318.34" height="318.34" rx="0" ry="0" />
       <path fill="#fff" d="M147.28,130.83l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49l-41.66-36.95c-5.73-5.08-14.74-.75-14.35,6.89l3.8,75.81c.38,7.53,9.55,10.99,14.81,5.59l37.86-38.85c3.44-3.53,3.23-9.22-.45-12.49Z" />
       <path fill="#fff" d="M171.06,130.83l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49l41.66-36.95c5.73-5.08,14.74-.75,14.35,6.89l-3.8,75.81c-.38,7.53-9.55,10.99-14.81,5.59l-37.86-38.85c-3.44-3.53-3.23-9.22.45-12.49Z" />
       <path fill="#fff" d="M165.87,183.43l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1l13.66,35.39c1.75,4.53-1.62,9.4-6.48,9.37l-27.85-.21c-4.86-.04-8.15-4.96-6.34-9.46l14.19-35.18c2.34-5.8,10.56-5.73,12.81.1Z" />
@@ -460,16 +460,16 @@ function ToggleControl({
   onChange: (checked: boolean) => void;
 }) {
   return (
-    <label className="flex items-start justify-between gap-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-3">
+    <label className="flex items-start justify-between gap-4 border border-slate-200 bg-slate-50 px-4 py-3 cursor-pointer hover:border-slate-400 transition-colors">
       <div>
-        <p className="text-sm font-semibold text-slate-900">{label}</p>
-        <p className="mt-1 text-sm leading-relaxed text-slate-500">{description}</p>
+        <p className="text-sm font-bold text-slate-900">{label}</p>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500">{description}</p>
       </div>
       <input
         type="checkbox"
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
-        className="mt-1 h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+        className="mt-1 h-4 w-4 border border-slate-400 text-slate-900 focus:ring-0"
       />
     </label>
   );
@@ -839,14 +839,14 @@ export default function InvoiceDesk() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <section className="border-b border-slate-200 bg-white py-12">
+    <div className="min-h-screen bg-slate-100">
+      <section className="border-b border-slate-300 bg-white py-10">
         <div className="container-custom">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-700">
-              Invoice generator
+            <span className="inline-flex items-center border border-slate-300 bg-slate-50 px-3 py-1 text-xs font-mono uppercase tracking-[0.18em] text-slate-800">
+              DESK // INVOICE GENERATOR
             </span>
-            <h1 className="mt-5 text-4xl font-bold text-slate-950 md:text-5xl lg:text-6xl text-balance">
+            <h1 className="mt-4 text-4xl font-bold text-slate-950 md:text-5xl text-balance tracking-tight">
               Admin Invoice Desk
             </h1>
           </div>
@@ -856,28 +856,28 @@ export default function InvoiceDesk() {
       <section className="section-padding pt-10">
         <div className="container-custom">
           <SectionHeading
-            badge="Invoice Generator"
-            title="Create the invoice and export a clean one-page PDF"
+            badge="Financial Output"
+            title="Create and export print-ready single-page invoices"
           />
 
           <div className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr] xl:items-start">
             <div className="space-y-6">
-              <Card elevated hover={false} className="border border-slate-200 bg-white">
+              <Card elevated hover={false} className="border border-slate-300 bg-white">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                      Quick actions
+                    <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      OPERATIONS // QUICK ACTIONS
                     </p>
-                    <h2 className="mt-3 text-2xl font-bold text-slate-950">Generate invoice output</h2>
-                    <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
+                    <h2 className="mt-2 text-xl font-bold text-slate-950">Generate invoice output</h2>
+                    <p className="mt-2 max-w-xl text-xs leading-relaxed text-slate-600">
                       Use the controls below to start a fresh invoice, reset to the sample state, or
                       export the current invoice as a compact PDF.
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2">
                     <Button
-                      variant="accent"
+                      variant="primary"
                       size="sm"
                       onClick={() => {
                         void downloadInvoicePdf();
@@ -897,11 +897,11 @@ export default function InvoiceDesk() {
                 </div>
 
                 {pdfProtectionMessages.length > 0 ? (
-                  <div className="mt-4 rounded-[1.5rem] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  <div className="mt-4 border border-amber-300 bg-amber-50 px-4 py-3 text-xs font-mono text-amber-900">
                     {pdfProtectionMessages.join(' ')}
                   </div>
                 ) : null}
-                {pdfError ? <p className="mt-4 text-sm text-rose-600">{pdfError}</p> : null}
+                {pdfError ? <p className="mt-4 text-xs font-mono text-rose-600">{pdfError}</p> : null}
               </Card>
 
               <Card elevated hover={false}>
@@ -1050,17 +1050,17 @@ export default function InvoiceDesk() {
 
                 <div className="mt-6 space-y-4">
                   {lineItems.map((item, index) => (
-                    <div key={item.id} className="rounded-[1.75rem] border border-slate-200 p-5">
-                      <div className="flex items-center justify-between gap-4">
-                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-                          Item {index + 1}
+                    <div key={item.id} className="border border-slate-300 p-5 bg-white">
+                      <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-3">
+                        <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-slate-700">
+                          ITEM // 0{index + 1}
                         </p>
                         <button
                           type="button"
                           onClick={() => removeLineItemRow(item.id)}
-                          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium text-rose-600 transition hover:bg-rose-50"
+                          className="inline-flex items-center gap-1.5 border border-rose-300 bg-white px-2.5 py-1 text-xs font-mono uppercase text-rose-700 transition hover:bg-rose-50"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3.5 w-3.5" />
                           Remove
                         </button>
                       </div>
@@ -1098,7 +1098,7 @@ export default function InvoiceDesk() {
                     </div>
                   ))}
                 </div>
-                <p className="mt-4 text-sm text-slate-500">
+                <p className="mt-4 text-xs font-mono text-slate-500">
                   PDF export keeps up to {MAX_PDF_TABLE_ROWS} table rows on one page. Extra billed
                   items are summarized into a single overflow row.
                 </p>
@@ -1131,7 +1131,7 @@ export default function InvoiceDesk() {
                       step="0.01"
                     />
                   ) : (
-                    <div className="rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50 px-4 py-5 text-sm text-slate-500">
+                    <div className="border border-dashed border-slate-300 bg-slate-50 px-4 py-5 text-xs font-mono text-slate-500">
                       VAT is currently hidden from the invoice totals.
                     </div>
                   )}
@@ -1163,20 +1163,20 @@ export default function InvoiceDesk() {
                 elevated
                 hover={false}
                 padding="none"
-                className="overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_60px_rgba(15,23,42,0.08)]"
+                className="overflow-hidden border-2 border-slate-950 bg-white shadow-[8px_8px_0px_0px_rgba(15,23,42,0.9)]"
               >
-                <div className="border-b border-slate-200 bg-slate-50 px-7 py-4 sm:px-8 md:px-10 lg:px-12">
+                <div className="border-b-2 border-slate-950 bg-slate-100 px-7 py-4 sm:px-8 md:px-10 lg:px-12">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                        Invoice preview
+                      <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-slate-600">
+                        INVOICE PREVIEW // PHYSICAL SPEC
                       </p>
-                      <p className="mt-1 text-sm text-slate-500">
-                        The preview below mirrors the PDF that will be exported.
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        The preview below mirrors the exported A4 sheet.
                       </p>
                     </div>
-                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
-                      One-page PDF invoice
+                    <span className="border border-slate-400 bg-white px-3 py-1 text-xs font-mono uppercase text-slate-800 shadow-sm">
+                      A4 One-Page Invoice
                     </span>
                   </div>
                 </div>
@@ -1186,14 +1186,14 @@ export default function InvoiceDesk() {
                     <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
                       <div className="lg:max-w-[380px]">
                         <div className="flex items-center gap-4">
-                          <BizFaceLogo size={64} className="rounded-2xl shadow-lg shadow-sky-500/15" />
+                          <BizFaceLogo size={64} className="border border-slate-300" />
                           <div>
                             <p className="text-2xl font-bold text-slate-950">{form.issuerName || 'Issuer name'}</p>
-                            <p className="text-sm text-slate-500">Customer invoice</p>
+                            <p className="text-xs font-mono uppercase tracking-wider text-slate-500">Customer invoice</p>
                           </div>
                         </div>
 
-                        <div className="mt-7 max-w-[360px] rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+                        <div className="mt-7 max-w-[360px] border border-slate-300 bg-slate-50 p-5 text-sm leading-6 text-slate-700">
                           {issuerAddressLines.map((line) => (
                             <p key={line}>{line}</p>
                           ))}
@@ -1204,26 +1204,26 @@ export default function InvoiceDesk() {
                       </div>
 
                       <div className="lg:text-right">
-                        <p className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+                        <p className="text-4xl font-mono font-bold tracking-tight text-slate-950 md:text-5xl">
                           INVOICE
                         </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-500"># {form.invoiceNumber || 'Pending'}</p>
+                        <p className="mt-2 text-xs font-mono uppercase tracking-wider text-slate-600"># {form.invoiceNumber || 'Pending'}</p>
 
-                        <div className="mt-8 inline-flex min-w-[270px] flex-col rounded-3xl border border-slate-200 bg-slate-50 px-8 py-7 text-left lg:items-end lg:text-right">
-                          <p className="text-sm font-medium text-slate-500">{balanceLabel}</p>
-                          <p className="mt-2 text-3xl font-bold text-slate-950">{formatNaira(balanceValue)}</p>
-                          <span className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${paymentStatusClassName}`}>
+                        <div className="mt-6 inline-flex min-w-[270px] flex-col border-2 border-slate-950 bg-slate-50 px-7 py-6 text-left lg:items-end lg:text-right shadow-[4px_4px_0px_0px_rgba(15,23,42,0.9)]">
+                          <p className="text-xs font-mono uppercase tracking-wider text-slate-500">{balanceLabel}</p>
+                          <p className="mt-1 text-3xl font-mono font-bold text-slate-950">{formatNaira(balanceValue)}</p>
+                          <span className={`mt-3 inline-flex border border-current px-3 py-0.5 text-xs font-mono uppercase font-semibold ${paymentStatusClassName}`}>
                             {paymentStatus}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-                      <div className="max-w-[420px] rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Bill To</p>
-                        <div className="mt-5 space-y-1.5 text-sm leading-6 text-slate-600">
-                          <p className="text-base font-semibold text-slate-950">{form.clientName || 'Client name'}</p>
+                    <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+                      <div className="max-w-[420px] border border-slate-300 bg-slate-50 p-6">
+                        <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-slate-500">Bill To</p>
+                        <div className="mt-4 space-y-1 text-sm leading-6 text-slate-700">
+                          <p className="text-base font-bold text-slate-950">{form.clientName || 'Client name'}</p>
                           {form.clientContact ? <p>{form.clientContact}</p> : null}
                           {form.clientEmail ? <p>{form.clientEmail}</p> : null}
                           {clientAddressLines.map((line) => (
@@ -1232,12 +1232,12 @@ export default function InvoiceDesk() {
                         </div>
                       </div>
 
-                      <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
+                      <div className="border border-slate-300 bg-slate-50 p-6">
                         <div className="space-y-3">
                           {invoiceMeta.map((item) => (
-                            <div key={item.label} className="flex items-start justify-between gap-5 border-b border-slate-200 pb-4 last:border-b-0 last:pb-0">
-                              <span className="pt-0.5 text-sm font-medium text-slate-500">{item.label}</span>
-                              <span className="max-w-[190px] break-words text-right text-sm font-semibold leading-relaxed text-slate-900">
+                            <div key={item.label} className="flex items-start justify-between gap-5 border-b border-slate-200 pb-3 last:border-b-0 last:pb-0">
+                              <span className="pt-0.5 text-xs font-mono uppercase text-slate-500">{item.label}</span>
+                              <span className="max-w-[190px] break-words text-right text-xs font-mono font-bold leading-relaxed text-slate-900">
                                 {item.value}
                               </span>
                             </div>
@@ -1246,81 +1246,79 @@ export default function InvoiceDesk() {
                       </div>
                     </div>
 
-                    <div className="mt-14 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-3 sm:p-4">
-                      <div className="overflow-hidden rounded-[1.35rem] bg-white">
-                        <div className="overflow-x-auto">
-                          <div className="min-w-[720px]">
-                            <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-900 px-7 py-4 text-sm font-semibold text-white">
-                              <span>#</span>
-                              <span>Item &amp; Description</span>
-                              <span className="text-right">Qty</span>
-                              <span className="text-right">Rate</span>
-                              <span className="text-right">Amount</span>
-                            </div>
-
-                            {filledItems.length === 0 ? (
-                              <div className="px-7 py-10 text-sm text-slate-500">Add a line item to generate the invoice table.</div>
-                            ) : (
-                              filledItems.map((item, index) => (
-                                <div
-                                  key={item.id}
-                                  className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-7 py-6 text-sm text-slate-600"
-                                >
-                                  <span className="font-medium text-slate-900">{index + 1}</span>
-                                  <div>
-                                    <p className="font-medium uppercase tracking-[0.04em] text-slate-700">
-                                      {item.description || 'Line item'}
-                                    </p>
-                                    {item.detail ? <p className="mt-1 text-slate-500">{item.detail}</p> : null}
-                                  </div>
-                                  <span className="text-right font-medium text-slate-900">{item.quantity.toFixed(2)}</span>
-                                  <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.rate)}</span>
-                                  <span className="text-right font-medium text-slate-900">{currencyFormatter.format(item.amount)}</span>
-                                </div>
-                              ))
-                            )}
+                    <div className="mt-12 border border-slate-300 bg-white">
+                      <div className="overflow-x-auto">
+                        <div className="min-w-[720px]">
+                          <div className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] bg-slate-950 px-6 py-3.5 text-xs font-mono uppercase tracking-wider text-white">
+                            <span>#</span>
+                            <span>Item &amp; Description</span>
+                            <span className="text-right">Qty</span>
+                            <span className="text-right">Rate</span>
+                            <span className="text-right">Amount</span>
                           </div>
+
+                          {filledItems.length === 0 ? (
+                            <div className="px-6 py-8 text-xs font-mono text-slate-500">Add a line item to generate the invoice table.</div>
+                          ) : (
+                            filledItems.map((item, index) => (
+                              <div
+                                key={item.id}
+                                className="grid grid-cols-[60px,1.8fr,0.6fr,0.8fr,0.8fr] items-start gap-4 border-t border-slate-200 px-6 py-5 text-sm text-slate-700 font-mono"
+                              >
+                                <span className="font-bold text-slate-950">{index + 1}</span>
+                                <div>
+                                  <p className="font-bold uppercase tracking-tight text-slate-900 font-sans">
+                                    {item.description || 'Line item'}
+                                  </p>
+                                  {item.detail ? <p className="mt-1 text-xs text-slate-500 font-sans">{item.detail}</p> : null}
+                                </div>
+                                <span className="text-right">{item.quantity.toFixed(2)}</span>
+                                <span className="text-right">{currencyFormatter.format(item.rate)}</span>
+                                <span className="text-right font-bold text-slate-950">{currencyFormatter.format(item.amount)}</span>
+                              </div>
+                            ))
+                          )}
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-14 grid gap-10 lg:grid-cols-[1fr_340px] lg:items-start">
+                    <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px] lg:items-start">
                       {visibility.showTermsAndConditions ? (
-                        <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                        <div className="border border-slate-300 bg-slate-50 p-6">
+                          <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-slate-500">
                             Terms &amp; Conditions
                           </p>
-                          <div className="mt-4 max-w-2xl whitespace-pre-line text-sm leading-7 text-slate-600">
+                          <div className="mt-3 max-w-2xl whitespace-pre-line text-xs font-mono leading-6 text-slate-600">
                             {notesText || 'Add invoice notes and payment terms.'}
                           </div>
                         </div>
                       ) : (
-                        <div className="rounded-[1.75rem] border border-dashed border-slate-200 bg-slate-50 px-5 py-6 text-sm text-slate-500">
+                        <div className="border border-dashed border-slate-300 bg-slate-50 px-5 py-6 text-xs font-mono text-slate-500">
                           Terms and conditions are currently hidden from the invoice output.
                         </div>
                       )}
 
-                      <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7">
-                        <div className="space-y-5 text-sm">
+                      <div className="border border-slate-300 bg-slate-50 p-6">
+                        <div className="space-y-4 text-xs font-mono">
                           <div className="flex items-center justify-between gap-4 text-slate-600">
                             <span>Sub Total</span>
-                            <span className="font-semibold text-slate-900">{formatNaira(subtotal)}</span>
+                            <span className="font-bold text-slate-900">{formatNaira(subtotal)}</span>
                           </div>
                           {visibility.showVat ? (
                             <div className="flex items-center justify-between gap-4 text-slate-600">
                               <span>VAT ({vatRate.toFixed(2)}%)</span>
-                              <span className="font-semibold text-slate-900">{formatNaira(vatAmount)}</span>
+                              <span className="font-bold text-slate-900">{formatNaira(vatAmount)}</span>
                             </div>
                           ) : null}
-                          <div className="flex items-center justify-between gap-4 border-t border-slate-200 pt-4 text-base font-semibold text-slate-950">
+                          <div className="flex items-center justify-between gap-4 border-t border-slate-300 pt-3 text-sm font-bold text-slate-950">
                             <span>Total</span>
                             <span>{formatNaira(total)}</span>
                           </div>
                           <div className="flex items-center justify-between gap-4 text-slate-600">
                             <span>Payment Made</span>
-                            <span className="font-semibold text-rose-500">(-) {formatNaira(paymentMade)}</span>
+                            <span className="font-bold text-rose-600">(-) {formatNaira(paymentMade)}</span>
                           </div>
-                          <div className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-4 text-base font-semibold text-slate-950 shadow-sm">
+                          <div className="flex items-center justify-between gap-4 border border-slate-950 bg-white px-4 py-3.5 text-sm font-bold text-slate-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)]">
                             <span>{balanceLabel}</span>
                             <span>{formatNaira(balanceValue)}</span>
                           </div>
