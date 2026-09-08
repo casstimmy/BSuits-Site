@@ -71,10 +71,10 @@ export default function Footer() {
         <div className="container-custom py-16 md:py-20">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              <h2 className="text-3xl md:text-4xl font-bold font-display text-white mb-3 tracking-tight">
                 Ready to transform your business?
               </h2>
-              <p className="text-lg text-white/60">
+              <p className="text-base md:text-lg text-white/70 max-w-xl">
                 Let BizSuits help you run sales, operations, and reporting with more confidence.
               </p>
             </div>

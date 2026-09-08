@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
@@ -55,51 +54,10 @@ export default function SolutionsPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            badge="Business Reference"
-            title="One practical retail view can anchor the conversation"
-            subtitle="Use one familiar business example to understand how BizSuits supports daily work across sales, operations, and reporting."
+            badge="Solutions Architecture"
+            title="Systems engineered to work as connected tracks"
+            subtitle="Explore our core business domains and the verified applications delivering end-to-end operational visibility."
           />
-
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-stretch mb-20 md:mb-24">
-            <Card elevated padding="lg" className="overflow-hidden bg-dark-50/50">
-              <div className="relative overflow-hidden border border-dark-300 bg-white">
-                <Image
-                  src="/images/Inventory System preview.png"
-                  alt="Retail and warehouse commerce reference view"
-                  width={1400}
-                  height={900}
-                  className="h-auto w-full object-contain"
-                  priority
-                />
-              </div>
-            </Card>
-
-            <Card elevated padding="lg" className="bg-dark-50/70 border border-dark-200 flex flex-col justify-between">
-              <div>
-                <p className="text-xs font-mono uppercase tracking-wider text-primary-700 font-semibold mb-2">REFERENCE BENCHMARK</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-4 tracking-tight">
-                  Retail and warehouse activity offers a clear starting point
-                </h2>
-                <p className="text-sm text-dark-600 leading-relaxed mb-6">
-                  This view shows how teams can manage stock, oversight, and day-to-day work without losing operational visibility.
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <span className="text-dark-900 font-bold text-xs">—</span>
-                    <span className="text-xs text-dark-700">Compare roles, responsibilities, and handoff points across desks.</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-dark-900 font-bold text-xs">—</span>
-                    <span className="text-xs text-dark-700">Focus on business fit instead of disconnected screen-by-screen detail.</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-dark-900 font-bold text-xs">—</span>
-                    <span className="text-xs text-dark-700">Apply the same structural clarity across farm, operations, and document-heavy work.</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
 
           {deliveryTracks.map((solution, index) => {
             const apps = getAppsForTrack(solution.appSlugs);

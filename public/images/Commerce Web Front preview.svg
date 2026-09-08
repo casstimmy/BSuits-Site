@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%" fill="none">
+  <rect width="800" height="500" fill="#F8FAFC" />
+  <!-- Browser Header -->
+  <rect width="800" height="42" fill="#0F172A" />
+  <circle cx="24" cy="21" r="6" fill="#EF4444" />
+  <circle cx="42" cy="21" r="6" fill="#F59E0B" />
+  <circle cx="60" cy="21" r="6" fill="#10B981" />
+  <rect x="90" y="8" width="460" height="26" fill="#1E293B" />
+  <text x="105" y="25" fill="#94A3B8" font-family="monospace" font-size="11">https://store.bizsuits.com/warehouse-catalog</text>
+
+  <!-- Store Navigation -->
+  <rect y="42" width="800" height="50" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" />
+  <text x="32" y="73" fill="#0F172A" font-family="system-ui, sans-serif" font-size="16" font-weight="700">COMMERCE STOREFRONT</text>
+  <rect x="260" y="52" width="280" height="30" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1" />
+  <text x="275" y="72" fill="#64748B" font-family="system-ui, sans-serif" font-size="12">Search inventory catalog...</text>
+  <rect x="670" y="52" width="100" height="30" fill="#2563EB" />
+  <text x="720" y="72" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">CART (4)</text>
+
+  <!-- Store Items Grid -->
+  <g transform="translate(32, 112)">
+    <!-- Item 1 -->
+    <rect width="220" height="350" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" />
+    <rect x="16" y="16" width="188" height="150" fill="#EFF6FF" stroke="#DBEAFE" stroke-width="1" />
+    <text x="110" y="95" fill="#2563EB" font-family="system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Warehouse Item A</text>
+    <text x="16" y="200" fill="#0F172A" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Premium Rice (50kg)</text>
+    <text x="16" y="222" fill="#64748B" font-family="monospace" font-size="11">SKU: WH-8821 · In Stock</text>
+    <text x="16" y="260" fill="#2563EB" font-family="monospace" font-size="16" font-weight="700">₦68,500.00</text>
+    <rect x="16" y="286" width="188" height="36" fill="#0F172A" />
+    <text x="110" y="309" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">ADD TO ORDER</text>
+  </g>
+
+  <g transform="translate(290, 112)">
+    <!-- Item 2 -->
+    <rect width="220" height="350" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" />
+    <rect x="16" y="16" width="188" height="150" fill="#ECFDF5" stroke="#D1FAE5" stroke-width="1" />
+    <text x="110" y="95" fill="#059669" font-family="system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Warehouse Item B</text>
+    <text x="16" y="200" fill="#0F172A" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Vegetable Oil (25L)</text>
+    <text x="16" y="222" fill="#64748B" font-family="monospace" font-size="11">SKU: WH-5510 · In Stock</text>
+    <text x="16" y="260" fill="#2563EB" font-family="monospace" font-size="16" font-weight="700">₦45,000.00</text>
+    <rect x="16" y="286" width="188" height="36" fill="#0F172A" />
+    <text x="110" y="309" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">ADD TO ORDER</text>
+  </g>
+
+  <g transform="translate(548, 112)">
+    <!-- Item 3 / Checkout Preview -->
+    <rect width="220" height="350" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" />
+    <rect x="16" y="16" width="188" height="34" fill="#0F172A" />
+    <text x="110" y="38" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">REAL-TIME ORDER CART</text>
+    <text x="16" y="80" fill="#0F172A" font-family="system-ui, sans-serif" font-size="12" font-weight="600">3x Rice (50kg)</text>
+    <text x="204" y="80" fill="#2563EB" font-family="monospace" font-size="12" text-anchor="end">₦205,500</text>
+    <text x="16" y="110" fill="#0F172A" font-family="system-ui, sans-serif" font-size="12" font-weight="600">2x Oil (25L)</text>
+    <text x="204" y="110" fill="#2563EB" font-family="monospace" font-size="12" text-anchor="end">₦90,000</text>
+    <line x1="16" y1="135" x2="204" y2="135" stroke="#E2E8F0" stroke-width="1" />
+    <text x="16" y="160" fill="#64748B" font-family="monospace" font-size="11">TOTAL ESTIMATE</text>
+    <text x="16" y="185" fill="#0F172A" font-family="monospace" font-size="16" font-weight="700">₦295,500.00</text>
+    <rect x="16" y="210" width="188" height="36" fill="#2563EB" />
+    <text x="110" y="233" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">CHECKOUT / PAYSTACK</text>
+    <rect x="16" y="258" width="188" height="64" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+    <text x="110" y="285" fill="#64748B" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">OTP customer authentication</text>
+    <text x="110" y="305" fill="#10B981" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">✓ Instant Sync with Till</text>
+  </g>
+</svg>

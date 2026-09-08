@@ -94,13 +94,13 @@ export default function Hero() {
               <div className="border-b-2 border-dark-950 bg-dark-950 px-4 py-3 text-white md:px-4.5 md:py-3.5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="mb-1 text-[9px] uppercase tracking-[0.22em] text-white/60 font-mono">SYSTEM WORKSPACE // 0{activeTab + 1}</p>
-                    <h2 className="text-sm font-bold md:text-base tracking-tight">Live Operations Console</h2>
-                    <p className="mt-0.5 max-w-md text-[11px] leading-relaxed text-white/70">
+                    <p className="mb-1 text-[10px] uppercase tracking-[0.22em] text-accent-400 font-mono font-semibold">SYSTEM WORKSPACE // 0{activeTab + 1}</p>
+                    <h2 className="text-sm font-bold md:text-base tracking-tight text-white font-display">Live Operations Console</h2>
+                    <p className="mt-0.5 max-w-md text-[11px] leading-relaxed text-white/80">
                       Real operational workflows running across frontline desks and management.
                     </p>
                   </div>
-                  <div className="shrink-0 border border-white/20 bg-white/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest text-white/90">
+                  <div className="shrink-0 border border-white/30 bg-white/10 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest text-white font-bold">
                     0{activeTab + 1} / 0{systemPreviews.length}
                   </div>
                 </div>

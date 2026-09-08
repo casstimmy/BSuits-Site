@@ -108,24 +108,30 @@ export default function FeaturesPage() {
                     <div key={app.slug} id={app.slug} className="scroll-mt-32">
                       <Card elevated padding="lg" className={`h-full flex flex-col ${app.previewImage ? 'overflow-hidden' : ''}`}>
                       {app.previewImage && (
-                        <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-44 overflow-hidden border-b border-dark-200 bg-dark-50">
-                          <Image
-                            src={app.previewImage}
-                            alt={`${app.name} preview`}
-                            fill
-                            className="object-cover object-top"
-                          />
+                        <div className="relative -mt-8 md:-mt-10 -mx-8 md:-mx-10 mb-6 h-48 md:h-52 overflow-hidden border-b border-dark-200 bg-[#f8fafc] flex items-center justify-center p-3">
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={app.previewImage}
+                              alt={`${app.name} preview`}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              className="object-contain object-center"
+                            />
+                          </div>
                         </div>
                       )}
                       {/* App header */}
-                      <div className="flex items-center gap-4 mb-5">
-                        <div className="w-10 h-10 border border-dark-900 bg-dark-950 text-white flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] shrink-0">
+                      <div className="flex items-start gap-4 mb-5">
+                        <div className="w-10 h-10 border border-dark-900 bg-dark-950 text-white flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] shrink-0 mt-0.5">
                           <app.icon className="w-5 h-5 text-white" />
                         </div>
-                        <div>
-                          <h3 className="text-lg font-bold text-dark-900">{app.name}</h3>
-                          <p className="text-xs font-mono uppercase tracking-wider text-dark-500 mt-0.5">
-                            {app.category} &middot; {app.deliveryMode}
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-lg font-bold font-display text-dark-900 tracking-tight">{app.name}</h3>
+                          <p className="text-[11px] font-mono uppercase tracking-wider text-primary-700 font-semibold mt-0.5">
+                            {app.category}
+                          </p>
+                          <p className="text-[10px] font-mono uppercase tracking-wider text-dark-500 mt-1 inline-block bg-dark-50 border border-dark-200 px-2 py-0.5">
+                            {app.deliveryMode}
                           </p>
                         </div>
                       </div>
