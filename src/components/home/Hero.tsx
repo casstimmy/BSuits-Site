@@ -52,13 +52,13 @@ export default function Hero() {
           <motion.div className="max-w-[34rem] space-y-6" variants={slideInLeft} initial="hidden" animate="visible">
             <div className="inline-flex items-center gap-2 border border-primary-200 bg-white px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-primary-700 shadow-[2px_2px_0px_0px_rgba(37,99,235,0.15)]">
               <span className="h-2 w-2 bg-primary-600" />
-              Custom Systems // Built for Success
+              Tailored Infrastructure // Business Operations
             </div>
 
             <div className="space-y-3">
               <h1 className="max-w-[32rem] text-balance font-display text-3xl font-bold leading-[1.12] tracking-tight text-dark-900 sm:text-4xl lg:text-[2.85rem] xl:text-[3.1rem]">
-                Custom Systems.{' '}
-                <span className="text-primary-600">Built for Success.</span>
+                Systems Tailored{' '}
+                <span className="text-primary-600">to Your Business.</span>
               </h1>
               <p className="text-sm font-semibold uppercase tracking-wider text-dark-500 font-mono">
                 Powering Sales, Operations, Agriculture &amp; Business Automation

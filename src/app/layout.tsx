@@ -17,13 +17,14 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: 'BizSuits - Custom Systems. Built for Success.',
+    default: 'BizSuits - Systems Tailored to Your Business',
     template: '%s | BizSuits',
   },
   description:
     'We build powerful, scalable and secure custom systems tailored to your business needs — from sales and POS to farm operations and automated reporting.',
   keywords: [
     'custom systems',
+    'systems tailored to your business',
     'business operations',
     'system development',
     'business automation',
@@ -38,13 +39,13 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://bizsuits.com',
     siteName: 'BizSuits',
-    title: 'BizSuits - Custom Systems. Built for Success.',
+    title: 'BizSuits - Systems Tailored to Your Business',
     description:
       'We build powerful, scalable and secure custom systems tailored to your business needs.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BizSuits - Custom Systems. Built for Success.',
+    title: 'BizSuits - Systems Tailored to Your Business',
     description:
       'We build powerful, scalable and secure custom systems tailored to your business needs.',
   },

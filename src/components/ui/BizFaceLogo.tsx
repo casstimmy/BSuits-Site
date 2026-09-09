@@ -5,9 +5,10 @@ import React, { useState, useEffect } from 'react';
 interface BizFaceLogoProps {
   size?: number;
   className?: string;
+  variant?: 'circle' | 'squircle';
 }
 
-export default function BizFaceLogo({ size = 40, className = '' }: BizFaceLogoProps) {
+export default function BizFaceLogo({ size = 40, className = '', variant = 'circle' }: BizFaceLogoProps) {
   const [blinking, setBlinking] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,8 @@ export default function BizFaceLogo({ size = 40, className = '' }: BizFaceLogoPr
     };
   }, []);
 
+  const radius = variant === 'circle' ? 159.17 : 83.83;
+
   return (
     <svg
       viewBox="0 0 318.34 318.34"
@@ -37,7 +40,7 @@ export default function BizFaceLogo({ size = 40, className = '' }: BizFaceLogoPr
           <stop offset="1" stopColor="#1D4ED8" />
         </linearGradient>
       </defs>
-      <rect fill="url(#bfl-grad)" width="318.34" height="318.34" rx="83.83" ry="83.83" />
+      <rect fill="url(#bfl-grad)" width="318.34" height="318.34" rx={radius} ry={radius} />
 
       {/* Left eye */}
       <g style={{

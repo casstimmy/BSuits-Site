@@ -20,12 +20,12 @@ export default function CTA() {
         >
         <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-white/80 mb-6">
           <span className="h-1.5 w-1.5 bg-accent-400" />
-          Custom Systems // Built for Success
+          Systems Tailored to Your Business
         </div>
 
         <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-display text-white mb-6 text-balance tracking-tight">
-          Ready to scale with a custom system{' '}
-          <span className="text-primary-400">built for your business</span>?
+          Ready to scale with a system{' '}
+          <span className="text-primary-400">tailored to your business</span>?
         </h2>
         <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed">
           We build powerful, scalable and secure systems tailored to your business needs — from retail and inventory to agriculture and document automation.

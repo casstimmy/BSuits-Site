@@ -114,7 +114,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-primary-400 font-display font-semibold text-xs tracking-wider uppercase mb-2">
-              Custom Systems. Built for Success.
+              Systems Tailored to Your Business
             </p>
             <p className="text-white/60 text-xs leading-relaxed mb-6 max-w-xs font-sans">
               We build powerful, scalable and secure systems tailored to your business needs — spanning web &amp; mobile, system integration, cloud infrastructure, and business automation.
