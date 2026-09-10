@@ -32,7 +32,7 @@ function DeviceFrame({
   return (
     <div className={className}>
       <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-dark-500 mb-2">{label}</p>
-      <div className="relative border-2 border-dark-950 bg-white shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)] overflow-hidden">
+      <div className="relative border border-dark-300 bg-white shadow-md overflow-hidden">
         <div className="bg-white min-h-[150px]">{children}</div>
       </div>
     </div>
@@ -59,7 +59,7 @@ function MetricCard({ label, value, tone }: { label: string; value: string; tone
 
 function RetailCommerceMockup() {
   return (
-    <div className="relative h-[460px] border-2 border-dark-950 bg-white p-5 overflow-hidden grid-pattern">
+    <div className="relative h-[460px] border border-dark-200 bg-[#f8fafc] p-5 overflow-hidden">
       {/* Inventory Admin — left laptop */}
       <DeviceFrame label="Inventory Admin — back office" variant="laptop" className="relative z-10 max-w-[340px]">
         <AppHeader title="Inventory Admin" subtitle="Dashboard · Stock · Expenses · Reporting" />
@@ -93,7 +93,7 @@ function RetailCommerceMockup() {
       {/* Sales Point POS — center */}
       <div className="absolute right-28 top-5 z-20 w-[175px]">
         <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-dark-500 mb-2">Sales Point POS — till</p>
-        <div className="relative border-2 border-dark-950 bg-dark-950 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)] overflow-hidden">
+        <div className="relative border border-dark-300 bg-dark-950 shadow-md overflow-hidden">
           <Image
             src="/images/Point of sales preview 1.png"
             alt="Sales Point POS checkout interface"
@@ -129,7 +129,7 @@ function RetailCommerceMockup() {
 
 function FarmOperationsMockup() {
   return (
-    <div className="relative h-[460px] border-2 border-dark-950 bg-white p-5 overflow-hidden grid-pattern">
+    <div className="relative h-[460px] border border-dark-200 bg-[#f8fafc] p-5 overflow-hidden">
       {/* Farm Health Manager — laptop */}
       <DeviceFrame label="Farm Health Manager — operations" variant="laptop" className="relative z-10 max-w-[365px]">
         <AppHeader title="Farm Health Manager" subtitle="Animals · Feeding · Breeding · Finance" />
@@ -206,7 +206,7 @@ function FarmOperationsMockup() {
 
 function OperationsMockup() {
   return (
-    <div className="relative h-[460px] border-2 border-dark-950 bg-white p-5 overflow-hidden grid-pattern">
+    <div className="relative h-[460px] border border-dark-200 bg-[#f8fafc] p-5 overflow-hidden">
       {/* Project Management — main desktop */}
       <DeviceFrame label="OPALshire — project workspace" variant="desktop" className="relative z-10 max-w-[390px]">
         <AppHeader title="Project Management Suite" subtitle="Projects · Work Orders · Budgets · HSSE" />
@@ -275,7 +275,7 @@ function OperationsMockup() {
 
 function DocumentAutomationMockup() {
   return (
-    <div className="relative h-[460px] border-2 border-dark-950 bg-white p-5 overflow-hidden grid-pattern">
+    <div className="relative h-[460px] border border-dark-200 bg-[#f8fafc] p-5 overflow-hidden">
       {/* Desktop extraction app — faithful to PyQt6 layout */}
       <DeviceFrame label="PDF Statement Extractor — desktop app" variant="desktop" className="relative z-10 max-w-[380px]">
         {/* App title bar */}
@@ -320,10 +320,10 @@ function DocumentAutomationMockup() {
             </div>
           </div>
           <div className="flex gap-2">
-            <button type="button" className="flex-1 bg-dark-950 text-white text-[10px] font-mono uppercase tracking-wider py-2 flex items-center justify-center gap-1 border border-dark-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)]">
+            <button type="button" className="flex-1 bg-dark-950 text-white text-[10px] font-mono uppercase tracking-wider py-2 flex items-center justify-center gap-1 border border-dark-950 shadow-sm hover:bg-primary-600 transition-colors">
               <Monitor className="w-3 h-3" /> Extract Tables
             </button>
-            <button type="button" className="flex-1 bg-white text-dark-950 text-[10px] font-mono uppercase tracking-wider py-2 flex items-center justify-center gap-1 border border-dark-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.15)]">
+            <button type="button" className="flex-1 bg-white text-dark-950 text-[10px] font-mono uppercase tracking-wider py-2 flex items-center justify-center gap-1 border border-dark-300 shadow-sm hover:border-dark-900 transition-colors">
               <FileSpreadsheet className="w-3 h-3" /> Export Excel
             </button>
           </div>
@@ -331,7 +331,7 @@ function DocumentAutomationMockup() {
       </DeviceFrame>
 
       {/* Output preview panel */}
-      <div className="absolute right-4 top-8 z-20 w-[195px] border-2 border-dark-950 bg-white p-4 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)]">
+      <div className="absolute right-4 top-8 z-20 w-[195px] border border-dark-200 bg-white p-4 shadow-md">
         <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-dark-500 mb-3">Extraction preview</p>
         <div className="border border-dark-200 bg-dark-50 p-3 mb-3">
           <FileSpreadsheet className="w-6 h-6 text-dark-900 mb-2" />
@@ -342,7 +342,7 @@ function DocumentAutomationMockup() {
       </div>
 
       {/* Processing steps */}
-      <div className="absolute left-[255px] bottom-5 z-20 w-[195px] border-2 border-dark-950 bg-white p-4 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)]">
+      <div className="absolute left-[255px] bottom-5 z-20 w-[195px] border border-dark-200 bg-white p-4 shadow-md">
         <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-dark-500 mb-3">Processing flow</p>
         <div className="space-y-1.5 text-[10px] font-mono text-dark-700">
           {[

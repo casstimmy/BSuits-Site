@@ -131,12 +131,12 @@ function AnimatedLogo({ activeCard }: { activeCard: number }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.9 }}
             transition={{ duration: 0.35 }}
-            className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white border border-dark-950 px-3 py-1 text-xs font-mono font-bold text-dark-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] z-10"
+            className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white border border-dark-900 px-3 py-1 text-xs font-semibold text-dark-900 shadow-md z-10"
           >
-            <span className="text-xs font-mono font-semibold text-dark-900">
+            <span className="text-xs font-medium text-dark-900">
               {cardMessages[activeCard].text}
             </span>
-            <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-dark-950 rotate-45" />
+            <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-white border-b border-r border-dark-900 rotate-45" />
           </motion.div>
         </AnimatePresence>
 
@@ -292,43 +292,42 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 md:pt-36 pb-16 md:pb-20 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
+      <section className="pt-28 md:pt-36 pb-16 md:pb-20 bg-[#f8fafc] border-b border-dark-200 relative">
         <div className="container-custom relative z-10 text-center">
           <AnimatedLogo activeCard={activeCard} />
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="mt-4 mb-4"
+            className="mt-6 mb-4"
           >
-            <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
-              ENGAGEMENT INQUIRY
+            <span className="inline-flex items-center px-3.5 py-1 border border-primary-200 bg-primary-50/60 text-xs font-semibold uppercase tracking-wider text-primary-700">
+              Direct Engineering Consultation
             </span>
           </motion.div>
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-dark-900 mb-6 tracking-tight"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.1 }}
           >
-            Talk to a <span className="gradient-text">BizSuits specialist</span>
+            Talk to a <span className="text-primary-600">BizSuits Specialist</span>
           </motion.h1>
           <motion.p
-            className="text-base md:text-lg text-dark-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-base md:text-lg text-dark-600 max-w-2xl mx-auto leading-relaxed font-sans"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.2 }}
           >
-            If you are exploring pricing, examples, or the right place to start, our team is ready to help.
+            Whether you are evaluating a tailored inventory system, custom POS till hardware, or multi-location synchronization, our architecture team is ready to scope your deployment.
           </motion.p>
         </div>
       </section>
 
       {/* Contact Methods */}
-      <section className="py-12 -mt-4">
+      <section className="py-12 -mt-6">
         <div className="container-custom">
           <motion.div
             className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
@@ -345,23 +344,24 @@ export default function ContactPage() {
                 rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 variants={staggerItem}
               >
-                <Card
-                  elevated
-                  className={`text-center group cursor-pointer h-full transition-all duration-300 border-2 ${
+                <div
+                  className={`text-center p-6 border transition-all duration-200 h-full flex flex-col justify-between ${
                     activeCard === index
-                      ? 'border-dark-950 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)] bg-white'
-                      : 'border-dark-200 hover:border-dark-900'
+                      ? 'border-primary-600 bg-white shadow-md ring-1 ring-primary-500'
+                      : 'border-dark-200 bg-white hover:border-dark-400 shadow-sm'
                   }`}
                 >
-                  <div
-                    className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mx-auto mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)] group-hover:bg-primary-600 transition-colors"
-                  >
-                    <method.icon className="w-5 h-5 text-white" />
+                  <div>
+                    <div
+                      className="w-11 h-11 border border-dark-200 bg-dark-50 text-dark-900 flex items-center justify-center mx-auto mb-4"
+                    >
+                      <method.icon className="w-5 h-5 text-primary-600" />
+                    </div>
+                    <h3 className="text-base font-bold font-display text-dark-900 mb-1.5">{method.title}</h3>
+                    <p className="text-xs text-dark-600 mb-4 leading-relaxed font-sans">{method.description}</p>
                   </div>
-                  <h3 className="text-base font-bold text-dark-900 mb-1.5">{method.title}</h3>
-                  <p className="text-xs text-dark-500 mb-3 leading-relaxed">{method.description}</p>
-                  <p className="text-xs font-mono uppercase tracking-wider font-semibold text-primary-700">{method.action}</p>
-                </Card>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary-700">{method.action}</p>
+                </div>
               </motion.a>
             ))}
           </motion.div>
@@ -380,21 +380,21 @@ export default function ContactPage() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-2 tracking-tight">
-                Send us a message
+              <h2 className="text-2xl md:text-3xl font-bold font-display text-dark-900 mb-2 tracking-tight">
+                Send Us a Specification
               </h2>
-              <p className="text-xs md:text-sm text-dark-500 mb-8">
-                Fill out the form below and we&apos;ll get back to you within 24 hours.
+              <p className="text-xs md:text-sm text-dark-500 mb-8 font-sans">
+                Fill out the project details below and an engineer will get back to you within 24 hours.
               </p>
 
               {isSubmitted ? (
-                <Card elevated padding="lg" className="text-center border-2 border-dark-950 shadow-[6px_6px_0px_0px_rgba(15,23,42,0.9)]">
-                  <CheckCircle2 className="w-12 h-12 text-dark-950 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-dark-900 mb-2">Message Sent!</h3>
-                  <p className="text-sm text-dark-600">
-                    Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+                <div className="border border-dark-200 bg-white p-8 sm:p-10 text-center shadow-sm">
+                  <CheckCircle2 className="w-12 h-12 text-primary-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold font-display text-dark-900 mb-2">Message Dispatched!</h3>
+                  <p className="text-sm text-dark-600 font-sans">
+                    Thank you for reaching out. A systems engineer will review your inquiry and follow up promptly.
                   </p>
-                </Card>
+                </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {submitError ? (
@@ -415,7 +415,7 @@ export default function ContactPage() {
                         required
                         value={formData.firstName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
+                        className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans bg-white"
                         placeholder="John"
                       />
                     </div>
@@ -430,7 +430,7 @@ export default function ContactPage() {
                         required
                         value={formData.lastName}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
+                        className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans bg-white"
                         placeholder="Doe"
                       />
                     </div>
@@ -448,13 +448,13 @@ export default function ContactPage() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
+                        className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans bg-white"
                         placeholder="john@company.com"
                       />
                     </div>
                     <div>
                       <label htmlFor="company" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
-                        Company
+                        Company Name
                       </label>
                       <input
                         type="text"
@@ -462,15 +462,15 @@ export default function ContactPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
-                        placeholder="Acme Inc."
+                        className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans bg-white"
+                        placeholder="Acme Enterprises"
                       />
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="phone" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
-                      Phone
+                      Phone Number
                     </label>
                     <input
                       type="tel"
@@ -478,34 +478,34 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans"
+                      className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans bg-white"
                       placeholder="+234..."
                     />
                   </div>
 
                   <div>
                     <label htmlFor="subject" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
-                      Subject
+                      System Requirement Area
                     </label>
                     <select
                       id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans bg-white"
+                      className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans bg-white"
                     >
-                      <option value="general">General Inquiry</option>
-                      <option value="sales">Sales & Pricing</option>
-                      <option value="support">Technical Support</option>
-                      <option value="demo">Request a Demo</option>
-                      <option value="partnership">Partnership</option>
-                      <option value="press">Press & Media</option>
+                      <option value="general">General Architecture Inquiry</option>
+                      <option value="sales">POS &amp; Retail Till Deployment</option>
+                      <option value="support">Farm Health &amp; Agri-Commerce</option>
+                      <option value="demo">Project &amp; Facility Operations</option>
+                      <option value="partnership">Bank Document Automation</option>
+                      <option value="press">Custom Web &amp; Desktop Engineering</option>
                     </select>
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-dark-700 mb-1.5 font-semibold">
-                      Message *
+                      Operational Context / Requirements *
                     </label>
                     <textarea
                       id="message"
@@ -514,8 +514,8 @@ export default function ContactPage() {
                       rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-dark-300 focus:border-dark-950 focus:ring-1 focus:ring-dark-950 outline-none transition-all text-xs font-sans resize-none"
-                      placeholder="Tell us how we can help..."
+                      className="w-full px-4 py-3 border border-dark-200 focus:border-primary-600 focus:ring-1 focus:ring-primary-600 outline-none transition-all text-xs font-sans resize-none bg-white"
+                      placeholder="Describe your current setup, number of physical locations, offline requirements, and target timeline..."
                     />
                   </div>
 
@@ -526,7 +526,7 @@ export default function ContactPage() {
                     disabled={isSubmitting}
                     icon={<Send className="w-4 h-4" />}
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {isSubmitting ? 'Dispatching...' : 'Submit Inquiry'}
                   </Button>
                 </form>
               )}

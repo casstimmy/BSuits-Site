@@ -69,35 +69,35 @@ export default function Header() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1 px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] text-dark-700 hover:text-dark-950 hover:bg-dark-100 transition-all"
+                className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-dark-700 hover:text-dark-950 hover:bg-dark-100/70 transition-all"
                 onClick={() => setIsProductsOpen((current) => !current)}
                 aria-haspopup="true"
                 aria-expanded={isProductsOpen}
                 aria-controls="solutions-library-menu"
               >
-                Solutions Library
-                <ChevronDown className={clsx('w-4 h-4 transition-transform', isProductsOpen && 'rotate-180')} />
+                Systems Suite
+                <ChevronDown className={clsx('w-3.5 h-3.5 transition-transform duration-200', isProductsOpen && 'rotate-180')} />
               </button>
 
               <div
                 id="solutions-library-menu"
                 className={clsx(
-                  'absolute top-full left-0 mt-2 w-[560px] bg-white shadow-[6px_6px_0px_0px_rgba(15,23,42,0.12)] border border-dark-900 p-4 grid grid-cols-2 gap-2 transition-all duration-200',
-                  isProductsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                  'absolute top-full left-0 mt-2 w-[580px] bg-white shadow-xl border border-dark-200 p-3 grid grid-cols-2 gap-1.5 transition-all duration-200',
+                  isProductsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'
                 )}
               >
                 {portfolioApps.map((product) => (
                   <Link
                     key={product.slug}
                     href={product.href}
-                    className="flex items-start gap-3 p-3 border border-transparent hover:border-dark-200 hover:bg-dark-50 transition-colors group"
+                    className="flex items-start gap-3 p-3 border border-transparent hover:border-dark-200 hover:bg-dark-50/80 transition-colors group"
                   >
-                    <div className="w-10 h-10 border border-dark-200 bg-dark-50 flex items-center justify-center shrink-0 group-hover:bg-dark-900 group-hover:text-white transition-colors">
-                      <product.icon className="w-5 h-5 text-dark-700 group-hover:text-white" />
+                    <div className="w-9 h-9 border border-dark-200 bg-dark-50 flex items-center justify-center shrink-0 group-hover:bg-primary-600 group-hover:border-primary-600 transition-colors">
+                      <product.icon className="w-4 h-4 text-dark-700 group-hover:text-white transition-colors" />
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-dark-900">{product.name}</p>
-                      <p className="text-xs text-dark-500 font-mono uppercase tracking-wider">{product.category}</p>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-dark-900 group-hover:text-primary-700 transition-colors truncate">{product.name}</p>
+                      <p className="text-[10px] text-dark-500 font-mono uppercase tracking-wider truncate">{product.category}</p>
                     </div>
                   </Link>
                 ))}
@@ -112,9 +112,9 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   className={clsx(
-                    'px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] transition-all',
+                    'px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-all',
                     isActive
-                      ? 'text-dark-950 font-bold border-b-2 border-dark-950 bg-dark-50'
+                      ? 'text-primary-700 bg-primary-50/80 border-b-2 border-primary-600 font-bold'
                       : 'text-dark-600 hover:text-dark-950 hover:bg-dark-50'
                   )}
                 >

@@ -3,7 +3,6 @@ import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
-import Card from '@/components/ui/Card';
 import { deliveryTracks } from '@/data/portfolio';
 import { deliverySteps, engagementPackages, pricingFaqs } from '@/data/siteContent';
 
@@ -16,25 +15,23 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <section className="pt-28 md:pt-36 pb-16 md:pb-20 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
+      <section className="pt-28 md:pt-36 pb-16 md:pb-20 bg-[#f8fafc] border-b border-dark-200 relative">
         <div className="container-custom relative z-10 text-center">
-          <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
-            ENGAGEMENT TIERS
+          <span className="inline-flex items-center px-3.5 py-1 border border-primary-200 bg-primary-50/60 text-xs font-semibold uppercase tracking-wider text-primary-700 mb-4">
+            Commercial Engagement Tiers
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance tracking-tight">
-            Engagements shaped around{' '}
-            <span className="gradient-text">proven BizSuits systems</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-dark-900 mb-6 text-balance tracking-tight">
+            Transparent Pricing.{' '}
+            <span className="text-primary-600">Built for Scale.</span>
           </h1>
-          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            These pricing tiers are tied to real solution tracks and demo-ready systems, so
-            scope discussions can start from what clients can already see and evaluate.
+          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto mb-8 leading-relaxed font-sans">
+            Our engagement packages are anchored to production-tested systems, giving you predictable project timelines, full code ownership, and transparent implementation scope.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {deliveryTracks.map((track) => (
               <span
                 key={track.id}
-                className="border border-dark-300 bg-white px-3 py-1 text-xs font-mono uppercase text-dark-700 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]"
+                className="border border-dark-200 bg-white px-3 py-1 text-xs font-mono uppercase text-dark-600 shadow-sm"
               >
                 {track.title}
               </span>
@@ -43,7 +40,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="pb-20 md:pb-28 -mt-4">
+      <section className="pb-20 md:pb-28 -mt-6">
         <div className="container-custom">
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {engagementPackages.map((plan) => {
@@ -52,88 +49,90 @@ export default function PricingPage() {
               return (
                 <div
                   key={plan.name}
-                  className={`relative p-8 transition-all duration-200 border-2 ${
+                  className={`relative p-8 transition-all duration-200 border flex flex-col justify-between ${
                     plan.highlighted
-                      ? 'border-dark-950 bg-dark-950 text-white shadow-[8px_8px_0px_0px_rgba(15,23,42,0.9)]'
-                      : 'border-dark-200 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,0.06)] hover:border-dark-900'
+                      ? 'border-primary-600 bg-[#0F172A] text-white shadow-xl'
+                      : 'border-dark-200 bg-white text-dark-900 shadow-sm hover:border-dark-400'
                   }`}
                 >
-                  {plan.badge && (
-                    <div
-                      className={`absolute -top-3.5 left-6 px-3 py-0.5 border text-[10px] font-mono uppercase tracking-widest font-bold ${
-                        plan.highlighted ? 'border-primary-400 bg-primary-600 text-white' : 'border-dark-900 bg-dark-900 text-white'
-                      }`}
-                    >
-                      {plan.badge}
-                    </div>
-                  )}
-
-                  <div className="mb-6">
-                    <h3 className={`text-xl font-bold mb-2 tracking-tight ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
-                      {plan.name}
-                    </h3>
-                    <p className={`text-xs leading-relaxed ${plan.highlighted ? 'text-white/70' : 'text-dark-500'}`}>
-                      {plan.description}
-                    </p>
-                  </div>
-
-                  <div className="mb-6 border-y border-dark-200/40 py-4">
-                    <p className={`text-[10px] font-mono font-semibold uppercase tracking-[0.18em] ${plan.highlighted ? 'text-white/50' : 'text-dark-400'}`}>
-                      STARTING INVESTMENT
-                    </p>
-                    <div className="flex items-end gap-2 mt-2">
-                      <span className={`text-3xl md:text-4xl font-mono font-bold ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
-                        NGN {plan.price.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 mb-6">
-                    {recommendedTracks.map((track) => (
-                      <span
-                        key={track.id}
-                        className={`px-2 py-0.5 text-[10px] font-mono uppercase border ${
-                          plan.highlighted
-                            ? 'bg-white/10 text-white/90 border-white/20'
-                            : 'bg-dark-50 text-dark-600 border-dark-200'
+                  <div>
+                    {plan.badge && (
+                      <div
+                        className={`inline-block px-3 py-0.5 border text-[10px] font-mono uppercase tracking-widest font-bold mb-4 ${
+                          plan.highlighted ? 'border-primary-400 bg-primary-600 text-white' : 'border-dark-200 bg-dark-50 text-dark-700'
                         }`}
                       >
-                        {track.title}
-                      </span>
-                    ))}
-                  </div>
+                        {plan.badge}
+                      </div>
+                    )}
 
-                  <Button
-                    variant={plan.highlighted ? 'accent' : plan.ctaVariant}
-                    className="w-full mb-8 justify-center"
-                    href="/contact"
-                  >
-                    {plan.cta}
-                  </Button>
+                    <div className="mb-6">
+                      <h3 className={`text-xl font-bold font-display mb-2 tracking-tight ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
+                        {plan.name}
+                      </h3>
+                      <p className={`text-xs leading-relaxed font-sans ${plan.highlighted ? 'text-slate-300' : 'text-dark-600'}`}>
+                        {plan.description}
+                      </p>
+                    </div>
 
-                  <div className="space-y-3 border-t border-dark-200/30 pt-6">
-                    {plan.features.map((feature) => (
-                      <div key={feature.text} className="flex items-start gap-2.5">
-                        {feature.included ? (
-                          <span className={`text-xs font-bold ${plan.highlighted ? 'text-primary-300' : 'text-dark-950'}`}>✓</span>
-                        ) : (
-                          <span className={`text-xs ${plan.highlighted ? 'text-white/20' : 'text-dark-300'}`}>✕</span>
-                        )}
-                        <span
-                          className={`text-xs leading-relaxed ${
-                            feature.included
-                              ? plan.highlighted
-                                ? 'text-white/90'
-                                : 'text-dark-700'
-                              : plan.highlighted
-                              ? 'text-white/30'
-                              : 'text-dark-400'
-                          }`}
-                        >
-                          {feature.text}
+                    <div className="mb-6 border-y border-dark-200/30 py-4">
+                      <p className={`text-[10px] font-mono font-semibold uppercase tracking-wider ${plan.highlighted ? 'text-slate-400' : 'text-dark-400'}`}>
+                        STARTING INVESTMENT
+                      </p>
+                      <div className="flex items-end gap-2 mt-2">
+                        <span className={`text-3xl md:text-4xl font-mono font-bold ${plan.highlighted ? 'text-white' : 'text-dark-900'}`}>
+                          NGN {plan.price.toLocaleString()}
                         </span>
                       </div>
-                    ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      {recommendedTracks.map((track) => (
+                        <span
+                          key={track.id}
+                          className={`px-2 py-0.5 text-[10px] font-mono uppercase border ${
+                            plan.highlighted
+                              ? 'bg-white/10 text-slate-200 border-white/20'
+                              : 'bg-dark-50 text-dark-600 border-dark-200'
+                          }`}
+                        >
+                          {track.title}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Button
+                      variant={plan.highlighted ? 'primary' : plan.ctaVariant}
+                      className="w-full mb-8 justify-center"
+                      href="/contact"
+                    >
+                      {plan.cta}
+                    </Button>
+
+                    <div className="space-y-3 border-t border-dark-200/20 pt-6">
+                      {plan.features.map((feature) => (
+                        <div key={feature.text} className="flex items-start gap-2.5">
+                          {feature.included ? (
+                            <span className={`text-xs font-bold ${plan.highlighted ? 'text-accent-400' : 'text-primary-600'}`}>✓</span>
+                          ) : (
+                            <span className={`text-xs ${plan.highlighted ? 'text-white/20' : 'text-dark-300'}`}>✕</span>
+                          )}
+                          <span
+                            className={`text-xs leading-relaxed font-sans ${
+                              feature.included
+                                ? plan.highlighted
+                                ? 'text-slate-200'
+                                : 'text-dark-700'
+                              : plan.highlighted
+                              ? 'text-slate-500'
+                              : 'text-dark-400'
+                            }`}
+                          >
+                            {feature.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               );
@@ -152,19 +151,21 @@ export default function PricingPage() {
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
             {deliverySteps.map((step) => (
-              <Card key={step.id} elevated className="h-full">
-                <div className="w-11 h-11 border border-dark-900 bg-dark-950 text-white flex items-center justify-center font-mono font-bold text-xs mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)]">
-                  {step.id}
+              <div key={step.id} className="border border-dark-200 bg-white p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                  <span className="font-mono text-xs font-bold text-primary-700 bg-primary-50 border border-primary-200 px-2.5 py-1 mb-4 inline-block">
+                    PHASE {step.id}
+                  </span>
+                  <h3 className="text-lg font-bold font-display text-dark-900 mb-2">{step.title}</h3>
+                  <p className="text-xs text-dark-600 leading-relaxed font-sans">{step.description}</p>
                 </div>
-                <h3 className="text-lg font-bold text-dark-900 mb-2">{step.title}</h3>
-                <p className="text-xs text-dark-600 leading-relaxed">{step.description}</p>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-dark-50/50 border-t border-dark-200">
+      <section className="section-padding bg-[#f8fafc] border-t border-dark-200">
         <div className="container-custom max-w-4xl">
           <SectionHeading
             badge="FAQ"
@@ -174,32 +175,32 @@ export default function PricingPage() {
 
           <div className="space-y-4">
             {pricingFaqs.map((faq) => (
-              <div key={faq.question} className="bg-white border border-dark-200 p-6 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]">
-                <h3 className="text-base font-bold text-dark-900 mb-2">{faq.question}</h3>
-                <p className="text-sm text-dark-600 leading-relaxed">{faq.answer}</p>
+              <div key={faq.question} className="bg-white border border-dark-200 p-6 sm:p-7 shadow-sm">
+                <h3 className="text-base font-bold font-display text-dark-900 mb-2">{faq.question}</h3>
+                <p className="text-sm text-dark-600 leading-relaxed font-sans">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 gradient-bg">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-            Need help choosing the right delivery path?
+      <section className="py-20 bg-[#0F172A] text-white border-y border-dark-800">
+        <div className="container-custom text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold font-display text-white mb-4 tracking-tight">
+            Need help scoping your system requirements?
           </h2>
-          <p className="text-base text-white/70 max-w-2xl mx-auto mb-8">
-            We can match your workflow to the nearest existing system and tell you where adaptation ends and new scope begins.
+          <p className="text-base text-slate-300 max-w-2xl mx-auto mb-8 font-sans">
+            We will review your workflows, assess your hardware and offline requirements, and provide a comprehensive architecture scope.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
-              Schedule Working Session
+            <Button variant="primary" size="lg" href="/contact" icon={<ArrowRight className="w-4 h-4" />}>
+              Schedule Scoping Session
             </Button>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="lg"
               href="/features"
-              className="!text-white border-white/20 hover:!bg-white/10"
+              className="!border-white/30 !bg-transparent !text-white hover:!bg-white/10 hover:!border-white"
             >
               Explore Live Demos
             </Button>

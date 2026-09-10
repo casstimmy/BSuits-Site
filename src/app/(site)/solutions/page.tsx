@@ -2,7 +2,6 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import SectionHeading from '@/components/ui/SectionHeading';
-import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { deliveryTracks, getAppsForTrack } from '@/data/portfolio';
 
@@ -19,18 +18,17 @@ function getSolutionTitle(trackId: string, title: string) {
 export default function SolutionsPage() {
   return (
     <>
-      <section className="pt-28 md:pt-36 pb-16 md:pb-24 gradient-bg-light relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none grid-pattern opacity-50" />
+      <section className="pt-28 md:pt-36 pb-16 md:pb-24 bg-[#f8fafc] border-b border-dark-200 relative">
         <div className="container-custom relative z-10 text-center">
-          <span className="inline-flex items-center px-3 py-1 border border-dark-300 bg-white text-xs font-mono uppercase tracking-[0.18em] text-dark-800 mb-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.06)]">
-            SOLUTION DOMAINS
+          <span className="inline-flex items-center px-3.5 py-1 border border-primary-200 bg-primary-50/60 text-xs font-semibold uppercase tracking-wider text-primary-700 mb-4">
+            Commercial Solution Domains
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-900 mb-6 text-balance tracking-tight">
-            Explore where BizSuits can strengthen{' '}
-            <span className="gradient-text">day-to-day operations</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-dark-900 mb-6 text-balance tracking-tight">
+            Integrated Tracks for{' '}
+            <span className="text-primary-600">Complex Operations.</span>
           </h1>
-          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto leading-relaxed">
-            Each area brings together the visibility, coordination, and support teams need to work better every day.
+          <p className="text-base md:text-lg text-dark-600 max-w-3xl mx-auto leading-relaxed font-sans">
+            Every business domain brings together the exact frontline interfaces, back-office controls, and automation pipelines your team needs to run daily work with total clarity.
           </p>
         </div>
       </section>
@@ -39,13 +37,13 @@ export default function SolutionsPage() {
         <div className="container-custom">
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {deliveryTracks.map((track) => (
-              <Card key={track.id} elevated className="text-center">
-                <div className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0px_0px_rgba(15,23,42,0.9)]">
-                  <track.icon className="w-6 h-6 text-white" />
+              <div key={track.id} className="border border-dark-200 bg-white p-6 text-center shadow-sm">
+                <div className="w-11 h-11 border border-dark-200 bg-dark-50 text-dark-900 flex items-center justify-center mx-auto mb-4">
+                  <track.icon className="w-5 h-5 text-primary-600" />
                 </div>
-                <p className="text-base font-bold text-dark-900">{getSolutionTitle(track.id, track.title)}</p>
+                <p className="text-base font-bold font-display text-dark-900">{getSolutionTitle(track.id, track.title)}</p>
                 <p className="text-xs font-mono uppercase tracking-wider text-dark-500 mt-2">{getAppsForTrack(track.appSlugs).length} verified modules</p>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
@@ -69,24 +67,24 @@ export default function SolutionsPage() {
                 id={solution.id}
                 className={`${index < deliveryTracks.length - 1 ? 'mb-10 md:mb-12' : ''}`}
               >
-                <Card elevated padding="lg" className="bg-white">
+                <div className="border border-dark-200 bg-white p-7 sm:p-9 shadow-sm hover:border-dark-400 transition-all">
                   <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-start">
                     <div>
-                      <div className="w-12 h-12 border border-dark-900 bg-dark-950 text-white flex items-center justify-center mb-5 shadow-[3px_3px_0px_0px_rgba(15,23,42,0.9)]">
-                        <solution.icon className="w-6 h-6 text-white" />
+                      <div className="w-11 h-11 border border-dark-200 bg-dark-50 text-dark-900 flex items-center justify-center mb-5">
+                        <solution.icon className="w-5 h-5 text-primary-600" />
                       </div>
                       <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary-700 mb-2">DOMAIN // {solution.id}</p>
-                      <h2 className="text-2xl md:text-3xl font-bold text-dark-900 mb-3 tracking-tight">
+                      <h2 className="text-2xl md:text-3xl font-bold font-display text-dark-900 mb-3 tracking-tight">
                         {solutionTitle}
                       </h2>
-                      <p className="text-sm text-dark-600 leading-relaxed mb-6">
+                      <p className="text-sm text-dark-600 leading-relaxed mb-6 font-sans">
                         {solution.summary}
                       </p>
                       <div className="space-y-2 mb-8">
                         {solution.capabilities.map((benefit) => (
                           <div key={benefit} className="flex items-start gap-2.5">
-                            <span className="text-dark-900 font-bold text-xs">—</span>
-                            <span className="text-xs text-dark-700 leading-relaxed">{benefit}</span>
+                            <span className="text-primary-600 font-bold text-xs">—</span>
+                            <span className="text-xs text-dark-700 leading-relaxed font-sans">{benefit}</span>
                           </div>
                         ))}
                       </div>
@@ -97,48 +95,48 @@ export default function SolutionsPage() {
 
                     <div className="border border-dark-200 bg-dark-50/70 p-5 md:p-6">
                       <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-dark-200">
-                        <p className="text-xs font-mono font-semibold uppercase tracking-[0.18em] text-dark-600">
+                        <p className="text-xs font-mono font-semibold uppercase tracking-wider text-dark-700">
                           Active Component Systems
                         </p>
                         <span className="text-[10px] font-mono font-semibold uppercase bg-white border border-dark-200 px-2 py-0.5 text-dark-800">{apps.length} modules</span>
                       </div>
                       <div className="space-y-3">
                         {apps.map((app) => (
-                          <div key={app.slug} className="border border-dark-200 bg-white p-4 shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]">
+                          <div key={app.slug} className="border border-dark-200 bg-white p-4 shadow-sm">
                             <div className="flex items-center justify-between gap-3 mb-1.5">
-                              <p className="text-sm font-bold text-dark-900">{app.name}</p>
+                              <p className="text-sm font-bold font-display text-dark-900">{app.name}</p>
                               <span className="text-[10px] font-mono uppercase tracking-wider text-dark-500 border border-dark-100 px-2 py-0.5 bg-dark-50">{app.deliveryMode}</span>
                             </div>
-                            <p className="text-xs text-dark-600 leading-relaxed">{app.summary}</p>
+                            <p className="text-xs text-dark-600 leading-relaxed font-sans">{app.summary}</p>
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
-                </Card>
+                </div>
               </div>
             );
           })}
         </div>
       </section>
 
-      <section className="py-20 gradient-bg">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+      <section className="py-20 bg-[#0F172A] text-white border-y border-dark-800">
+        <div className="container-custom text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold font-display text-white mb-4 tracking-tight">
             Need support across multiple business areas?
           </h2>
-          <p className="text-base text-white/70 max-w-xl mx-auto mb-8">
+          <p className="text-base text-slate-300 max-w-xl mx-auto mb-8 font-sans">
             BizSuits can bring sales, operations, reporting, and oversight into one clearer way of working.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="accent" size="lg" href="/contact" icon={<ArrowRight className="w-5 h-5" />}>
+            <Button variant="primary" size="lg" href="/contact" icon={<ArrowRight className="w-4 h-4" />}>
               Talk About Your Priorities
             </Button>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="lg"
               href="/features"
-              className="!text-white border-white/20 hover:!bg-white/10"
+              className="!border-white/30 !bg-transparent !text-white hover:!bg-white/10 hover:!border-white"
             >
               Explore Business Areas
             </Button>

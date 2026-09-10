@@ -21,7 +21,7 @@ export default function Integrations() {
           {integrations.map((integration) => (
             <div
               key={integration}
-              className="border border-dark-200 bg-white p-4 flex items-center justify-center hover:border-dark-900 hover:bg-dark-50 transition-all duration-150 group cursor-default shadow-[2px_2px_0px_0px_rgba(15,23,42,0.04)]"
+              className="border border-dark-200 bg-white p-4 flex items-center justify-center hover:border-dark-400 hover:bg-dark-50 transition-all duration-150 group cursor-default shadow-sm"
             >
               <span className="text-xs font-mono uppercase tracking-wider text-dark-600 group-hover:text-dark-950 font-semibold transition-colors text-center">
                 {integration}

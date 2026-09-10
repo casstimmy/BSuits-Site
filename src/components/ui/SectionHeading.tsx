@@ -24,10 +24,10 @@ export default function SectionHeading({
         <div className="mb-4">
           <span
             className={clsx(
-              'inline-flex items-center px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] border',
+              'inline-flex items-center px-3.5 py-1 text-xs font-semibold uppercase tracking-wider border',
               dark
                 ? 'border-white/20 bg-white/5 text-white/90'
-                : 'border-dark-300 bg-dark-50 text-dark-800'
+                : 'border-primary-200 bg-primary-50/60 text-primary-700'
             )}
           >
             {badge}
@@ -36,7 +36,7 @@ export default function SectionHeading({
       )}
       <h2
         className={clsx(
-          'text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-balance tracking-tight',
+          'text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4 text-balance tracking-tight',
           dark ? 'text-white' : 'text-dark-900'
         )}
       >
@@ -45,9 +45,9 @@ export default function SectionHeading({
       {subtitle && (
         <p
           className={clsx(
-            'text-base md:text-lg max-w-3xl leading-relaxed',
+            'text-base md:text-lg max-w-3xl leading-relaxed font-sans',
             centered && 'mx-auto',
-            dark ? 'text-white/70' : 'text-dark-600'
+            dark ? 'text-slate-300' : 'text-dark-600'
           )}
         >
           {subtitle}

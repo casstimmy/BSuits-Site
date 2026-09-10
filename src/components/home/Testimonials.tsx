@@ -78,12 +78,12 @@ export default function Testimonials() {
           {testimonials.map((testimonial) => (
             <motion.div key={testimonial.name} variants={staggerItem}>
             <div
-              className="bg-white border border-dark-200 p-6 shadow-[4px_4px_0px_0px_rgba(15,23,42,0.06)] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,0.12)] hover:border-dark-900 transition-all h-full flex flex-col justify-between"
+              className="bg-white border border-dark-200 p-6 shadow-sm hover:border-dark-400 transition-all h-full flex flex-col justify-between"
             >
               <div>
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-5 pb-4 border-b border-dark-100">
-                  <div className="w-10 h-10 border border-dark-900 bg-dark-950 text-white flex items-center justify-center font-mono text-xs font-bold shadow-[2px_2px_0px_0px_rgba(15,23,42,0.9)]">
+                  <div className="w-10 h-10 border border-dark-200 bg-dark-50 text-dark-900 flex items-center justify-center font-mono text-xs font-bold">
                     {testimonial.avatar}
                   </div>
                   <div>
